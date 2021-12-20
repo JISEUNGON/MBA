@@ -1,28 +1,36 @@
 package com.mba.busapp;
 
+import android.content.Intent;
 import android.os.Bundle;
-
-import com.google.android.material.snackbar.Snackbar;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.view.View;
 
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 
-import com.mba.busapp.databinding.ActivityMainBinding;
-
-import android.view.Menu;
-import android.view.MenuItem;
-
+/**
+ * 메인화면
+ */
 public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+    }
+
+    /**
+     * Btnlistener, 버스 찾기 버튼
+     * @param v
+     */
+    public void btn_searchBus(View v) {
+        startActivity(new Intent(getApplicationContext(), BusSearchActivity.class));
+    }
+
+    /**
+     * Btnlistener, 버스 노선도 버튼
+     * @param v
+     */
+    public void btn_busRoute(View v) {
+        startActivity(new Intent(getApplicationContext(), BusRouteActivity.class));
     }
 
 }
