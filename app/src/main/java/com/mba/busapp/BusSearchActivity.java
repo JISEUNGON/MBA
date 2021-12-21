@@ -1,6 +1,8 @@
 package com.mba.busapp;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,6 +26,10 @@ public class BusSearchActivity  extends AppCompatActivity implements OnMapReadyC
         mapView.getMapAsync(this);
     }
 
+    /**
+     * NaverMap callback 함수
+     * @param naverMap
+     */
     @Override
     public void onMapReady(@NonNull NaverMap naverMap) {
         mapManager = new NaverMapManager(naverMap, this);
@@ -31,9 +37,17 @@ public class BusSearchActivity  extends AppCompatActivity implements OnMapReadyC
         mapManager.setCameraPosition(new LatLng(37.233972549267705, 127.18874893910944));
         mapManager.enableLocationButton();
 //        mapManager.enableMarker_MjuStation();
-//        mapManager.enableMarker_DownTown();
+        mapManager.enableMarker_DownTown();
 //        mapManager.enablePoly_MjuStation();
-//        mapManager.enablePoly_DownTown();
+        mapManager.enablePoly_DownTown();
 
+    }
+
+    /**
+     * 버스 결과 화면으로 이동
+     * @param v
+     */
+    public void btn_moveNext(View v) {
+        startActivity(new Intent(getApplicationContext(), BusResultActivity.class));
     }
 }
