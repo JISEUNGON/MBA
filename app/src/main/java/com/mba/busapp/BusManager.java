@@ -67,10 +67,10 @@ public class BusManager {
                 else return Integer.parseInt(timeLeft);
             } else {
                 rd = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
-                Log.d("ERROR", rd.readLine());
+                Log.e("[BusManager]", "<getBusInfo_city>" + rd.readLine());
             }
         } catch (Exception e) {
-            Log.e("REST_API", "GET method failed: " + e.getMessage());
+            Log.e("[BusManager]", "<getBusInfo_city>" + e.getMessage());
             e.printStackTrace();
         }
         return 9999;
@@ -101,7 +101,7 @@ public class BusManager {
                         .toArray();
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e("[BusManager]", "<getBusRouteInfo>" + e.getMessage());
         }
 
         return null;
