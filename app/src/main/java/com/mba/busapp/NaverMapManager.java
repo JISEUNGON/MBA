@@ -3,15 +3,13 @@ package com.mba.busapp;
 import static android.content.Context.LOCATION_SERVICE;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationManager;
-import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
 
-import androidx.annotation.Nullable;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -21,8 +19,12 @@ import com.naver.maps.map.CameraAnimation;
 import com.naver.maps.map.CameraUpdate;
 import com.naver.maps.map.NaverMap;
 import com.naver.maps.map.UiSettings;
+import com.naver.maps.map.overlay.Marker;
+import com.naver.maps.map.overlay.Overlay;
+import com.naver.maps.map.overlay.PathOverlay;
 import com.naver.maps.map.util.FusedLocationSource;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -32,13 +34,73 @@ import java.util.List;
 public class NaverMapManager {
     private NaverMap naverMap;
     private AppCompatActivity appCompatActivity;
+    private ArrayList<Marker> markers;
+    private PathOverlay pathOverlay;
 
     public NaverMapManager(NaverMap naverMap, AppCompatActivity appCompatActivity) {
         this.naverMap = naverMap;
         this.appCompatActivity = appCompatActivity;
+        this.markers = new ArrayList<>();
+        this.pathOverlay = new PathOverlay();
     }
 
 
+    /**
+     * 명지대역 노선 마커 활성화
+     */
+    public void enableMarker_MjuStation() {
+        String[] stations = StationInfo.getInstance().getStationList_MjuStation();
+        for(String station: stations) {
+            Marker marker = new Marker();
+            marker.setOnClickListener(overlay -> markerOnClickEvent(marker)); // 클릭이벤트
+            marker.setPosition(StationInfo.getInstance().getLatLng(station)); // 위치 설정
+            marker.setCaptionText(station); // cpation 설정
+            marker.setMap(naverMap); // 현 지도에 표시
+            markers.add(marker);
+        }
+    }
+
+    /**
+     * 명지대역 모든 노선 활성화
+     */
+    public void enablePoly_MjuStation() {
+        pathOverlay.setCoords(StationInfo.getInstance().getPolyList_MjuStation());
+        pathOverlay.setWidth(13); // Poly 넓이
+        pathOverlay.setColor(Color.GREEN); // Poly 색
+        pathOverlay.setMap(naverMap); // 현 지도에 표시
+    }
+
+    /**
+     * 용인시내 노선 마커 활성화
+     */
+    public void enableMarker_DownTown() {
+        String[] stations = StationInfo.getInstance().getStationList_DownTown();
+        for(String station: stations) {
+            Marker marker = new Marker();
+            marker.setOnClickListener(overlay -> markerOnClickEvent(marker)); // 클릭이벤트
+            marker.setPosition(StationInfo.getInstance().getLatLng(station)); // 위치 설정
+            marker.setCaptionText(station); // caption 설정
+            marker.setMap(naverMap); // 현 지도에 표시
+            markers.add(marker);
+        }
+    }
+
+    /**
+     * 시내 모든 노선 활성화
+     */
+    public void enablePoly_DownTown() {
+        pathOverlay.setCoords(StationInfo.getInstance().getPolyList_DownTown());
+        pathOverlay.setWidth(13); // Poly 넓이
+        pathOverlay.setColor(Color.GREEN); // Poly 색
+        pathOverlay.setMap(naverMap); // 현 지도에 표시
+    }
+
+    /**
+     * 지도에 있는 모든 Marker 제거
+     */
+    public void disableMarkers() {
+        for(Marker marker: markers) marker.setMap(null);
+    }
     /**
      * 위치 UI 기능 활성화
      */
@@ -109,6 +171,17 @@ public class NaverMapManager {
             Log.e("[NaverMapManager]", "<GPS_permission_granted()> 위치 허용 안됨!");
             return false;
         }
+        return true;
+    }
+
+    /**
+     * 마커 클릭 이벤트
+     * @param marker 클린된 마커
+     */
+    private boolean markerOnClickEvent(Marker marker) {
+        for(Marker marker1: markers) marker1.setIconTintColor(Color.TRANSPARENT); // 다른 마커 색 초기화
+        
+        marker.setIconTintColor(Color.BLUE); // 선택된 마커 파란색으로
         return true;
     }
 }

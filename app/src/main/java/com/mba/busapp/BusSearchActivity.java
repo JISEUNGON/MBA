@@ -30,7 +30,10 @@ public class BusSearchActivity  extends AppCompatActivity implements OnMapReadyC
 
         mapManager.setCameraPosition(new LatLng(37.233972549267705, 127.18874893910944));
         mapManager.enableLocationButton();
-        // mapManager.enableLocationButton(); 문제있네...
+//        mapManager.enableMarker_MjuStation();
+//        mapManager.enableMarker_DownTown();
+//        mapManager.enablePoly_MjuStation();
+//        mapManager.enablePoly_DownTown();
 
     }
 }
