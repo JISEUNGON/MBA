@@ -126,6 +126,17 @@ public class NaverMapManager {
     }
 
     /**
+     * 사용자가 클릭한 Marker를 가져오는 메소드
+     * @return 선택된 Marker, 없으면 null
+     */
+    public Marker getSelectedMarker() {
+        for(Marker marker: markers) {
+            if(marker.getIconTintColor() == Color.BLUE) return marker;
+        }
+
+        return null;
+    }
+    /**
      * 현 위치 받아오는 Helper 
      * 위치를 추정하는 기법이 여러개 있기 때문에, 그 중 기기에서 사용하고 있는 방법을 확인 후 위치를 받아옴
      * @return 현 위치
