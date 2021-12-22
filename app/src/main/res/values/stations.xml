@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="MJSTATION_WEEKDAY_STATIONS">
+        <item>상공회의소</item>
+        <item>진입로</item>
+        <item>명지대역</item>
+        <item>진입로(명지대방향)</item>
+        <item>이마트</item>
+        <item>명진당</item>
+    </string-array>
+    <string-array name="CITY_WEEKDAY_STATIONS">
+        <item>상공회의소</item>
+        <item>진입로</item>
+        <item>동부경찰서</item>
+        <item>용인시장</item>
+        <item>중앙공영주차장</item>
+        <item>진입로(명지대방향)</item>
+        <item>이마트</item>
+        <item>제1공학관</item>
+    </string-array>
+    <string-array name="GHSTATION_WEEKDAY_STATIONS">
+        <item>기흥역</item>
+
+    </string-array>
+    <string-array name="WEEKEND_STATIONS">
+        <item>상공회의소</item>
+        <item>진입로</item>
+        <item>동부경찰서</item>
+        <item>용인시장</item>
+        <item>중앙공영주차장</item>
+        <item>명지대역</item>
+        <item>진입로(명지대방향)</item>
+        <item>제1공학관</item>
+    </string-array>
+</resources>
