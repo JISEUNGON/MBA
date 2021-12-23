@@ -28,13 +28,13 @@ public class BusSearchActivity  extends AppCompatActivity implements OnMapReadyC
 
     /**
      * NaverMap callback 함수
-     * @param naverMap
+     * @param naverMap 네이버맵
      */
     @Override
     public void onMapReady(@NonNull NaverMap naverMap) {
         mapManager = new NaverMapManager(naverMap, this);
 
-        mapManager.setCameraPosition(new LatLng(37.233972549267705, 127.18874893910944));
+        mapManager.setCameraPosition(new LatLng(37.233972549267705, 127.18874893910944), 15);
         mapManager.enableLocationButton();
 //        mapManager.enableMarker_MjuStation();
         mapManager.enableMarker_DownTown();
@@ -45,7 +45,7 @@ public class BusSearchActivity  extends AppCompatActivity implements OnMapReadyC
 
     /**
      * 버스 결과 화면으로 이동
-     * @param v
+     * @param v view
      */
     public void btn_moveNext(View v) {
         startActivity(new Intent(getApplicationContext(), BusResultActivity.class));

@@ -21,6 +21,7 @@
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
+        style="@style/Binggrae.content"
         android:layout_height="wrap_content"
         android:text="@string/text_main"
         android:textColor="@color/black"
@@ -37,6 +38,7 @@
         android:layout_marginBottom="128dp"
         android:background="@drawable/round_bt"
         android:onClick="btn_searchBus"
+        style="@style/Binggrae.content"
         android:text="@string/btn_searchBus"
         android:textColor="@color/white"
         android:textSize="20sp"
@@ -51,6 +53,7 @@
         android:layout_height="48dp"
         android:background="@drawable/round_bt"
         android:onClick="btn_busRoute"
+        style="@style/Binggrae.content"
         android:text="@string/btn_busRoute"
         android:textColor="@color/white"
         android:textSize="20sp"

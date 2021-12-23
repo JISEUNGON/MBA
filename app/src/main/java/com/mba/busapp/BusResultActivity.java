@@ -27,7 +27,7 @@ public class BusResultActivity extends AppCompatActivity implements OnMapReadyCa
     @Override
     public void onMapReady(@NonNull NaverMap naverMap) {
         naverMapManager = new NaverMapManager(naverMap, this);
-        naverMapManager.setCameraPosition(new LatLng(37.233972549267705, 127.18874893910944));
+        naverMapManager.setCameraPosition(new LatLng(37.233972549267705, 127.18874893910944), 15);
 
     }
 }

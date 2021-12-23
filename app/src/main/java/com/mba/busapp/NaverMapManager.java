@@ -120,8 +120,8 @@ public class NaverMapManager {
      * 네이버맵 현 위치 이동
      * @param position 이동할 위치
      */
-    public void setCameraPosition(LatLng position) {
-        CameraUpdate cameraUpdate = CameraUpdate.scrollAndZoomTo(position,15).animate(CameraAnimation.Fly, 3000);
+    public void setCameraPosition(LatLng position, int zoom) {
+        CameraUpdate cameraUpdate = CameraUpdate.scrollAndZoomTo(position,zoom).animate(CameraAnimation.Fly, 3000);
         naverMap.moveCamera(cameraUpdate);
     }
 
@@ -191,7 +191,7 @@ public class NaverMapManager {
      */
     private boolean markerOnClickEvent(Marker marker) {
         for(Marker marker1: markers) marker1.setIconTintColor(Color.TRANSPARENT); // 다른 마커 색 초기화
-        
+        setCameraPosition(marker.getPosition(), 13);
         marker.setIconTintColor(Color.BLUE); // 선택된 마커 파란색으로
         return true;
     }
