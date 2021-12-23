@@ -31,7 +31,6 @@ public class BusRouteActivity extends AppCompatActivity implements OnMapReadyCal
     @Override
     public void onMapReady(@NonNull NaverMap naverMap) {
         mapManager = new NaverMapManager(naverMap, this);
-
         mapManager.setCameraPosition(new LatLng(37.233972549267705, 127.18874893910944), 15);
         // mapManager.enableLocationButton(); 문제있네...
 
