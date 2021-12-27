@@ -43,6 +43,12 @@
             android:label="@string/app_name"
             android:theme="@style/Theme.BusApp.NoActionBar">
         </activity>
+        <activity
+            android:name=".BusTableView"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.BusApp.NoActionBar">
+        </activity>
 
     </application>
 
