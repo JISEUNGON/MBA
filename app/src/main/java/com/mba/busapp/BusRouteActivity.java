@@ -4,6 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Adapter;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,7 +25,7 @@ import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 public class BusRouteActivity extends AppCompatActivity implements OnMapReadyCallback {
     private NaverMapManager mapManager;
     private SlidingUpPanelLayout slidingUpPanelLayout;
-
+    private String[] itemList;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +38,24 @@ public class BusRouteActivity extends AppCompatActivity implements OnMapReadyCal
         // sliding panel 설정
         slidingUpPanelLayout = (SlidingUpPanelLayout) findViewById(R.id.busroute_slidingpanel);
         slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+
+        // spinner 값 설정
+        itemList = getResources().getStringArray(R.array.ROUTES_MJU_CITY_BUS);
+        Spinner spinner = (Spinner) findViewById(R.id.routes_spinner);
+        spinner.setAdapter(ArrayAdapter.createFromResource(this, R.array.ROUTES_MJU_CITY_BUS, R.layout.support_simple_spinner_dropdown_item));
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if(mapManager != null) {
+                    showMarker(itemList[i]);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
     }
 
     @Override
@@ -52,5 +74,18 @@ public class BusRouteActivity extends AppCompatActivity implements OnMapReadyCal
     public void btn_slidingView(View v) {
         Log.d("[Button]", "slidingView Clicked!");
         slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
+    }
+
+    public void showMarker(String route) {
+        mapManager.disableMarkers();
+        switch (route) {
+            case "명지대역":
+                mapManager.enableMarker_MjuStation();
+                mapManager.setCameraPosition(new LatLng(37.2329535, 127.1892392), 13);
+                break;
+            default:
+                mapManager.enableMarker_DownTown();
+                mapManager.setCameraPosition(new LatLng(37.2311426, 127.193638), 13);
+        }
     }
 }

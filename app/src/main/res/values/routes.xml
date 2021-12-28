@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="ROUTES_MJU_CITY_BUS">
+        <item>명지대역</item>
+        <item>용인 시내</item>
+        <item>기흥역</item>
+    </string-array>
+    <string-array name="ROUTES_MJU_SCHOOL_BUS">
+        <item>준비 중</item>
+    </string-array>
+</resources>
