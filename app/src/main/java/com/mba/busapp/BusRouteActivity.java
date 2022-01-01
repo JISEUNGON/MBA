@@ -62,14 +62,11 @@ public class BusRouteActivity extends AppCompatActivity implements OnMapReadyCal
     public void onMapReady(@NonNull NaverMap naverMap) {
         mapManager = new NaverMapManager(naverMap, this);
         mapManager.setCameraPosition(new LatLng(37.233972549267705, 127.18874893910944), 15);
+        mapManager.disableMarker_clickEvent();
         // mapManager.enableLocationButton(); 문제있네...
 
     }
 
-    public void btn_newActivity(View v) {
-        Log.d("[Button]", "netActivity Clicked!");
-        startActivity(new Intent(getApplicationContext(), BusTableView.class));
-    }
 
     public void btn_slidingView(View v) {
         Log.d("[Button]", "slidingView Clicked!");

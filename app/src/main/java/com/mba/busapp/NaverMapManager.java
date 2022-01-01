@@ -36,14 +36,22 @@ public class NaverMapManager {
     private AppCompatActivity appCompatActivity;
     private ArrayList<Marker> markers;
     private PathOverlay pathOverlay;
+    private boolean clickEvent;
 
     public NaverMapManager(NaverMap naverMap, AppCompatActivity appCompatActivity) {
         this.naverMap = naverMap;
         this.appCompatActivity = appCompatActivity;
         this.markers = new ArrayList<>();
         this.pathOverlay = new PathOverlay();
+        this.clickEvent = true;
     }
 
+    /**
+     * 마커 클릭 이벤트 disable
+     */
+    public void disableMarker_clickEvent() {
+        this.clickEvent = false;
+    }
 
     /**
      * 명지대역 노선 마커 활성화
@@ -136,6 +144,7 @@ public class NaverMapManager {
 
         return null;
     }
+
     /**
      * 현 위치 받아오는 Helper 
      * 위치를 추정하는 기법이 여러개 있기 때문에, 그 중 기기에서 사용하고 있는 방법을 확인 후 위치를 받아옴
@@ -190,6 +199,7 @@ public class NaverMapManager {
      * @param marker 클린된 마커
      */
     private boolean markerOnClickEvent(Marker marker) {
+        if (!this.clickEvent) return false;
         for(Marker marker1: markers) marker1.setIconTintColor(Color.TRANSPARENT); // 다른 마커 색 초기화
         setCameraPosition(marker.getPosition(), 13);
         marker.setIconTintColor(Color.BLUE); // 선택된 마커 파란색으로
