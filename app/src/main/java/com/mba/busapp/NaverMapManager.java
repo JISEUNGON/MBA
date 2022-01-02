@@ -21,8 +21,10 @@ import com.naver.maps.map.NaverMap;
 import com.naver.maps.map.UiSettings;
 import com.naver.maps.map.overlay.Marker;
 import com.naver.maps.map.overlay.Overlay;
+import com.naver.maps.map.overlay.OverlayImage;
 import com.naver.maps.map.overlay.PathOverlay;
 import com.naver.maps.map.util.FusedLocationSource;
+import com.naver.maps.map.util.MarkerIcons;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +39,7 @@ public class NaverMapManager {
     private ArrayList<Marker> markers;
     private PathOverlay pathOverlay;
     private boolean clickEvent;
+    private int poly_width;
 
     public NaverMapManager(NaverMap naverMap, AppCompatActivity appCompatActivity) {
         this.naverMap = naverMap;
@@ -44,6 +47,7 @@ public class NaverMapManager {
         this.markers = new ArrayList<>();
         this.pathOverlay = new PathOverlay();
         this.clickEvent = true;
+        this.poly_width = 8;
     }
 
     /**
@@ -61,6 +65,7 @@ public class NaverMapManager {
         for(String station: stations) {
             Marker marker = new Marker();
             marker.setOnClickListener(overlay -> markerOnClickEvent(marker)); // 클릭이벤트
+            marker.setIcon(MarkerIcons.BLUE); // 아이콘 색상
             marker.setPosition(StationInfo.getInstance().getLatLng(station)); // 위치 설정
             marker.setCaptionText(station); // cpation 설정
             marker.setMap(naverMap); // 현 지도에 표시
@@ -73,7 +78,7 @@ public class NaverMapManager {
      */
     public void enablePoly_MjuStation() {
         pathOverlay.setCoords(StationInfo.getInstance().getPolyList_MjuStation());
-        pathOverlay.setWidth(13); // Poly 넓이
+        pathOverlay.setWidth(this.poly_width); // Poly 넓이
         pathOverlay.setColor(Color.GREEN); // Poly 색
         pathOverlay.setMap(naverMap); // 현 지도에 표시
     }
@@ -86,6 +91,7 @@ public class NaverMapManager {
         for(String station: stations) {
             Marker marker = new Marker();
             marker.setOnClickListener(overlay -> markerOnClickEvent(marker)); // 클릭이벤트
+            marker.setIcon(MarkerIcons.BLUE); // 아이콘 색상
             marker.setPosition(StationInfo.getInstance().getLatLng(station)); // 위치 설정
             marker.setCaptionText(station); // caption 설정
             marker.setMap(naverMap); // 현 지도에 표시
@@ -98,7 +104,59 @@ public class NaverMapManager {
      */
     public void enablePoly_DownTown() {
         pathOverlay.setCoords(StationInfo.getInstance().getPolyList_DownTown());
-        pathOverlay.setWidth(13); // Poly 넓이
+        pathOverlay.setWidth(this.poly_width); // Poly 넓이
+        pathOverlay.setColor(Color.GREEN); // Poly 색
+        pathOverlay.setMap(naverMap); // 현 지도에 표시
+    }
+
+    /**
+     * 기흥역 노선 마커 활성화
+     */
+    public void enableMarker_Giheung() {
+        String[] stations = StationInfo.getInstance().getStationList_Giheung();
+        for(String station: stations) {
+            Marker marker = new Marker();
+            marker.setOnClickListener(overlay -> markerOnClickEvent(marker)); // 클릭이벤트
+            marker.setIcon(MarkerIcons.BLUE); // 아이콘 색상
+            marker.setPosition(StationInfo.getInstance().getLatLng(station)); // 위치 설정
+            marker.setCaptionText(station); // caption 설정
+            marker.setMap(naverMap); // 현 지도에 표시
+            markers.add(marker);
+        }
+    }
+
+    /**
+     * 기흥역 경로 활성화
+     */
+    public void enablePoly_Giheung() {
+        pathOverlay.setCoords(StationInfo.getInstance().getPolyList_Giheung());
+        pathOverlay.setWidth(this.poly_width); // Poly 넓이
+        pathOverlay.setColor(Color.GREEN); // Poly 색
+        pathOverlay.setMap(naverMap); // 현 지도에 표시
+    }
+
+    /**
+     * 방학 중 셔틀버스 마커 활성화
+     */
+    public void enableMarker_Vacation() {
+        String[] stations = StationInfo.getInstance().getStationList_Vaction();
+        for(String station: stations) {
+            Marker marker = new Marker();
+            marker.setOnClickListener(overlay -> markerOnClickEvent(marker)); // 클릭이벤트
+            marker.setIcon(MarkerIcons.BLUE); // 아이콘 색상
+            marker.setPosition(StationInfo.getInstance().getLatLng(station)); // 위치 설정
+            marker.setCaptionText(station); // caption 설정
+            marker.setMap(naverMap); // 현 지도에 표시
+            markers.add(marker);
+        }
+    }
+
+    /**
+     * 방학 중 셔틀버스 노선 활성화
+     */
+    public void enablePoly_Vaction() {
+        pathOverlay.setCoords(StationInfo.getInstance().getPolyList_Vacation());
+        pathOverlay.setWidth(this.poly_width); // Poly 넓이
         pathOverlay.setColor(Color.GREEN); // Poly 색
         pathOverlay.setMap(naverMap); // 현 지도에 표시
     }
@@ -109,6 +167,7 @@ public class NaverMapManager {
     public void disableMarkers() {
         for(Marker marker: markers) marker.setMap(null);
     }
+
     /**
      * 위치 UI 기능 활성화
      */
@@ -129,7 +188,7 @@ public class NaverMapManager {
      * @param position 이동할 위치
      */
     public void setCameraPosition(LatLng position, int zoom) {
-        CameraUpdate cameraUpdate = CameraUpdate.scrollAndZoomTo(position,zoom).animate(CameraAnimation.Fly, 3000);
+        CameraUpdate cameraUpdate = CameraUpdate.scrollAndZoomTo(position,zoom).animate(CameraAnimation.None, 3000);
         naverMap.moveCamera(cameraUpdate);
     }
 
@@ -139,7 +198,7 @@ public class NaverMapManager {
      */
     public Marker getSelectedMarker() {
         for(Marker marker: markers) {
-            if(marker.getIconTintColor() == Color.BLUE) return marker;
+            if(marker.getIconTintColor() == Color.RED) return marker;
         }
 
         return null;
@@ -200,9 +259,9 @@ public class NaverMapManager {
      */
     private boolean markerOnClickEvent(Marker marker) {
         if (!this.clickEvent) return false;
-        for(Marker marker1: markers) marker1.setIconTintColor(Color.TRANSPARENT); // 다른 마커 색 초기화
+        for(Marker m: markers) m.setIcon(MarkerIcons.BLUE); // 다른 마커 색 초기화
         setCameraPosition(marker.getPosition(), 13);
-        marker.setIconTintColor(Color.BLUE); // 선택된 마커 파란색으로
+        marker.setIcon(MarkerIcons.RED); // 선택된 마커 파란색으로
         return true;
     }
 }

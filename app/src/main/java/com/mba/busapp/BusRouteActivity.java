@@ -62,7 +62,9 @@ public class BusRouteActivity extends AppCompatActivity implements OnMapReadyCal
     public void onMapReady(@NonNull NaverMap naverMap) {
         mapManager = new NaverMapManager(naverMap, this);
         mapManager.setCameraPosition(new LatLng(37.233972549267705, 127.18874893910944), 15);
-        mapManager.disableMarker_clickEvent();
+//        mapManager.disableMarker_clickEvent();
+        mapManager.enableMarker_MjuStation();
+        mapManager.enablePoly_MjuStation();
         // mapManager.enableLocationButton(); 문제있네...
 
     }
@@ -78,11 +80,23 @@ public class BusRouteActivity extends AppCompatActivity implements OnMapReadyCal
         switch (route) {
             case "명지대역":
                 mapManager.enableMarker_MjuStation();
+                mapManager.enablePoly_MjuStation();
                 mapManager.setCameraPosition(new LatLng(37.2329535, 127.1892392), 13);
                 break;
-            default:
+            case "용인 시내":
                 mapManager.enableMarker_DownTown();
-                mapManager.setCameraPosition(new LatLng(37.2311426, 127.193638), 13);
+                mapManager.enablePoly_DownTown();
+                break;
+            case "기흥역":
+                mapManager.enableMarker_Giheung();
+                mapManager.enablePoly_Giheung();
+                break;
+            case "방학":
+                mapManager.enableMarker_Vacation();
+                mapManager.enablePoly_Vaction();
+                break;
+            default:
+                Log.e("[DEBUG]", "[BusRouteActivity]<showMarker> " + route);
         }
     }
 }
