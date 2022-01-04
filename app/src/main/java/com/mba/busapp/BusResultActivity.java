@@ -2,6 +2,7 @@ package com.mba.busapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -44,10 +45,13 @@ public class BusResultActivity extends AppCompatActivity implements OnMapReadyCa
     DateFormat[] arrivalData;
     //소요 시간
     int[] timeRequire;
+    
+    //출력 데이터
     //버스 도착시간
     DateFormat busArrivalTime;
     //학교 or 타겟정류장 도착 시간
     DateFormat arrivalTime;
+    String busType;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,70 +61,78 @@ public class BusResultActivity extends AppCompatActivity implements OnMapReadyCa
 
         //intent로 넘겨올 값 :  targetStation, toSchool, time
         Intent intent = getIntent();
+        time = intent.getStringExtra("currentTime");
+        toSchool = intent.getBooleanExtra("toSchool", true);
+        targetStation = intent.getStringExtra("targetStation");
 
         //time 을 split해서 currentDay, currentTime에 각각 요일, 시간 정보를 담는다.
-
+        String [] dateData = time.split("_");
+        currentTime = dateData[4] + ":" + dateData[5];
+        currentDay = dateData[3];
 
         loadData();
+//
+//        //정류장 -> 학교인 경우
+//        if(toSchool){
+//            //주말
+//            if(isWeekend(currentDay)){
+//                //기흥역 버스
+//                if(targetStation.equals("기흥역")){
+//                    //주말엔 기흥역 노선이 없습니다.
+//                    //에러 처리
+//                }
+//                // 그 외 버스
+//                else{
+//                    startTimes = Search.FindClosestBus(currentTime, WEEKEND_TIMETABLE);
+//                }
+//
+//                arrivalData = compareArrivalTime(targetStation, startTimes, currentTime, true);
+//
+//                arrivalTime = arrivalData[1];
+//                busArrivalTime = arrivalData[0];
+//            }
+//            //평일
+//            else{
+//                //1. startTimes: 가까운 버스 출발 시간 구하기
+//
+//                //기흥역 버스
+//                if(targetStation.equals("기흥역")){
+//                    startTimes = Search.FindClosestBus(currentTime, GHSTATION_WEEKDAY_TIMETABLE);
+//                }
+//                //시내, 명지대역 노선이 겹치는 버스
+//                else if(Arrays.asList(CITY_WEEKDAY_STATIONS).contains(targetStation)&&Arrays.asList(MJSTATION_WEEKDAY_STATIONS).contains(targetStation)){
+//                    startTimes = Search.FindClosestBus(currentTime, INTEGRATED_WEEKDAY_TIMETABLE);
+//                }
+//                //시내
+//                else if(Arrays.asList(CITY_WEEKDAY_STATIONS).contains(targetStation)){
+//                    startTimes = Search.FindClosestBus(currentTime, CITY_WEEKDAY_TIMETABLE);
+//                }
+//                //명지대역
+//                else{
+//                    startTimes = Search.FindClosestBus(currentTime, MJSTATION_WEEKDAY_TIMETABLE);
+//                }
+//
+//                arrivalData = compareArrivalTime(targetStation, startTimes, currentTime, false);
+//
+//                arrivalTime = arrivalData[1];
+//                busArrivalTime = arrivalData[0];
+//            }
+//        }
+//
+//        //학교 -> 정류장인 경우
+//        else{
+//            //주말
+//            if(isWeekend(currentDay)){
+//
+//            }
+//            //평일
+//            else{
+//
+//            }
+//        }
 
-        //정류장 -> 학교인 경우
-        if(toSchool){
-            //주말
-            if(isWeekend(currentDay)){
-                //기흥역 버스
-                if(targetStation.equals("기흥역")){
-                    //주말엔 기흥역 노선이 없습니다.
-                    //에러 처리
-                }
-                // 그 외 버스
-                else{
-                    startTimes = Search.FindClosestBus(currentTime, WEEKEND_TIMETABLE);
-                }
 
-                arrivalData = compareArrivalTime(targetStation, startTimes, currentTime, true);
-
-                arrivalTime = arrivalData[1];
-                busArrivalTime = arrivalData[0];
-            }
-            //평일
-            else{
-                //1. startTimes: 가까운 버스 출발 시간 구하기
-
-                //기흥역 버스
-                if(targetStation.equals("기흥역")){
-                    startTimes = Search.FindClosestBus(currentTime, GHSTATION_WEEKDAY_TIMETABLE);
-                }  
-                //시내, 명지대역 노선이 겹치는 버스
-                else if(Arrays.asList(CITY_WEEKDAY_STATIONS).contains(targetStation)&&Arrays.asList(MJSTATION_WEEKDAY_STATIONS).contains(targetStation)){
-                    startTimes = Search.FindClosestBus(currentTime, INTEGRATED_WEEKDAY_TIMETABLE);
-                }
-                //시내
-                else if(Arrays.asList(CITY_WEEKDAY_STATIONS).contains(targetStation)){
-                    startTimes = Search.FindClosestBus(currentTime, CITY_WEEKDAY_TIMETABLE);
-                }
-                //명지대역
-                else{
-                    startTimes = Search.FindClosestBus(currentTime, MJSTATION_WEEKDAY_TIMETABLE);
-                }
-
-                arrivalData = compareArrivalTime(targetStation, startTimes, currentTime, false);
-                
-                arrivalTime = arrivalData[1];
-                busArrivalTime = arrivalData[0];
-            }
-        }
-
-        //학교 -> 정류장인 경우
-        else{
-            //주말
-            if(isWeekend(currentDay)){
-
-            }
-            //평일
-            else{
-
-            }
-        }
+        //정류장이 진입로일 경우, 빨간버스와 추가 비교
 
         // 네이버맵 Listener 연결
         MapView mapView = findViewById(R.id.busresult_navermap);

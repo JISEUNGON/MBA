@@ -19,6 +19,7 @@
         android:layout_width="335dp"
         android:layout_height="50dp"
         android:layout_centerHorizontal="true"
+
         android:layout_marginTop="16dp"
         android:entries="@array/spinner"
         android:minHeight="48dp"
@@ -63,7 +64,7 @@
     <com.naver.maps.map.MapView
         android:id="@+id/bussearch_navermap"
         android:layout_width="0dp"
-        android:layout_height="343dp"
+        android:layout_height="wrap_content"
         style="@style/Binggrae.content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
