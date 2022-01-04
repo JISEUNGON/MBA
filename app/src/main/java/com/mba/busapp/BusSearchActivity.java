@@ -3,7 +3,6 @@ package com.mba.busapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
@@ -30,7 +29,8 @@ public class BusSearchActivity  extends AppCompatActivity implements OnMapReadyC
     private NaverMapManager mapManager;
     private int switch_counter;
     private Spinner spinner;
-    private TextView textView;
+    private TextView schoolStation;
+    private TextView selectedStation;
     private String[] items = {"상공회의소", "진입로", "동부경찰서", "용인시장", "중앙공영주차장", "명지대역", "진입로(명지대방향)", "기흥역"};
 
 
@@ -50,7 +50,7 @@ public class BusSearchActivity  extends AppCompatActivity implements OnMapReadyC
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
 
-        textView = (TextView) findViewById(R.id.textView);
+        schoolStation = (TextView) findViewById(R.id.tvSchool);
         switch_counter = 0;
 
 
@@ -99,8 +99,8 @@ public class BusSearchActivity  extends AppCompatActivity implements OnMapReadyC
     public void btn_switch(View v) {
         switch_counter++;
         ConstraintLayout.LayoutParams params1 = (ConstraintLayout.LayoutParams)spinner.getLayoutParams();
-        ConstraintLayout.LayoutParams params2 = (ConstraintLayout.LayoutParams)textView.getLayoutParams();
-        textView.setLayoutParams(params1);
+        ConstraintLayout.LayoutParams params2 = (ConstraintLayout.LayoutParams) schoolStation.getLayoutParams();
+        schoolStation.setLayoutParams(params1);
         spinner.setLayoutParams(params2);
     }
 

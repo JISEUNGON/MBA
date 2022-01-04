@@ -6,6 +6,6 @@
     <string name="btn_busRoute">버스 노선도</string>
     <string name="text_main">버튼을 눌러서 시작하세요</string>
     <string name="text_imageView">메인 로고</string>
-    <string name="school_station">   학교</string>
+    <string name="school_station">명지대학교 자연캠퍼스</string>
 
 </resources>
