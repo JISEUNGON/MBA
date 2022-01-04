@@ -7,5 +7,6 @@
     <string name="text_main">버튼을 눌러서 시작하세요</string>
     <string name="text_imageView">메인 로고</string>
     <string name="school_station">명지대학교 자연캠퍼스</string>
+    <string name="search_bus">버스 찾기</string>
 
 </resources>

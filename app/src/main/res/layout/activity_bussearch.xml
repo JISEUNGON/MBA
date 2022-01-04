@@ -112,17 +112,36 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
-            android:id="@+id/imageButton2"
-            android:layout_width="120dp"
-            android:layout_height="76dp"
-            android:layout_marginEnd="16dp"
+            android:id="@+id/btnSearch"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:background="@drawable/round_button"
             android:contentDescription="@string/app_name"
             android:onClick="btn_moveNext"
+            android:src="@drawable/ic_bus"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.884"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.454"
-            tools:srcCompat="@drawable/round_bt" />
+            app:layout_constraintVertical_bias="0.418" />
+
+        <TextView
+            android:id="@+id/tvBusSearch"
+            style="@style/Binggrae.content"
+            android:layout_width="80dp"
+            android:layout_height="20dp"
+            android:gravity="center"
+            android:text="@string/search_bus"
+            android:textColor="@color/purple_700"
+            android:textSize="11sp"
+            android:textStyle="bold"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.887"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnSearch" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
