@@ -8,5 +8,6 @@
     <string name="text_imageView">메인 로고</string>
     <string name="school_station">명지대학교 자연캠퍼스</string>
     <string name="search_bus">버스 찾기</string>
+    <string name="bus_schedule">시간표 보기</string>
 
 </resources>

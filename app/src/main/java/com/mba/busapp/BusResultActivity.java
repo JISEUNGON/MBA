@@ -70,6 +70,8 @@ public class BusResultActivity extends AppCompatActivity implements OnMapReadyCa
         currentTime = dateData[4] + ":" + dateData[5];
         currentDay = dateData[3];
 
+
+
         loadData();
 //
 //        //정류장 -> 학교인 경우

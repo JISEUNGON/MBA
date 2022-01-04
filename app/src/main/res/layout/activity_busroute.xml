@@ -43,25 +43,32 @@
             android:layout_height="match_parent">
 
         <com.naver.maps.map.MapView
-                android:id="@+id/busroute_navermap"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+            android:id="@+id/busroute_navermap"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:layout_editor_absoluteX="-100dp"
+            tools:layout_editor_absoluteY="-62dp" />
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/floatingActionButton_slidingView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp"
-                android:clickable="true"
-                android:onClick="btn_slidingView"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:srcCompat="@android:drawable/btn_star_big_off"
-                tools:ignore="SpeakableTextPresentCheck" />
+        <ImageButton
+            android:id="@+id/btnBusSchedule"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
 
+            android:background="@drawable/round_button"
+            android:contentDescription="@string/app_name"
+            android:onClick="btn_slidingView"
+            android:src="@drawable/ic_bus_schedule"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintHorizontal_bias="0.95"
+            app:layout_constraintVertical_bias="0.95"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+
     </LinearLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
