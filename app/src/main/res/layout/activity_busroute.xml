@@ -54,7 +54,7 @@
             android:layout_width="80dp"
             android:layout_height="80dp"
 
-            android:background="@drawable/round_button"
+            android:background="@drawable/custom_button_round"
             android:contentDescription="@string/app_name"
             android:onClick="btn_slidingView"
             android:src="@drawable/ic_bus_schedule"

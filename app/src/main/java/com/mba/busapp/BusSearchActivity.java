@@ -1,8 +1,10 @@
 package com.mba.busapp;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
@@ -21,8 +23,11 @@ import com.naver.maps.map.NaverMap;
 import com.naver.maps.map.OnMapReadyCallback;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -37,8 +42,8 @@ public class BusSearchActivity  extends AppCompatActivity implements OnMapReadyC
     private ImageView selectedStationImg;
     private int[] imageID;
 
-    private String[] items = {"상공회의소", "진입로", "동부경찰서", "용인시장", "중앙공영주차장", "명지대역", "진입로(명지대방향)", "기흥역"};
-
+    private String[] items = {"정류장을 선택하세요", "상공회의소", "진입로", "동부경찰서", "용인시장", "중앙공영주차장", "명지대역", "진입로(명지대방향)", "기흥역"};
+    List<String> list = new ArrayList<>(Arrays.asList(items));
 
     //intent로 넘길 값
     private String currentTime;
@@ -50,7 +55,7 @@ public class BusSearchActivity  extends AppCompatActivity implements OnMapReadyC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bussearch);
         switch_counter = 0; //switch 카운터 0으로 초기화
-        
+
         //ID로 컴포넌트 연결
         spinner = (Spinner) findViewById(R.id.spinner);
         selectedStation = (TextView) findViewById(R.id.tvStations);
@@ -59,12 +64,48 @@ public class BusSearchActivity  extends AppCompatActivity implements OnMapReadyC
         //이미지별 ID 저장
         imageID = setImageID();
 
-        //Spinner에 Adapter 연결
-        ArrayAdapter <CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.spinner, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-        //리스너 부착
+        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
+                this,R.layout.spinner_item,list){
+            @Override
+            public boolean isEnabled(int position){
+                if(position == 0)
+                {
+                    // Disable the second item from Spinner
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            @Override
+            public View getDropDownView(int position, View convertView,
+                                        ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                TextView tv = (TextView) view;
+                if(position==0) {
+                    // Set the disable item text color
+                    tv.setTextColor(Color.GRAY);
+                }
+                else {
+                    tv.setTextColor(Color.BLACK);
+                }
+                return view;
+            }
+
+        };
+        spinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_item);
         spinner.setOnItemSelectedListener(this);
+        spinner.setAdapter(spinnerArrayAdapter);
+
+        //Spinner에 Adapter 연결
+//        ArrayAdapter <CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.spinner, R.layout.spinner_item);
+//        adapter.setDropDownViewResource(R.layout.spinner_item);
+//        spinner.setAdapter(adapter);
+//        //리스너 부착
+//        spinner.setOnItemSelectedListener(this);
+//        spinner.setSelection(0);
+//        spinner.setPrompt("정류장");
 
         // 네이버맵 Listener 연결
         MapView mapView = findViewById(R.id.bussearch_navermap);
@@ -103,7 +144,7 @@ public class BusSearchActivity  extends AppCompatActivity implements OnMapReadyC
         intent.putExtra("targetStation",targetStation);
 
         startActivity(intent);
-    }
+    };
     /**
      * 학교 -> 타겟 정류장 / 타겟 정류장 -> 학교 SWITCH
      * @param v view
@@ -119,8 +160,14 @@ public class BusSearchActivity  extends AppCompatActivity implements OnMapReadyC
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         //Toast.makeText(this.getApplicationContext(), items[i], Toast.LENGTH_SHORT).show();
-        selectedStation.setText(items[i]);
-        selectedStationImg.setImageResource(imageID[i]);
+        if(i==0){
+            selectedStation.setText("");
+            selectedStationImg.setImageResource(imageID[7]);
+        }
+        else{
+            selectedStation.setText(items[i]);
+            selectedStationImg.setImageResource(imageID[i-1]);
+        }
 
     }
 
@@ -128,6 +175,8 @@ public class BusSearchActivity  extends AppCompatActivity implements OnMapReadyC
     public void onNothingSelected(AdapterView<?> adapterView) {
 
     }
+
+
 
     //현재시간 세팅
     public String setCurrentTime(Date date){

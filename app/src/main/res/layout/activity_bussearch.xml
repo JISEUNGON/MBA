@@ -23,12 +23,13 @@
         android:entries="@array/spinner"
         android:minHeight="48dp"
         style="@style/Binggrae.content"
-        android:background="@color/white"
+        android:background="@drawable/custom_search_spinner"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.300"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_goneMarginTop="30dp" />
+        app:layout_goneMarginTop="30dp"
+        android:spinnerMode="dropdown"/>
 
     <ImageButton
         android:id="@+id/imageButton3"
@@ -50,7 +51,7 @@
         android:layout_height="50dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="80dp"
-        android:background="@color/white"
+        android:background="@drawable/custom_search_spinner"
         android:text="@string/school_station"
         style="@style/Binggrae.content"
         android:textColor="@color/grey_600"
@@ -115,7 +116,7 @@
             android:id="@+id/btnSearch"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:background="@drawable/round_button"
+            android:background="@drawable/custom_button_round"
             android:contentDescription="@string/app_name"
             android:onClick="btn_moveNext"
             android:src="@drawable/ic_bus"
