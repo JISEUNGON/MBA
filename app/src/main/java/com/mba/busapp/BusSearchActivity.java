@@ -157,7 +157,7 @@ public class BusSearchActivity  extends AppCompatActivity implements OnMapReadyC
         //Toast.makeText(this.getApplicationContext(), items[i], Toast.LENGTH_SHORT).show();
         if(i==0){
             selectedStation.setText("");
-            selectedStationImg.setImageResource(imageID[7]);
+            selectedStationImg.setImageResource(imageID[8]);
         }
         else{
             selectedStation.setText(items[i]);
@@ -189,7 +189,7 @@ public class BusSearchActivity  extends AppCompatActivity implements OnMapReadyC
 
     //이미지 ID 저장하기
     public int[] setImageID(){
-        int [] imageID = new int[8];
+        int [] imageID = new int[9];
         imageID[0] = R.drawable.mju_chamber;
         imageID[1] = R.drawable.mju_entry_to_station;
         imageID[2] = R.drawable.mju_police_office;
@@ -197,8 +197,8 @@ public class BusSearchActivity  extends AppCompatActivity implements OnMapReadyC
         imageID[4] = R.drawable.mju_parking_lot;
         imageID[5] = R.drawable.mju_station;
         imageID[6] = R.drawable.mju_entry_to_school;
-        imageID[7] = R.drawable.mju_ready;
-        //imageID[7] = R.drawable.mju_khStation;
+        imageID[7] = R.drawable.mju_kh_station;
+        imageID[8] = R.drawable.mju_ready;
 
         return imageID;
     }
