@@ -64,6 +64,7 @@ public class BusSearchActivity  extends AppCompatActivity implements OnMapReadyC
         //이미지별 ID 저장
         imageID = setImageID();
 
+        //어뎁터 생성
         ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
                 this,R.layout.spinner_item,list){
             @Override
@@ -94,18 +95,12 @@ public class BusSearchActivity  extends AppCompatActivity implements OnMapReadyC
             }
 
         };
+
+        //어뎁터 적용
         spinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_item);
         spinner.setOnItemSelectedListener(this);
         spinner.setAdapter(spinnerArrayAdapter);
 
-        //Spinner에 Adapter 연결
-//        ArrayAdapter <CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.spinner, R.layout.spinner_item);
-//        adapter.setDropDownViewResource(R.layout.spinner_item);
-//        spinner.setAdapter(adapter);
-//        //리스너 부착
-//        spinner.setOnItemSelectedListener(this);
-//        spinner.setSelection(0);
-//        spinner.setPrompt("정류장");
 
         // 네이버맵 Listener 연결
         MapView mapView = findViewById(R.id.bussearch_navermap);

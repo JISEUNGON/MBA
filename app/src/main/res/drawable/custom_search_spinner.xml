@@ -9,6 +9,11 @@
                     </shape>
 
             </item>
+            <item
+                android:drawable="@drawable/ic_spinner_down"
+                android:width="24dp" android:height="24dp"
+                android:gravity="center|right" >
+            </item>
         </layer-list>
     </item>
 </selector>
