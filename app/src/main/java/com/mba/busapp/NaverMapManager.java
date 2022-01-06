@@ -38,8 +38,14 @@ public class NaverMapManager {
     private AppCompatActivity appCompatActivity;
     private ArrayList<Marker> markers;
     private PathOverlay pathOverlay;
+    private MarkerClickListener markerClickListener;
     private boolean clickEvent;
     private int poly_width;
+
+    @FunctionalInterface
+    interface MarkerClickListener {
+        public void onClick(Marker marker);
+    }
 
     public NaverMapManager(NaverMap naverMap, AppCompatActivity appCompatActivity) {
         this.naverMap = naverMap;
@@ -48,6 +54,15 @@ public class NaverMapManager {
         this.pathOverlay = new PathOverlay();
         this.clickEvent = true;
         this.poly_width = 8;
+        this.markerClickListener = null;
+    }
+
+    /**
+     * 마커 클릭시 호출되는 함수
+     * @param listener Listener
+     */
+    public void addMarkerClickEventListener(MarkerClickListener listener) {
+        this.markerClickListener = listener;
     }
 
     /**
@@ -259,9 +274,12 @@ public class NaverMapManager {
      */
     private boolean markerOnClickEvent(Marker marker) {
         if (!this.clickEvent) return false;
+
         for(Marker m: markers) m.setIcon(MarkerIcons.BLUE); // 다른 마커 색 초기화
         setCameraPosition(marker.getPosition(), 13);
         marker.setIcon(MarkerIcons.RED); // 선택된 마커 파란색으로
+
+        if(this.markerClickListener != null) this.markerClickListener.onClick(marker);
         return true;
     }
 }

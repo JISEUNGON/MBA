@@ -24,6 +24,7 @@ import com.naver.maps.geometry.LatLng;
 import com.naver.maps.map.MapView;
 import com.naver.maps.map.NaverMap;
 import com.naver.maps.map.OnMapReadyCallback;
+import com.naver.maps.map.overlay.Marker;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -32,6 +33,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.TimeZone;
 
 public class BusSearchActivity  extends AppCompatActivity implements OnMapReadyCallback, AdapterView.OnItemSelectedListener {
@@ -72,6 +74,7 @@ public class BusSearchActivity  extends AppCompatActivity implements OnMapReadyC
         selectedStationLocation = (TextView) findViewById(R.id.tvStationLocation);
         selectedStationImg = (ImageView) findViewById(R.id.ivStations);
         schoolStation = (TextView) findViewById(R.id.tvSchool);
+
         //이미지별 ID 저장
         imageID = setImageID();
 
@@ -112,7 +115,6 @@ public class BusSearchActivity  extends AppCompatActivity implements OnMapReadyC
         spinner.setOnItemSelectedListener(this);
         spinner.setAdapter(spinnerArrayAdapter);
 
-
         // 네이버맵 Listener 연결
         MapView mapView = findViewById(R.id.bussearch_navermap);
         mapView.getMapAsync(this);
@@ -133,6 +135,40 @@ public class BusSearchActivity  extends AppCompatActivity implements OnMapReadyC
 //        mapManager.enablePoly_MjuStation();
         mapManager.enablePoly_DownTown();
 
+        // Marker OnClick 이벤트 연결
+        mapManager.addMarkerClickEventListener(new NaverMapManager.MarkerClickListener() {
+            @Override
+            public void onClick(@NonNull Marker selectedMarker) {
+                // idx 탐색
+                int idx = 0;
+                for(int i = 0; i < items.length; i++) {
+                    if (items[i].contains(selectedMarker.getCaptionText())) {
+                        idx = i;
+                    }
+                }
+
+                ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) selectedStation.getLayoutParams();
+                params.width = dpToPx((Context) getOuter(), textViewLength[idx-1]);
+                selectedStation.setLayoutParams(params);
+
+                //정류장 설명 text 세팅
+                selectedStationLocation.setText(location[idx-1]);
+
+                //정류장 image 세팅
+                selectedStationImg.setImageResource(imageID[idx-1]);
+
+                // spinner 세팅
+                spinner.setSelection(idx);
+                //정류장 이름 text 세팅
+                if(items[idx]=="이마트·상공회의소(명지대방향)"){
+                    //정류장 이름 text 세팅
+                    selectedStation.setText("이마트·상공회의소\n(명지대방향)");
+                }
+                else{
+                    selectedStation.setText(items[idx]);
+                }
+            }
+        });
     }
 
     /**
@@ -239,4 +275,7 @@ public class BusSearchActivity  extends AppCompatActivity implements OnMapReadyC
         return Math.round((float)dp * density);
     }
 
+    public Object getOuter() {
+        return this;
+    }
 }
