@@ -1,8 +1,11 @@
 package com.mba.busapp;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -39,11 +42,16 @@ public class BusSearchActivity  extends AppCompatActivity implements OnMapReadyC
     private Spinner spinner;
     private TextView schoolStation;
     private TextView selectedStation;
+    private TextView selectedStationLocation;
     private ImageView selectedStationImg;
     private int[] imageID;
 
-    private String[] items = {"정류장을 선택하세요", "상공회의소", "진입로", "동부경찰서", "용인시장", "중앙공영주차장", "명지대역", "진입로(명지대방향)", "기흥역"};
+    private String[] items = {"정류장을 선택하세요", "이마트·상공회의소", "진입로", "동부경찰서", "용인시장", "중앙공영주차장", "명지대역", "진입로(명지대방향)","이마트·상공회의소(명지대방향)", "기흥역"};
+    private String[] location = {"이마트·상공희의소 버스 정류장", "역북동행정복지센터 버스 정류장" ,"금호 부동산중개 앞", "행텐 주니어 용인점 앞", "안경창고 싸군 용인점 앞", "명지대사거리 버스 정류장", "역북동행정복지센터 버스 정류장", "이마트·상공희의소 버스 정류장", "기흥역 5번 출구 앞" };
+    private int [] textViewLength = {170, 70, 100, 85, 140, 85, 180, 140, 70};
+
     List<String> list = new ArrayList<>(Arrays.asList(items));
+
 
     //intent로 넘길 값
     private String currentTime;
@@ -56,9 +64,12 @@ public class BusSearchActivity  extends AppCompatActivity implements OnMapReadyC
         setContentView(R.layout.activity_bussearch);
         switch_counter = 0; //switch 카운터 0으로 초기화
 
+
+
         //ID로 컴포넌트 연결
         spinner = (Spinner) findViewById(R.id.spinner);
         selectedStation = (TextView) findViewById(R.id.tvStations);
+        selectedStationLocation = (TextView) findViewById(R.id.tvStationLocation);
         selectedStationImg = (ImageView) findViewById(R.id.ivStations);
         schoolStation = (TextView) findViewById(R.id.tvSchool);
         //이미지별 ID 저장
@@ -157,11 +168,30 @@ public class BusSearchActivity  extends AppCompatActivity implements OnMapReadyC
         //Toast.makeText(this.getApplicationContext(), items[i], Toast.LENGTH_SHORT).show();
         if(i==0){
             selectedStation.setText("");
-            selectedStationImg.setImageResource(imageID[8]);
+            selectedStationLocation.setText("");
+            selectedStationImg.setImageResource(imageID[9]);
+
         }
         else{
-            selectedStation.setText(items[i]);
+            //정류장 이름 text 길이 세팅
+            ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams)selectedStation.getLayoutParams();
+            params.width = dpToPx(this, textViewLength[i-1]);
+            selectedStation.setLayoutParams(params);
+
+            //정류장 설명 text 세팅
+            selectedStationLocation.setText(location[i-1]);
+
+            //정류장 image 세팅
             selectedStationImg.setImageResource(imageID[i-1]);
+
+            //정류장 이름 text 세팅
+            if(items[i]=="이마트·상공회의소(명지대방향)"){
+                //정류장 이름 text 세팅
+                selectedStation.setText("이마트·상공회의소\n(명지대방향)");
+            }
+            else{
+                selectedStation.setText(items[i]);
+            }
         }
 
     }
@@ -189,7 +219,7 @@ public class BusSearchActivity  extends AppCompatActivity implements OnMapReadyC
 
     //이미지 ID 저장하기
     public int[] setImageID(){
-        int [] imageID = new int[9];
+        int [] imageID = new int[10];
         imageID[0] = R.drawable.mju_chamber;
         imageID[1] = R.drawable.mju_entry_to_station;
         imageID[2] = R.drawable.mju_police_office;
@@ -197,9 +227,16 @@ public class BusSearchActivity  extends AppCompatActivity implements OnMapReadyC
         imageID[4] = R.drawable.mju_parking_lot;
         imageID[5] = R.drawable.mju_station;
         imageID[6] = R.drawable.mju_entry_to_school;
-        imageID[7] = R.drawable.mju_kh_station;
-        imageID[8] = R.drawable.mju_ready;
+        imageID[7] = R.drawable.mju_emart;
+        imageID[8] = R.drawable.mju_kh_station_;
+        imageID[9] = R.drawable.mju_ready;
 
         return imageID;
     }
+
+    public int dpToPx(Context context, int dp) {
+        float density = context.getResources().getDisplayMetrics().density;
+        return Math.round((float)dp * density);
+    }
+
 }
