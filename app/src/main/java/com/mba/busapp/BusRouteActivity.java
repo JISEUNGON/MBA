@@ -41,8 +41,10 @@ public class BusRouteActivity extends AppCompatActivity implements OnMapReadyCal
 
         // spinner 값 설정
         itemList = getResources().getStringArray(R.array.ROUTES_MJU_CITY_BUS);
+
         Spinner spinner = (Spinner) findViewById(R.id.routes_spinner);
         spinner.setAdapter(ArrayAdapter.createFromResource(this, R.array.ROUTES_MJU_CITY_BUS, R.layout.support_simple_spinner_dropdown_item));
+
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -81,7 +83,7 @@ public class BusRouteActivity extends AppCompatActivity implements OnMapReadyCal
             case "명지대역":
                 mapManager.enableMarker_MjuStation();
                 mapManager.enablePoly_MjuStation();
-                mapManager.setCameraPosition(new LatLng(37.2329535, 127.1892392), 13);
+                mapManager.setCameraPosition(new LatLng(37.2329535, 127.1892392));
                 break;
             case "용인 시내":
                 mapManager.enableMarker_DownTown();

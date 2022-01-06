@@ -4,6 +4,7 @@ import static android.content.Context.LOCATION_SERVICE;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.graphics.Camera;
 import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationManager;
@@ -44,7 +45,7 @@ public class NaverMapManager {
 
     @FunctionalInterface
     interface MarkerClickListener {
-        public void onClick(Marker marker);
+        void onClick(Marker marker);
     }
 
     public NaverMapManager(NaverMap naverMap, AppCompatActivity appCompatActivity) {
@@ -199,11 +200,20 @@ public class NaverMapManager {
     }
 
     /**
-     * 네이버맵 현 위치 이동
+     * 네이버맵 현 위치 이동 + zoom
      * @param position 이동할 위치
      */
     public void setCameraPosition(LatLng position, int zoom) {
         CameraUpdate cameraUpdate = CameraUpdate.scrollAndZoomTo(position,zoom).animate(CameraAnimation.None, 3000);
+        naverMap.moveCamera(cameraUpdate);
+    }
+
+    /**
+     * 네이버맵 현 위치 디ㅗㅇ
+     * @param position 이동할 위치
+     */
+    public void setCameraPosition(LatLng position) {
+        CameraUpdate cameraUpdate = CameraUpdate.scrollTo(position).animate(CameraAnimation.Fly, 3000);
         naverMap.moveCamera(cameraUpdate);
     }
 
@@ -276,7 +286,7 @@ public class NaverMapManager {
         if (!this.clickEvent) return false;
 
         for(Marker m: markers) m.setIcon(MarkerIcons.BLUE); // 다른 마커 색 초기화
-        setCameraPosition(marker.getPosition(), 13);
+        setCameraPosition(marker.getPosition());
         marker.setIcon(MarkerIcons.RED); // 선택된 마커 파란색으로
 
         if(this.markerClickListener != null) this.markerClickListener.onClick(marker);
