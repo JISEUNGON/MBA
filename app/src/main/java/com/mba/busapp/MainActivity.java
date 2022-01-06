@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
      * @param v
      */
     public void btn_busRoute(View v) {
-        startActivity(new Intent(getApplicationContext(), BusRouteActivity.class));
+        startActivity(new Intent(getApplicationContext(), BusSelectActivity.class));
     }
 
 }

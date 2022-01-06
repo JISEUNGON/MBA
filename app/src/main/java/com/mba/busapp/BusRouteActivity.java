@@ -8,6 +8,7 @@ import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,10 +27,22 @@ public class BusRouteActivity extends AppCompatActivity implements OnMapReadyCal
     private NaverMapManager mapManager;
     private SlidingUpPanelLayout slidingUpPanelLayout;
     private String[] itemList;
+
+    // 넘겨온 값 저장할 변수
+    String day;
+    String semaster;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_busroute);
+
+        // 넘겨온 값 저장
+        Intent intent = getIntent();
+        day  = intent.getStringExtra("day");
+        semaster  = intent.getStringExtra("semester");
+        //Toast.makeText(getApplicationContext(), day, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getApplicationContext(), semaster, Toast.LENGTH_SHORT).show();
+
 
         // 네이버맵 Listener 연결
         MapView mapView = findViewById(R.id.busroute_navermap);

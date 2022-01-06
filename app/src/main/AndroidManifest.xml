@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher_mba2"
@@ -11,9 +12,14 @@
         android:roundIcon="@mipmap/ic_launcher_mba2_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.BusApp">
+        <activity
+            android:name=".BusSelectActivity"
+            android:exported="false" />
+
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"
             android:value="p4xiv96tkc" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -29,27 +35,22 @@
             android:name=".BusRouteActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.BusApp.NoActionBar">
-        </activity>
+            android:theme="@style/Theme.BusApp.NoActionBar"></activity>
         <activity
             android:name=".BusSearchActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.BusApp.NoActionBar">
-        </activity>
+            android:theme="@style/Theme.BusApp.NoActionBar"></activity>
         <activity
             android:name=".BusResultActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.BusApp.NoActionBar">
-        </activity>
+            android:theme="@style/Theme.BusApp.NoActionBar"></activity>
         <activity
             android:name=".BusTableView"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.BusApp.NoActionBar">
-        </activity>
-
+            android:theme="@style/Theme.BusApp.NoActionBar"></activity>
     </application>
 
 </manifest>
