@@ -34,6 +34,7 @@ android {
 
 dependencies {
     implementation 'com.sothree.slidinguppanel:library:3.4.0'
+    implementation 'com.google.android.gms:play-services-location:16.0.0'
     //noinspection GradleCompatible
     implementation 'com.android.support:design:27.1.1'
     implementation 'com.naver.maps:map-sdk:3.12.0'

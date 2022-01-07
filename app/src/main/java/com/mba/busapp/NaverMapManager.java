@@ -35,6 +35,7 @@ import java.util.List;
  * 이것도 싱글톤이 되나?
  */
 public class NaverMapManager {
+    private static final int LOCATION_PERMISSION_REQUEST_CODE = 1000;
     private NaverMap naverMap;
     private AppCompatActivity appCompatActivity;
     private ArrayList<Marker> markers;
@@ -73,6 +74,15 @@ public class NaverMapManager {
         this.clickEvent = false;
     }
 
+    public Marker getMarker(String station) {
+        for(Marker marker: markers) {
+            if(station.contentEquals(marker.getCaptionText().replace("\n", ""))) {
+                return marker;
+            }
+        }
+        return null;
+    }
+
     /**
      * 명지대역 노선 마커 활성화
      */
@@ -83,7 +93,15 @@ public class NaverMapManager {
             marker.setOnClickListener(overlay -> markerOnClickEvent(marker)); // 클릭이벤트
             marker.setIcon(MarkerIcons.BLUE); // 아이콘 색상
             marker.setPosition(StationInfo.getInstance().getLatLng(station)); // 위치 설정
-            marker.setCaptionText(station); // cpation 설정
+
+            // cpation 설정 ( 이 있으면 2줄로 표시
+            if(station.contains("(")) {
+                String[] groups = station.split("\\(");
+                marker.setCaptionText(groups[0] + "\n(" + groups[1]);
+            } else {
+                marker.setCaptionText(station); 
+            }
+
             marker.setMap(naverMap); // 현 지도에 표시
             markers.add(marker);
         }
@@ -109,7 +127,15 @@ public class NaverMapManager {
             marker.setOnClickListener(overlay -> markerOnClickEvent(marker)); // 클릭이벤트
             marker.setIcon(MarkerIcons.BLUE); // 아이콘 색상
             marker.setPosition(StationInfo.getInstance().getLatLng(station)); // 위치 설정
-            marker.setCaptionText(station); // caption 설정
+
+            // cpation 설정 ( 이 있으면 2줄로 표시
+            if(station.contains("(")) {
+                String[] groups = station.split("\\(");
+                marker.setCaptionText(groups[0] + "\n(" + groups[1]);
+            } else {
+                marker.setCaptionText(station);
+            }
+
             marker.setMap(naverMap); // 현 지도에 표시
             markers.add(marker);
         }
@@ -135,7 +161,15 @@ public class NaverMapManager {
             marker.setOnClickListener(overlay -> markerOnClickEvent(marker)); // 클릭이벤트
             marker.setIcon(MarkerIcons.BLUE); // 아이콘 색상
             marker.setPosition(StationInfo.getInstance().getLatLng(station)); // 위치 설정
-            marker.setCaptionText(station); // caption 설정
+
+            // cpation 설정 ( 이 있으면 2줄로 표시
+            if(station.contains("(")) {
+                String[] groups = station.split("\\(");
+                marker.setCaptionText(groups[0] + "\n(" + groups[1]);
+            } else {
+                marker.setCaptionText(station);
+            }
+
             marker.setMap(naverMap); // 현 지도에 표시
             markers.add(marker);
         }
@@ -161,7 +195,15 @@ public class NaverMapManager {
             marker.setOnClickListener(overlay -> markerOnClickEvent(marker)); // 클릭이벤트
             marker.setIcon(MarkerIcons.BLUE); // 아이콘 색상
             marker.setPosition(StationInfo.getInstance().getLatLng(station)); // 위치 설정
-            marker.setCaptionText(station); // caption 설정
+
+            // cpation 설정 ( 이 있으면 2줄로 표시
+            if(station.contains("(")) {
+                String[] groups = station.split("\\(");
+                marker.setCaptionText(groups[0] + "\n(" + groups[1]);
+            } else {
+                marker.setCaptionText(station);
+            }
+
             marker.setMap(naverMap); // 현 지도에 표시
             markers.add(marker);
         }
@@ -178,6 +220,30 @@ public class NaverMapManager {
     }
 
     /**
+     * 모든 Marker 활성화
+     */
+    public void enableMarker_ALL() {
+        String[] stations = StationInfo.getInstance().getStationList_ALL();
+        for(String station: stations) {
+            Marker marker = new Marker();
+            marker.setOnClickListener(overlay -> markerOnClickEvent(marker)); // 클릭이벤트
+            marker.setIcon(MarkerIcons.BLUE); // 아이콘 색상
+            marker.setPosition(StationInfo.getInstance().getLatLng(station)); // 위치 설정
+
+            // cpation 설정 ( 이 있으면 2줄로 표시
+            if(station.contains("(")) {
+                String[] groups = station.split("\\(");
+                marker.setCaptionText(groups[0] + "\n(" + groups[1]);
+            } else {
+                marker.setCaptionText(station);
+            }
+
+            marker.setMap(naverMap); // 현 지도에 표시
+            markers.add(marker);
+        }
+    }
+
+    /**
      * 지도에 있는 모든 Marker 제거
      */
     public void disableMarkers() {
@@ -185,18 +251,12 @@ public class NaverMapManager {
     }
 
     /**
-     * 위치 UI 기능 활성화
-     */
-    public void enableLocationButton() {
-        UiSettings uiSettings = naverMap.getUiSettings();
-        uiSettings.setLocationButtonEnabled(true);
-    }
-
-    /**
      * 네이버맵 위치 버튼 사용
      */
     public void enableLocation() {
-        naverMap.setLocationSource(new FusedLocationSource(appCompatActivity, 1000));
+        UiSettings uiSettings = naverMap.getUiSettings();
+        uiSettings.setLocationButtonEnabled(true);
+        naverMap.setLocationSource(new FusedLocationSource(appCompatActivity, LOCATION_PERMISSION_REQUEST_CODE));
     }
 
     /**
@@ -209,7 +269,7 @@ public class NaverMapManager {
     }
 
     /**
-     * 네이버맵 현 위치 디ㅗㅇ
+     * 네이버맵 현 위치 이동
      * @param position 이동할 위치
      */
     public void setCameraPosition(LatLng position) {
@@ -292,4 +352,5 @@ public class NaverMapManager {
         if(this.markerClickListener != null) this.markerClickListener.onClick(marker);
         return true;
     }
+
 }

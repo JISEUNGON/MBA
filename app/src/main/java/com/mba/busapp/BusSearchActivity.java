@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.View;
@@ -25,6 +26,7 @@ import com.naver.maps.map.MapView;
 import com.naver.maps.map.NaverMap;
 import com.naver.maps.map.OnMapReadyCallback;
 import com.naver.maps.map.overlay.Marker;
+import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -39,7 +41,7 @@ import java.util.TimeZone;
 public class BusSearchActivity  extends AppCompatActivity implements OnMapReadyCallback, AdapterView.OnItemSelectedListener {
     private NaverMapManager mapManager;
     private int switch_counter;
-
+    private SlidingUpPanelLayout slidingUpPanelLayout;
     //컴포넌트
     private Spinner spinner;
     private TextView schoolStation;
@@ -66,7 +68,8 @@ public class BusSearchActivity  extends AppCompatActivity implements OnMapReadyC
         setContentView(R.layout.activity_bussearch);
         switch_counter = 0; //switch 카운터 0으로 초기화
 
-
+        slidingUpPanelLayout = (SlidingUpPanelLayout) findViewById(R.id.bussearch_slidingpanel);
+        slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
 
         //ID로 컴포넌트 연결
         spinner = (Spinner) findViewById(R.id.spinner);
@@ -129,11 +132,8 @@ public class BusSearchActivity  extends AppCompatActivity implements OnMapReadyC
         mapManager = new NaverMapManager(naverMap, this);
 
         mapManager.setCameraPosition(new LatLng(37.233972549267705, 127.18874893910944), 15);
-        mapManager.enableLocationButton();
-//        mapManager.enableMarker_MjuStation();'
-        mapManager.enableMarker_DownTown();
-//        mapManager.enablePoly_MjuStation();
-        mapManager.enablePoly_DownTown();
+        mapManager.enableLocation();
+        mapManager.enableMarker_ALL();
 
         // Marker OnClick 이벤트 연결
         mapManager.addMarkerClickEventListener(new NaverMapManager.MarkerClickListener() {
@@ -142,10 +142,11 @@ public class BusSearchActivity  extends AppCompatActivity implements OnMapReadyC
                 // idx 탐색
                 int idx = 0;
                 for(int i = 0; i < items.length; i++) {
-                    if (items[i].contains(selectedMarker.getCaptionText())) {
+                    if (items[i].contentEquals(selectedMarker.getCaptionText().replace("\n", ""))) {
                         idx = i;
                     }
                 }
+                if (idx == 0) return; // 명지대 선택시
 
                 ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) selectedStation.getLayoutParams();
                 params.width = dpToPx((Context) getOuter(), textViewLength[idx-1]);
@@ -160,13 +161,15 @@ public class BusSearchActivity  extends AppCompatActivity implements OnMapReadyC
                 // spinner 세팅
                 spinner.setSelection(idx);
                 //정류장 이름 text 세팅
-                if(items[idx]=="이마트·상공회의소(명지대방향)"){
+                if(items[idx].equals("이마트·상공회의소(명지대방향)")){
                     //정류장 이름 text 세팅
                     selectedStation.setText("이마트·상공회의소\n(명지대방향)");
                 }
                 else{
                     selectedStation.setText(items[idx]);
                 }
+
+                slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
             }
         });
     }
@@ -185,15 +188,29 @@ public class BusSearchActivity  extends AppCompatActivity implements OnMapReadyC
         intent.putExtra("toSchool", toSchool);
         intent.putExtra("targetStation",targetStation);
 
+        /**
+         * 동기 방식 API 호출
+         */
+        int SDK_INT = android.os.Build.VERSION.SDK_INT;
+        if (SDK_INT > 8) {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                    .permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+            //your codes here
+            intent.putExtra("downtown_timerequire", BusManager.getBusInfo_mju_downtown());
+            intent.putExtra("mjustation_timerequire", BusManager.getBusInfo_mju_station());
+        }
+
         startActivity(intent);
-    };
+    }
+
     /**
      * 학교 -> 타겟 정류장 / 타겟 정류장 -> 학교 SWITCH
      * @param v view
      */
     public void btn_switch(View v) {
         switch_counter++;
-        ConstraintLayout.LayoutParams params1 = (ConstraintLayout.LayoutParams)spinner.getLayoutParams();
+        ConstraintLayout.LayoutParams params1 = (ConstraintLayout.LayoutParams) spinner.getLayoutParams();
         ConstraintLayout.LayoutParams params2 = (ConstraintLayout.LayoutParams) schoolStation.getLayoutParams();
         schoolStation.setLayoutParams(params1);
         spinner.setLayoutParams(params2);
@@ -228,6 +245,10 @@ public class BusSearchActivity  extends AppCompatActivity implements OnMapReadyC
             else{
                 selectedStation.setText(items[i]);
             }
+
+            // 마커 클릭이벤트
+            Marker marker = mapManager.getMarker(items[i]);
+            marker.performClick();
         }
 
     }

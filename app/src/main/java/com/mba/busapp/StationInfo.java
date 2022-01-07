@@ -19,11 +19,11 @@ public class StationInfo {
         put("함박관", new LatLng(37.219509212602546, 127.1829915220452));
         put("명지대 정문", new LatLng(37.2241558, 127.1878371));
         put("명지대", new LatLng(37.224283500000006, 127.18728609999998));
-        put("상공회의소", new LatLng(37.230680400000004, 127.1882456));
+        put("이마트·상공회의소", new LatLng(37.230680400000004, 127.1882456));
         put("진입로", new LatLng(37.23399210000001,  127.18882909999999));
         put("명지대역", new LatLng(37.238513300000015, 127.18960559999998));
         put("진입로(명지대방향)", new LatLng(37.233999900000015, 127.18861349999999));
-        put("이마트", new LatLng(37.23036920601031 , 127.18799722805205));
+        put("이마트·상공회의소(명지대방향)", new LatLng(37.23036920601031 , 127.18799722805205));
         put("명진당", new LatLng(37.22218358841614, 127.18895343450612));
         put("제3공학관", new LatLng(37.219509212602546, 127.1829915220452));
         put("동부경찰서", new LatLng(37.23475516860965 , 127.19817660622552));
@@ -103,7 +103,7 @@ public class StationInfo {
         routes.add(new LatLng(37.2305674,127.1881254));
         routes.add(new LatLng(37.2306793,127.1881464));
         routes.add(new LatLng(37.2306919,127.1881486));
-        routeInfo.get("명지대").put("상공회의소", routes);
+        routeInfo.get("명지대").put("이마트·상공회의소", routes);
 
         // 상공회의소 ~ 진입로
         routes = new ArrayList<>();
@@ -129,7 +129,7 @@ public class StationInfo {
         routes.add(new LatLng(37.2336516,127.1886482));
         routes.add(new LatLng(37.2337481,127.1886647));
         routes.add(new LatLng(37.2340033,127.1887008));
-        routeInfo.get("상공회의소").put("진입로", routes);
+        routeInfo.get("이마트·상공회의소").put("진입로", routes);
 
         // 진입로 ~ 명지대역
         routes = new ArrayList<>();
@@ -231,7 +231,7 @@ public class StationInfo {
         routes.add(new LatLng(37.2305674,127.1881254));
         routes.add(new LatLng(37.2304322,127.1880955));
         routes.add(new LatLng(37.2303582,127.1880812));
-        routeInfo.get("진입로(명지대방향)").put("이마트", routes);
+        routeInfo.get("진입로(명지대방향)").put("이마트·상공회의소(명지대방향)", routes);
 
         // 이마트 ~ 명진당
         routes = new ArrayList<>();
@@ -293,7 +293,7 @@ public class StationInfo {
         routes.add(new LatLng(37.2226888,127.1886572));
         routes.add(new LatLng(37.2226357,127.1887059));
         routes.add(new LatLng(37.2222445,127.1890580));
-        routeInfo.get("이마트").put("명진당", routes);
+        routeInfo.get("이마트·상공회의소(명지대방향)").put("명진당", routes);
 
         // 명진당 ~ 제3공학관
         routes = new ArrayList<>();
@@ -571,7 +571,7 @@ public class StationInfo {
         routes.add(new LatLng(37.2231134,127.1876567));
         routes.add(new LatLng(37.2230174,127.1874790));
         routes.add(new LatLng(37.2226740,127.1868132));
-        routeInfo.get("이마트").put("제1공학관", routes);
+        routeInfo.get("이마트·상공회의소(명지대방향)").put("제1공학관", routes);
 
         // 제1공학관 ~ 제3공학관
         routes = new ArrayList<>();
@@ -754,7 +754,7 @@ public class StationInfo {
         routes.add(new LatLng(37.2305674,127.1881254));
         routes.add(new LatLng(37.2306793,127.1881464));
         routes.add(new LatLng(37.2306919,127.1881486));
-        routeInfo.get("명지대 정문").put("상공회의소", routes);
+        routeInfo.get("명지대 정문").put("이마트·상공회의소", routes);
 
         // 명지대 ~ 기흥역
         routes = new ArrayList<>();
@@ -1394,7 +1394,7 @@ public class StationInfo {
      * @return 명지대역 노선 정류장
      */
     public String[] getStationList_MjuStation() {
-        return new String[]{"명지대", "상공회의소", "진입로", "명지대역", "진입로(명지대방향)", "이마트", "명진당", "제3공학관"};
+        return new String[]{"명지대", "이마트·상공회의소", "진입로", "명지대역", "진입로(명지대방향)", "이마트·상공회의소(명지대방향)", "명진당", "제3공학관"};
     }
 
     /**
@@ -1402,7 +1402,7 @@ public class StationInfo {
      * @return 시내 노선 정류장 
      */
     public String[] getStationList_DownTown() {
-        return new String[]{"명지대", "상공회의소", "진입로", "진입로(명지대방향)", "이마트", "동부경찰서", "용인시장", "중앙공영주차장", "제1공학관", "제3공학관"};
+        return new String[]{"명지대", "이마트·상공회의소", "진입로", "진입로(명지대방향)", "이마트·상공회의소(명지대방향)", "동부경찰서", "용인시장", "중앙공영주차장", "제1공학관", "제3공학관"};
     }
 
     /**
@@ -1418,15 +1418,22 @@ public class StationInfo {
      * @return 방학 중 셔틀버스 정류장 정보
      */
     public String[] getStationList_Vaction() {
-        return new String[]{"명현관", "함박관", "명지대", "상공회의소", "진입로", "동부경찰서", "용인시장", "중앙공영주차장", "명지대역", "진입로(명지대방향)", "이마트", "제1공학관", "명현관"};
+        return new String[]{"명현관", "함박관", "명지대", "이마트·상공회의소", "진입로", "동부경찰서", "용인시장", "중앙공영주차장", "명지대역", "진입로(명지대방향)", "이마트·상공회의소(명지대방향)", "제1공학관", "명현관"};
     }
 
+    /**
+     * 모든 정류장
+     * @return 모든 정류장
+     */
+    public String[] getStationList_ALL() {
+        return new String[] {"이마트·상공회의소", "진입로", "동부경찰서", "용인시장", "중앙공영주차장", "명지대역", "진입로(명지대방향)", "이마트·상공회의소(명지대방향)", "기흥역", "명지대"};
+    }
     /**
      * 명지대역 경로
      * @return 경로들
      */
     public ArrayList<LatLng> getPolyList_MjuStation() {
-        String[] stations = new String[]{"명지대", "상공회의소", "진입로", "명지대역", "진입로(명지대방향)", "이마트", "명진당", "제3공학관"};
+        String[] stations = new String[]{"명지대", "이마트·상공회의소", "진입로", "명지대역", "진입로(명지대방향)", "이마트·상공회의소(명지대방향)", "명진당", "제3공학관"};
         ArrayList<LatLng> routes = new ArrayList<>();
         for (int i = 0; i < stations.length - 1; i++) {
             routes.addAll(routeInfo.get(stations[i]).get(stations[i+1]));
@@ -1439,7 +1446,7 @@ public class StationInfo {
      * @return 경로들
      */
     public ArrayList<LatLng> getPolyList_DownTown() {
-        String[] stations = new String[]{"명지대", "상공회의소", "진입로", "동부경찰서", "용인시장", "중앙공영주차장", "진입로(명지대방향)", "이마트", "제1공학관", "제3공학관"};
+        String[] stations = new String[]{"명지대", "이마트·상공회의소", "진입로", "동부경찰서", "용인시장", "중앙공영주차장", "진입로(명지대방향)", "이마트·상공회의소(명지대방향)", "제1공학관", "제3공학관"};
         ArrayList<LatLng> routes = new ArrayList<>();
         for (int i = 0; i < stations.length - 1; i++) {
             routes.addAll(routeInfo.get(stations[i]).get(stations[i+1]));
@@ -1465,7 +1472,7 @@ public class StationInfo {
      * @return 경로들
      */
     public ArrayList<LatLng> getPolyList_Vacation() {
-        String[] stations = new String[]{"명현관", "함박관", "명지대 정문", "상공회의소", "진입로", "동부경찰서", "용인시장", "중앙공영주차장", "명지대역", "진입로(명지대방향)", "이마트", "제1공학관", "명현관"};
+        String[] stations = new String[]{"명현관", "함박관", "명지대 정문", "이마트·상공회의소", "진입로", "동부경찰서", "용인시장", "중앙공영주차장", "명지대역", "진입로(명지대방향)", "이마트·상공회의소(명지대방향)", "제1공학관", "명현관"};
         ArrayList<LatLng> routes = new ArrayList<>();
         for (int i = 0; i < stations.length - 1; i++) {
             Log.e("DEBUG --> ", stations[i] + "/" + stations[i+1]);
@@ -1473,4 +1480,5 @@ public class StationInfo {
         }
         return routes;
     }
+    
 }

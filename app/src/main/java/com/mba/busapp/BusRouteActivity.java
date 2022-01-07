@@ -77,11 +77,9 @@ public class BusRouteActivity extends AppCompatActivity implements OnMapReadyCal
     public void onMapReady(@NonNull NaverMap naverMap) {
         mapManager = new NaverMapManager(naverMap, this);
         mapManager.setCameraPosition(new LatLng(37.233972549267705, 127.18874893910944), 15);
-//        mapManager.disableMarker_clickEvent();
         mapManager.enableMarker_MjuStation();
         mapManager.enablePoly_MjuStation();
-        // mapManager.enableLocationButton(); 문제있네...
-
+        mapManager.enableLocation();
     }
 
 

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="213dp"
+            android:background="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:layout_editor_absoluteX="2dp">
+
+
+            <TextView
+                android:id="@+id/tvStations"
+                style="@style/Binggrae.content"
+                android:layout_width="70dp"
+                android:layout_height="50dp"
+                android:autoSizeMaxTextSize="20sp"
+                android:autoSizeMinTextSize="13sp"
+                android:autoSizeTextType="uniform"
+                android:gravity="bottom|left"
+                android:text="정류장"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@id/ivStations"
+                app:layout_constraintStart_toStartOf="@id/ivStations" />
+
+            <TextView
+                android:id="@+id/tvStationLocation"
+                style="@style/Binggrae.content"
+                android:layout_width="160dp"
+                android:layout_height="50dp"
+                android:layout_marginBottom="1dp"
+                android:gravity="bottom|left"
+                android:text="정류장 설명"
+                android:textColor="@color/gray"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/tvStations"
+                app:layout_constraintStart_toEndOf="@id/tvStations" />
+
+            <ImageView
+                android:id="@+id/ivStations"
+                android:layout_width="250dp"
+                android:layout_height="130dp"
+                android:layout_marginTop="60dp"
+                android:src="@drawable/mju_chamber"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.11"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/btnSearch"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="@drawable/custom_button_round"
+                android:contentDescription="@string/app_name"
+                android:onClick="btn_moveNext"
+                android:src="@drawable/ic_bus"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.891"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.556" />
+
+            <TextView
+                android:id="@+id/tvBusSearch"
+                style="@style/Binggrae.content"
+                android:layout_width="80dp"
+                android:layout_height="20dp"
+                android:gravity="center"
+                android:text="@string/search_bus"
+                android:textColor="@color/purple_700"
+                android:textSize="12sp"
+                android:textStyle="bold"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.888"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnSearch" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
