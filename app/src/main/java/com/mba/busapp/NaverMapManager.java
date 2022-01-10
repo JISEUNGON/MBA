@@ -57,6 +57,9 @@ public class NaverMapManager {
         this.clickEvent = true;
         this.poly_width = 8;
         this.markerClickListener = null;
+
+        // 대중교통 그룹 추가
+        naverMap.setLayerGroupEnabled(NaverMap.LAYER_GROUP_TRANSIT, true);
     }
 
     /**
@@ -264,7 +267,7 @@ public class NaverMapManager {
      * @param position 이동할 위치
      */
     public void setCameraPosition(LatLng position, int zoom) {
-        CameraUpdate cameraUpdate = CameraUpdate.scrollAndZoomTo(position,zoom).animate(CameraAnimation.None, 3000);
+        CameraUpdate cameraUpdate = CameraUpdate.scrollAndZoomTo(position, zoom).animate(CameraAnimation.Fly, 3000);
         naverMap.moveCamera(cameraUpdate);
     }
 

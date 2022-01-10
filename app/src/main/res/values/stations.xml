@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--
+        명지대역 정류장
+    -->
     <string-array name="MJSTATION_WEEKDAY_STATIONS">
         <item>이마트·상공회의소</item>
         <item>진입로</item>
         <item>명지대역</item>
         <item>진입로(명지대방향)</item>
         <item>이마트·상공회의소(명지대방향)</item>
-        <item>명진당</item>
+        <item>명지대학교 자연캠퍼스</item>
     </string-array>
+    <!--
+        시내 정류장
+    -->
     <string-array name="CITY_WEEKDAY_STATIONS">
         <item>이마트·상공회의소</item>
         <item>진입로</item>
@@ -16,13 +22,19 @@
         <item>중앙공영주차장</item>
         <item>진입로(명지대방향)</item>
         <item>이마트·상공회의소(명지대방향)</item>
-        <item>제1공학관</item>
+        <item>명지대학교 자연캠퍼스</item>
     </string-array>
+    <!--
+        기흥역
+    -->
     <string-array name="GHSTATION_WEEKDAY_STATIONS">
         <item>기흥역</item>
-        <item>버스관리사무소</item>
+        <item>명지대학교 자연캠퍼스</item>
     </string-array>
-    <string-array name="WEEKEND_STATIONS">
+    <!--
+        공휴일 및 방학 중 시내/명지대역 정류장
+    -->
+    <string-array name="WEEKEND_VACTION_STATIONS">
         <item>이마트·상공회의소</item>
         <item>진입로</item>
         <item>동부경찰서</item>
@@ -31,7 +43,7 @@
         <item>명지대역</item>
         <item>진입로(명지대방향)</item>
         <item>이마트·상공회의소(명지대방향)</item>
-        <item>제1공학관</item>
+        <item>명지대학교 자연캠퍼스</item>
     </string-array>
 
     <string-array name="spinner">

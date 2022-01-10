@@ -70,7 +70,6 @@ public class BusSelectActivity extends AppCompatActivity {
             }
         });
 
-
         // 학기 리스너
         ib03.setOnClickListener(new View.OnClickListener() {
             @Override

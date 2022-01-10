@@ -4,13 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <!--        android:background="@drawable/border"-->
-
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:stretchColumns="0, 1"
+        android:background="@drawable/table_border"
+        android:stretchColumns="*"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TableRow
             android:layout_width="match_parent"
@@ -19,18 +20,20 @@
             <TextView
                 android:id="@+id/textView2"
                 style="@style/Binggrae.title"
-                android:layout_margin="1dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="1dp"
+                android:background="@drawable/table_outer"
                 android:gravity="center"
                 android:text="출발 시간" />
 
             <TextView
                 android:id="@+id/textView3"
                 style="@style/Binggrae.title"
-                android:layout_margin="1dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="1dp"
+                android:background="@drawable/table_outer"
                 android:gravity="center"
                 android:text="{정류장 명} 도착 시간" />
         </TableRow>
@@ -42,272 +45,24 @@
             <TextView
                 android:id="@+id/textView4"
                 style="@style/Binggrae.content"
-                android:layout_margin="1dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="1dp"
+                android:background="@drawable/table_outer"
                 android:gravity="center"
                 android:text="08:00" />
 
             <TextView
                 android:id="@+id/textView5"
                 style="@style/Binggrae.content"
-                android:layout_margin="1dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="1dp"
+                android:background="@drawable/table_outer"
                 android:gravity="center"
                 android:text="08:15" />
         </TableRow>
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/textView6"
-                style="@style/Binggrae.content"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="1dp"
-                android:gravity="center"
-                android:text="08:20" />
-
-            <TextView
-                android:id="@+id/textView7"
-                style="@style/Binggrae.content"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="1dp"
-                android:gravity="center"
-                android:text="08:35" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                style="@style/Binggrae.content"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="1dp"
-                android:gravity="center"
-                android:text="08:30" />
-
-            <TextView
-                style="@style/Binggrae.content"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="1dp"
-                android:gravity="center"
-                android:text="08:45" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                style="@style/Binggrae.content"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="1dp"
-                android:gravity="center"
-                android:text="08:30" />
-
-            <TextView
-                style="@style/Binggrae.content"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="1dp"
-                android:gravity="center"
-                android:text="08:45" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                style="@style/Binggrae.content"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="1dp"
-                android:gravity="center"
-                android:text="08:30" />
-
-            <TextView
-                style="@style/Binggrae.content"
-                android:layout_width="wrap_content"
-                android:layout_margin="1dp"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="08:45" />
-        </TableRow>
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                style="@style/Binggrae.content"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="1dp"
-                android:gravity="center"
-                android:text="08:30" />
-
-            <TextView
-                style="@style/Binggrae.content"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="1dp"
-                android:gravity="center"
-                android:text="08:45" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <TextView
-                style="@style/Binggrae.content"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="1dp"
-                android:gravity="center"
-                android:text="08:30" />
-
-            <TextView
-                style="@style/Binggrae.content"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="1dp"
-                android:gravity="center"
-                android:text="08:45" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <TextView
-                style="@style/Binggrae.content"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="1dp"
-                android:gravity="center"
-                android:text="08:30" />
-
-            <TextView
-                style="@style/Binggrae.content"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="1dp"
-                android:gravity="center"
-                android:text="08:45" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                style="@style/Binggrae.content"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="1dp"
-                android:gravity="center"
-                android:text="08:30" />
-
-            <TextView
-                style="@style/Binggrae.content"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="1dp"
-                android:gravity="center"
-                android:text="08:45" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                style="@style/Binggrae.content"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="1dp"
-                android:gravity="center"
-                android:text="08:30" />
-
-            <TextView
-                style="@style/Binggrae.content"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="1dp"
-                android:gravity="center"
-                android:text="08:45" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                style="@style/Binggrae.content"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="1dp"
-                android:gravity="center"
-                android:text="08:30" />
-
-            <TextView
-                style="@style/Binggrae.content"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="1dp"
-                android:gravity="center"
-                android:text="08:45" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                style="@style/Binggrae.content"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="1dp"
-                android:gravity="center"
-                android:text="08:30" />
-
-            <TextView
-                style="@style/Binggrae.content"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="1dp"
-                android:gravity="center"
-                android:text="08:45" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginVertical="5dp">
-
-            <TextView
-                style="@style/Binggrae.content"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="1dp"
-                android:gravity="center"
-                android:text="08:30" />
-
-            <TextView
-                style="@style/Binggrae.content"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="1dp"
-                android:gravity="center"
-                android:text="09:45" />
-        </TableRow>
     </TableLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

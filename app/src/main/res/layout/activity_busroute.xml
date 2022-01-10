@@ -8,389 +8,149 @@
     <com.sothree.slidinguppanel.SlidingUpPanelLayout
         android:id="@+id/busroute_slidingpanel"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:gravity="bottom"
-        app:umanoPanelHeight="0dp"
-        app:umanoShadowHeight="0dp"
         app:umanoOverlay="true"
+        app:umanoPanelHeight="0dp"
+        app:umanoScrollableView="@id/busroute_scrollView"
+        app:umanoShadowHeight="0dp"
         tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        tools:layout_editor_absoluteY="0dp"
+        tools:ignore="MissingConstraints">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="2">
-
-            <Spinner
-                android:id="@+id/routes_spinner"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:minHeight="32dp"
-                style="@style/Binggrae.content"
-                tools:ignore="SpeakableTextPresentCheck" />
-    </LinearLayout>
-
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-        <com.naver.maps.map.MapView
-            android:id="@+id/busroute_navermap"
-            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:layout_editor_absoluteX="-100dp"
-            tools:layout_editor_absoluteY="-62dp" />
+            android:orientation="vertical">
 
-        <ImageButton
-            android:id="@+id/btnBusSchedule"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2">
 
-            android:background="@drawable/custom_button_round"
-            android:contentDescription="@string/app_name"
-            android:onClick="btn_slidingView"
-            android:src="@drawable/ic_bus_schedule"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintHorizontal_bias="0.95"
-            app:layout_constraintVertical_bias="0.95"
-            app:layout_constraintStart_toStartOf="parent" />
+                <Spinner
+                    android:id="@+id/routes_spinner"
+                    style="@style/Binggrae.content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:minHeight="32dp"
+                    tools:ignore="SpeakableTextPresentCheck" />
+            </LinearLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-    </LinearLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.naver.maps.map.MapView
+                    android:id="@+id/busroute_navermap"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <ImageButton
+                    android:id="@+id/btnBusSchedule"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+
+                    android:background="@drawable/custom_button_round"
+                    android:contentDescription="@string/app_name"
+                    android:onClick="btn_slidingView"
+                    android:src="@drawable/ic_bus_schedule"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.95"
+                    app:layout_constraintStart_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.95" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="500dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
 
             <View
-                android:id="@+id/view"
-                android:layout_width="60dp"
-                android:layout_height="5dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="176dp"
-                android:background="@drawable/slidinglayout_gray_drag_tip"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/view2" />
-
-            <View
                 android:id="@+id/view2"
-                android:layout_width="409dp"
-                android:layout_height="528dp"
+                android:layout_width="match_parent"
+                android:layout_height="500dp"
                 android:background="@drawable/slidinglayout_round"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TableLayout
-                android:layout_width="381dp"
-                android:layout_height="496dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="16dp"
-                android:stretchColumns="0, 1"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view">
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent">
 
-                <TableRow
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginVertical="5dp">
+                    android:layout_height="wrap_content">
+
+                    <View
+                        android:id="@+id/view"
+                        android:layout_width="60dp"
+                        android:layout_height="5dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginEnd="176dp"
+                        android:background="@drawable/slidinglayout_gray_drag_tip"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
 
                     <TextView
-                        android:id="@+id/textView2"
+                        android:id="@+id/busroute_col1"
                         style="@style/Binggrae.title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="1"
                         android:gravity="center"
-                        android:text="출발 시간" />
+                        android:text="출발 시각" />
 
                     <TextView
-                        android:id="@+id/textView3"
+                        android:id="@+id/busroute_col2"
                         style="@style/Binggrae.title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:gravity="center"
-                        android:text="{정류장 명} 도착 시간" />
-                </TableRow>
+                        android:text="진입로 경유\n예정 시각" />
+                </LinearLayout>
 
-                <TableRow
+                <ScrollView
+                    android:id="@+id/busroute_scrollView"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginVertical="5dp">
+                    android:layout_height="wrap_content"
+                    tools:ignore="SpeakableTextPresentCheck">
 
-                    <TextView
-                        android:id="@+id/textView4"
-                        style="@style/Binggrae.content"
-                        android:layout_width="wrap_content"
+                    <TableLayout
+                        android:id="@+id/busroute_tablelayout"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="08:00" />
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/table_border"
+                        android:stretchColumns="*">
 
-                    <TextView
-                        android:id="@+id/textView5"
-                        style="@style/Binggrae.content"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="08:15" />
-                </TableRow>
+                    </TableLayout>
+                </ScrollView>
 
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginVertical="5dp">
-
-                    <TextView
-                        android:id="@+id/textView6"
-                        style="@style/Binggrae.content"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="08:20" />
-
-                    <TextView
-                        android:id="@+id/textView7"
-                        style="@style/Binggrae.content"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="08:35" />
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginVertical="5dp">
-
-                    <TextView
-                        style="@style/Binggrae.content"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="08:30" />
-
-                    <TextView
-                        style="@style/Binggrae.content"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="08:45" />
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginVertical="5dp">
-
-                    <TextView
-                        style="@style/Binggrae.content"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="08:30" />
-
-                    <TextView
-                        style="@style/Binggrae.content"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="08:45" />
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginVertical="5dp">
-
-                    <TextView
-                        style="@style/Binggrae.content"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="08:30" />
-
-                    <TextView
-                        style="@style/Binggrae.content"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="08:45" />
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginVertical="5dp">
-
-                    <TextView
-                        style="@style/Binggrae.content"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="08:30" />
-
-                    <TextView
-                        style="@style/Binggrae.content"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="08:45" />
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginVertical="5dp">
-
-                    <TextView
-                        style="@style/Binggrae.content"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="08:30" />
-
-                    <TextView
-                        style="@style/Binggrae.content"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="08:45" />
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginVertical="5dp">
-
-                    <TextView
-                        style="@style/Binggrae.content"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="08:30" />
-
-                    <TextView
-                        style="@style/Binggrae.content"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="08:45" />
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginVertical="5dp">
-
-                    <TextView
-                        style="@style/Binggrae.content"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="08:30" />
-
-                    <TextView
-                        style="@style/Binggrae.content"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="08:45" />
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginVertical="5dp">
-
-                    <TextView
-                        style="@style/Binggrae.content"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="08:30" />
-
-                    <TextView
-                        style="@style/Binggrae.content"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="08:45" />
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginVertical="5dp">
-
-                    <TextView
-                        style="@style/Binggrae.content"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="08:30" />
-
-                    <TextView
-                        style="@style/Binggrae.content"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="08:45" />
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginVertical="5dp">
-
-                    <TextView
-                        style="@style/Binggrae.content"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="08:30" />
-
-                    <TextView
-                        style="@style/Binggrae.content"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="08:45" />
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginVertical="5dp">
-
-                    <TextView
-                        style="@style/Binggrae.content"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="08:30" />
-
-                    <TextView
-                        style="@style/Binggrae.content"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="08:45" />
-                </TableRow>
-            </TableLayout>
+            </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.sothree.slidinguppanel.SlidingUpPanelLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -63,6 +63,12 @@ public class DateFormat implements Compare{
         }
     }
 
+    public int compareTo(String src, String dest) {
+        DateFormat srcTime = new DateFormat(src);
+        DateFormat destTime = new DateFormat(dest);
+        return srcTime.getTotalMin() - destTime.getTotalMin();
+    }
+
     /**
      * 객체 생성하지 않고 비교하기 위한 compare
      * @param src String
@@ -78,10 +84,15 @@ public class DateFormat implements Compare{
         return srcTime.getTotalMin() - destTime.getTotalMin();
     }
 
-    @Override
-    public int compareTo(String src, String dest) {
-        DateFormat srcTime = new DateFormat(src);
-        DateFormat destTime = new DateFormat(dest);
-        return srcTime.getTotalMin() - destTime.getTotalMin();
+    /**
+     * 시간 덧셈 후 String
+     * @param offset Full Format 시간 (08:00, 09:15 .. ETC)
+     * @param delta minute
+     * @return offset + delta
+     */
+    public static String addTime(String offset, int delta) {
+        DateFormat src = new DateFormat(offset);
+        return new DateFormat(src.getTotalMin() + delta).getTime();
     }
+
 }

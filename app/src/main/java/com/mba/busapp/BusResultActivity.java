@@ -250,14 +250,14 @@ public class BusResultActivity extends AppCompatActivity implements OnMapReadyCa
         MJSTATION_WEEKDAY_STATIONS = getResources().getStringArray(R.array.MJSTATION_WEEKDAY_STATIONS);
         CITY_WEEKDAY_STATIONS = getResources().getStringArray(R.array.CITY_WEEKDAY_STATIONS);
         GHSTATION_WEEKDAY_STATIONS = getResources().getStringArray(R.array.GHSTATION_WEEKDAY_STATIONS);
-        WEEKEND_STATIONS = getResources().getStringArray(R.array.WEEKEND_STATIONS);
+        WEEKEND_STATIONS = getResources().getStringArray(R.array.WEEKEND_VACTION_STATIONS);
 
         //시간표 데이터 세팅
-        MJSTATION_WEEKDAY_TIMETABLE = getResources().getStringArray(R.array.MJSTATION_WEEKDAY_TIMETABLE);
-        CITY_WEEKDAY_TIMETABLE = getResources().getStringArray(R.array.CITY_WEEKDAY_TIMETABLE);
-        INTEGRATED_WEEKDAY_TIMETABLE = getResources().getStringArray(R.array.INTEGRATED_WEEKDAY_TIMETABLE);
-        GHSTATION_WEEKDAY_TIMETABLE = getResources().getStringArray(R.array.GHSTATION_WEEKDAY_TIMETABLE);
-        WEEKEND_TIMETABLE = getResources().getStringArray(R.array.WEEKEND_TIMETABLE);
+        MJSTATION_WEEKDAY_TIMETABLE = getResources().getStringArray(R.array.MJSTATION_SEMESTER_WEEKDAY_TIMETABLE);
+        CITY_WEEKDAY_TIMETABLE = getResources().getStringArray(R.array.CITY_SEMESTER_WEEKDAY_TIMETABLE);
+        INTEGRATED_WEEKDAY_TIMETABLE = getResources().getStringArray(R.array.INTEGRATED_SEMESTER_WEEKDAY_TIMETABLE);
+        GHSTATION_WEEKDAY_TIMETABLE = getResources().getStringArray(R.array.GHSTATION_SEMESTER_WEEKDAY_TIMETABLE);
+        WEEKEND_TIMETABLE = getResources().getStringArray(R.array.INTEGRATED_VACTION_OR_WEEKEND_TIMETABLE);
     }
 
     public boolean isWeekend(String days){
