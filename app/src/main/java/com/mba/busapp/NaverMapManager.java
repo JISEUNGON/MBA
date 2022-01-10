@@ -277,7 +277,7 @@ public class NaverMapManager {
      * @param position 이동할 위치
      */
     public void setCameraPosition(LatLng position) {
-        CameraUpdate cameraUpdate = CameraUpdate.scrollTo(position).animate(CameraAnimation.Fly, 3000);
+        CameraUpdate cameraUpdate = CameraUpdate.scrollTo(position).animate(CameraAnimation.Easing, 3000);
         naverMap.moveCamera(cameraUpdate);
     }
 

@@ -40,6 +40,7 @@ import java.util.TimeZone;
 
 public class BusSearchActivity  extends AppCompatActivity implements OnMapReadyCallback, AdapterView.OnItemSelectedListener {
     private NaverMapManager mapManager;
+    private MapView mapView;
     private int switch_counter;
     private SlidingUpPanelLayout slidingUpPanelLayout;
     //컴포넌트
@@ -119,7 +120,7 @@ public class BusSearchActivity  extends AppCompatActivity implements OnMapReadyC
         spinner.setAdapter(spinnerArrayAdapter);
 
         // 네이버맵 Listener 연결
-        MapView mapView = findViewById(R.id.bussearch_navermap);
+        mapView = findViewById(R.id.bussearch_navermap);
         mapView.getMapAsync(this);
     }
 
@@ -129,6 +130,7 @@ public class BusSearchActivity  extends AppCompatActivity implements OnMapReadyC
      */
     @Override
     public void onMapReady(@NonNull NaverMap naverMap) {
+
         mapManager = new NaverMapManager(naverMap, this);
 
         mapManager.setCameraPosition(new LatLng(37.233972549267705, 127.18874893910944), 15);
@@ -182,6 +184,8 @@ public class BusSearchActivity  extends AppCompatActivity implements OnMapReadyC
         currentTime = setCurrentTime(Calendar.getInstance().getTime());
         targetStation = spinner.getSelectedItem().toString();
         toSchool = isToSchool(switch_counter);
+
+        slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
 
         Intent intent = new Intent(this, BusResultActivity.class);
         intent.putExtra("currentTime", currentTime);
@@ -298,5 +302,54 @@ public class BusSearchActivity  extends AppCompatActivity implements OnMapReadyC
 
     public Object getOuter() {
         return this;
+    }
+
+    @Override
+    public void onStart()
+    {
+        super.onStart();
+        mapView.onStart();
+    }
+
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+        mapView.onResume();
+    }
+
+    @Override
+    public void onPause()
+    {
+        super.onPause();
+        mapView.onPause();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState)
+    {
+        super.onSaveInstanceState(outState);
+        mapView.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onStop()
+    {
+        super.onStop();
+        mapView.onStop();
+    }
+
+    @Override
+    public void onDestroy()
+    {
+        super.onDestroy();
+        mapView.onDestroy();
+    }
+
+    @Override
+    public void onLowMemory()
+    {
+        super.onLowMemory();
+        mapView.onLowMemory();
     }
 }

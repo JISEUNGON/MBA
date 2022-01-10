@@ -20,6 +20,7 @@ import java.util.Arrays;
 import java.util.Date;
 
 public class BusResultActivity extends AppCompatActivity implements OnMapReadyCallback {
+    MapView mapView;
     NaverMapManager naverMapManager;
 
     //넘겨온 변수
@@ -234,7 +235,7 @@ public class BusResultActivity extends AppCompatActivity implements OnMapReadyCa
         Log.d("버스타입", busType);
 
         // 네이버맵 Listener 연결
-        MapView mapView = findViewById(R.id.busresult_navermap);
+        mapView = findViewById(R.id.busresult_navermap);
         mapView.getMapAsync(this);
     }
 
@@ -460,5 +461,53 @@ public class BusResultActivity extends AppCompatActivity implements OnMapReadyCa
         }
         return arrivalData;
     }
-    
+
+    @Override
+    public void onStart()
+    {
+        super.onStart();
+        mapView.onStart();
+    }
+
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+        mapView.onResume();
+    }
+
+    @Override
+    public void onPause()
+    {
+        super.onPause();
+        mapView.onPause();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState)
+    {
+        super.onSaveInstanceState(outState);
+        mapView.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onStop()
+    {
+        super.onStop();
+        mapView.onStop();
+    }
+
+    @Override
+    public void onDestroy()
+    {
+        super.onDestroy();
+        mapView.onDestroy();
+    }
+
+    @Override
+    public void onLowMemory()
+    {
+        super.onLowMemory();
+        mapView.onLowMemory();
+    }
 }

@@ -30,6 +30,7 @@ import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Map;
 
 /**
  * 버스 노선도 화면
@@ -44,6 +45,7 @@ public class BusRouteActivity extends AppCompatActivity implements OnMapReadyCal
     private SlidingUpPanelLayout slidingUpPanelLayout;
     private String[] itemList;
     private Spinner routeSpinner;
+    private MapView mapView;
 
     // 넘겨온 값 저장할 변수
     private String day;
@@ -61,7 +63,7 @@ public class BusRouteActivity extends AppCompatActivity implements OnMapReadyCal
 
 
         // 네이버맵 Listener 연결
-        MapView mapView = findViewById(R.id.busroute_navermap);
+        mapView = findViewById(R.id.busroute_navermap);
         mapView.getMapAsync(this);
 
 
@@ -283,5 +285,54 @@ public class BusRouteActivity extends AppCompatActivity implements OnMapReadyCal
 
     public String getCurrentTime() {
         return new SimpleDateFormat("HH:mm").format(System.currentTimeMillis());
+    }
+
+    @Override
+    public void onStart()
+    {
+        super.onStart();
+        mapView.onStart();
+    }
+
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+        mapView.onResume();
+    }
+
+    @Override
+    public void onPause()
+    {
+        super.onPause();
+        mapView.onPause();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState)
+    {
+        super.onSaveInstanceState(outState);
+        mapView.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onStop()
+    {
+        super.onStop();
+        mapView.onStop();
+    }
+
+    @Override
+    public void onDestroy()
+    {
+        super.onDestroy();
+        mapView.onDestroy();
+    }
+
+    @Override
+    public void onLowMemory()
+    {
+        super.onLowMemory();
+        mapView.onLowMemory();
     }
 }
