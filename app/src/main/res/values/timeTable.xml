@@ -4,8 +4,8 @@
         기흥역 시간표
     -->
     <string-array name="GHSTATION_SEMESTER_WEEKDAY_TIMETABLE">
-        <item>8:00</item>
-        <item>9:00</item>
+        <item>08:00</item>
+        <item>09:00</item>
         <item>10:00</item>
         <item>11:00</item>
         <item>12:00</item>
@@ -21,17 +21,17 @@
         명지대역 방향 시간표
     -->
     <string-array name="MJSTATION_SEMESTER_WEEKDAY_TIMETABLE">
-        <item>8:00</item>
-        <item>8:15</item>
-        <item>8:20</item>
-        <item>8:35</item>
-        <item>8:45</item>
-        <item>9:00</item>
-        <item>9:15</item>
-        <item>9:30</item>
-        <item>9:35</item>
-        <item>9:40</item>
-        <item>9:55</item>
+        <item>08:00</item>
+        <item>08:15</item>
+        <item>08:20</item>
+        <item>08:35</item>
+        <item>08:45</item>
+        <item>09:00</item>
+        <item>09:15</item>
+        <item>09:30</item>
+        <item>09:35</item>
+        <item>09:40</item>
+        <item>09:55</item>
         <item>10:20</item>
         <item>10:30</item>
         <item>10:45</item>
@@ -65,17 +65,17 @@
         <item>19:30</item>
     </string-array>
     <string-array name="MJSTATION_VACATION_SEMESTER_WEEKDAY_TIMETABLE">
-        <item>8:00</item>
-        <item>8:15</item>
-        <item>8:20</item>
-        <item>8:35</item>
-        <item>8:45</item>
-        <item>9:00</item>
-        <item>9:15</item>
-        <item>9:30</item>
-        <item>9:35</item>
-        <item>9:40</item>
-        <item>9:55</item>
+        <item>08:00</item>
+        <item>08:15</item>
+        <item>08:20</item>
+        <item>08:35</item>
+        <item>08:45</item>
+        <item>09:00</item>
+        <item>09:15</item>
+        <item>09:30</item>
+        <item>09:35</item>
+        <item>09:40</item>
+        <item>09:55</item>
         <item>10:20</item>
         <item>10:30</item>
         <item>10:45</item>
@@ -109,8 +109,8 @@
         시내 방향 셔틀버스
     -->
     <string-array name="CITY_SEMESTER_WEEKDAY_TIMETABLE">
-        <item>8:05</item>
-        <item>8:55</item>
+        <item>08:05</item>
+        <item>08:55</item>
         <item>10:10</item>
         <item>11:20</item>
         <item>13:10</item>
@@ -121,8 +121,8 @@
         <item>20:00</item>
     </string-array>
     <string-array name="CITY_VACATION_SEMESTER_WEEKDAY_TIMETABLE">
-        <item>8:05</item>
-        <item>8:55</item>
+        <item>08:05</item>
+        <item>08:55</item>
         <item>10:10</item>
         <item>11:20</item>
         <item>13:10</item>
@@ -188,19 +188,19 @@
         <item>20:00</item>
     </string-array>
     <string-array name="INTEGRATED_VACATION_SEMESTER_WEEKEND_TIMETABLE">
-        <item>8:00</item>
-        <item>8:05</item>
-        <item>8:15</item>
-        <item>8:20</item>
-        <item>8:35</item>
-        <item>8:45</item>
-        <item>8:55</item>
-        <item>9:00</item>
-        <item>9:15</item>
-        <item>9:30</item>
-        <item>9:35</item>
-        <item>9:40</item>
-        <item>9:55</item>
+        <item>08:00</item>
+        <item>08:05</item>
+        <item>08:15</item>
+        <item>08:20</item>
+        <item>08:35</item>
+        <item>08:45</item>
+        <item>08:55</item>
+        <item>09:00</item>
+        <item>09:15</item>
+        <item>09:30</item>
+        <item>09:35</item>
+        <item>09:40</item>
+        <item>09:55</item>
         <item>10:10</item>
         <item>10:20</item>
         <item>10:30</item>
@@ -237,8 +237,8 @@
         <item>18:00</item>
     </string-array>
     <string-array name="INTEGRATED_VACTION_OR_WEEKEND_TIMETABLE">
-        <item>8:20</item>
-        <item>9:20</item>
+        <item>0`8:20</item>
+        <item>09:20</item>
         <item>10:20</item>
         <item>11:20</item>
         <item>12:20</item>

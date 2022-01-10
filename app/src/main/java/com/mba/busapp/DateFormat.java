@@ -17,6 +17,7 @@ public class DateFormat implements Compare{
 
     int totalMin;
     String timeFormat;
+
     //DateFormat으로 받은 HH:MM format을 비교할 수 있도록 분으로 변환한다.
     //08:00 = 8 x 60 = 480 , 12:30 = 12 X 60 + 30 = 750, 14:20 = 14 X 60 + 20 = 860 ...
     public DateFormat(String date){
@@ -24,6 +25,7 @@ public class DateFormat implements Compare{
         String[] time = date.split(":");
         totalMin = Integer.parseInt(time[0])*60 + Integer.parseInt(time[1]);
     }
+
     //파라메터가 없을 경우 현재 시간으로 데이터를 생성한다.
     public DateFormat(){
         long now = System.currentTimeMillis();
@@ -36,9 +38,13 @@ public class DateFormat implements Compare{
 
     public DateFormat(int totalMin){
         this.totalMin = totalMin;
-        int hour = totalMin/60;
-        int min = totalMin - hour*60;
-        this.timeFormat = hour + ":" + min;
+        int hour = totalMin / 60;
+        int min = totalMin - hour * 60;
+
+        if (hour < 10 && min >= 10) this.timeFormat = "0" + hour + ":" + min;
+        else if (hour < 10 && min < 10) this.timeFormat = "0" + hour + ":0" + min;
+        else if (hour >= 10 && min < 10) this.timeFormat = hour + ":0" + min;
+        else this.timeFormat = hour + ":" + min;
     }
 
     //분 형태의 시간을 반환한다.

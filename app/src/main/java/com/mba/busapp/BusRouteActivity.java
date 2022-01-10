@@ -1,6 +1,7 @@
 package com.mba.busapp;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Layout;
 import android.util.Log;
@@ -27,6 +28,7 @@ import com.naver.maps.map.OnMapReadyCallback;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 import java.nio.charset.StandardCharsets;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 /**
@@ -95,10 +97,8 @@ public class BusRouteActivity extends AppCompatActivity implements OnMapReadyCal
     @Override
     public void onMapReady(@NonNull NaverMap naverMap) {
         mapManager = new NaverMapManager(naverMap, this);
-        mapManager.setCameraPosition(new LatLng(37.2329535, 127.1892392), 13);
-        mapManager.enableMarker_MjuStation();
-        mapManager.enablePoly_MjuStation();
         mapManager.enableLocation();
+        mapManager.disableMarker_clickEvent();
 
         showMarker((String) routeSpinner.getSelectedItem());
         makeTable((String) routeSpinner.getSelectedItem());
@@ -116,11 +116,14 @@ public class BusRouteActivity extends AppCompatActivity implements OnMapReadyCal
                 if (semaster.equals("방학") || day.equals("주말")) {
                     mapManager.enableMarker_Vacation();
                     mapManager.enablePoly_Vaction();
+                    mapManager.setCameraPosition(new LatLng(37.2297982,127.1959162), 13);
+
                 } else {
                     mapManager.enableMarker_MjuStation();
                     mapManager.enablePoly_MjuStation();
+                    mapManager.setCameraPosition(new LatLng(37.2329535, 127.1892392), 13);
+
                 }
-                mapManager.setCameraPosition(new LatLng(37.2329535, 127.1892392), 13);
                 break;
             case "시내":
                 if (semaster.equals("방학") || day.equals("주말")) {
@@ -131,6 +134,7 @@ public class BusRouteActivity extends AppCompatActivity implements OnMapReadyCal
                     mapManager.enablePoly_DownTown();
                 }
                 mapManager.setCameraPosition(new LatLng(37.2297982,127.1959162), 13);
+
                 break;
             case "기흥역":
                 mapManager.enableMarker_Giheung();
@@ -166,7 +170,7 @@ public class BusRouteActivity extends AppCompatActivity implements OnMapReadyCal
 
                     // 기흥역은 15분 딜레이
                     estimated_times = depart_times.clone();
-                    Arrays.stream(estimated_times).map(e -> DateFormat.addTime(e, 15));
+                    for(int i=0; i < estimated_times.length; i++) estimated_times[i] = DateFormat.addTime(estimated_times[i], 15);
                 }
 
                 column_text = "기흥역 도착\n예정 시간";
@@ -181,7 +185,8 @@ public class BusRouteActivity extends AppCompatActivity implements OnMapReadyCal
                 if (semaster.equals("방학") || day.equals("주말")) {
                     depart_times = getResources().getStringArray(R.array.INTEGRATED_VACTION_OR_WEEKEND_TIMETABLE);
                     estimated_times = depart_times.clone();
-                    Arrays.stream(estimated_times).map(e -> DateFormat.addTime(e, 25));
+                    for(int i=0; i < estimated_times.length; i++) estimated_times[i] = DateFormat.addTime(estimated_times[i], 25);
+
                 } else {
                     if(semaster.equals("계절학기")) {
                         depart_times = getResources().getStringArray(R.array.MJSTATION_VACATION_SEMESTER_WEEKDAY_TIMETABLE);
@@ -191,7 +196,7 @@ public class BusRouteActivity extends AppCompatActivity implements OnMapReadyCal
                         Log.e("[ERROR]", "[BusRouteActivity]<makeTable> UnknownKeyword : " + semaster);
                     }
                     estimated_times = depart_times.clone();
-                    Arrays.stream(estimated_times).map(e -> DateFormat.addTime(e, 15));
+                    for(int i=0; i < estimated_times.length; i++) estimated_times[i] = DateFormat.addTime(estimated_times[i], 15);
                 }
 
                 column_text = "진입로 경유\n예정 시간";
@@ -216,7 +221,7 @@ public class BusRouteActivity extends AppCompatActivity implements OnMapReadyCal
                         Log.e("[ERROR]", "[BusRouteActivity]<makeTable> UnknownKeyword : " + semaster);
                     }
                     estimated_times = depart_times.clone();
-                    Arrays.stream(estimated_times).map(e -> DateFormat.addTime(e, 15));
+                    for(int i=0; i < estimated_times.length; i++) estimated_times[i] = DateFormat.addTime(estimated_times[i], 15);
                 }
 
                 column_text = "진입로 경유\n예정 시간";
@@ -234,6 +239,11 @@ public class BusRouteActivity extends AppCompatActivity implements OnMapReadyCal
 
         // Column 명 변경
         ((TextView) findViewById(R.id.busroute_col2)).setText(column_text);
+
+        // 현재 시간 확인
+        String current_time = getCurrentTime();
+        boolean col1_colored = false;
+        boolean col2_colored = false;
 
         for(int i = 0; i < depart_times.length; i++) {
             // TableRow 생성
@@ -253,6 +263,14 @@ public class BusRouteActivity extends AppCompatActivity implements OnMapReadyCal
                 view.setLayoutParams(view_layoutParams);
                 view.setBackgroundResource(R.drawable.table_outer);
 
+                // 가장 가까운 값 파란색으로..
+                if (j == 0 && !col1_colored && DateFormat.compare(current_time, time) <= 0) {
+                    view.setTextColor(Color.BLUE);
+                    col1_colored = true;
+                } else if (j == 1 && !col2_colored && DateFormat.compare(current_time, time) <= 0) {
+                    view.setTextColor(Color.BLUE);;
+                    col2_colored = true;
+                }
 
                 // TableRow에 textView 추가
                 tableRow.addView(view);
@@ -261,5 +279,9 @@ public class BusRouteActivity extends AppCompatActivity implements OnMapReadyCal
             // TableLayout에 Tablerow 추가
             tableLayout.addView(tableRow);
         }
+    }
+
+    public String getCurrentTime() {
+        return new SimpleDateFormat("HH:mm").format(System.currentTimeMillis());
     }
 }
