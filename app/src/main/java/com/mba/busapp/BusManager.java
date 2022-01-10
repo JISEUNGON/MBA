@@ -42,7 +42,14 @@ public class BusManager {
         return getRouteInfo("https://yax35ivans.apigw.ntruss.com/mba/v1/9KC9LrEB87/json");
     }
 
-
+    /**
+     * 방학 및 공휴일에 운행하는 노선
+     * @return
+     */
+    public static int[] getBusInfo_vacation_or_weekend(){
+        return getRouteInfo("https://yax35ivans.apigw.ntruss.com/mba/v1/ur857mfyes/json");
+    }
+    
     /**
      * 진입로(명지대 방향)에 도착하는 광역버스 정보를 API를 통하여 가져옵니다.
      *

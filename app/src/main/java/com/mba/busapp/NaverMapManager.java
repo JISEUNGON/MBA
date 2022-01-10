@@ -192,12 +192,13 @@ public class NaverMapManager {
      * 방학 중 셔틀버스 마커 활성화
      */
     public void enableMarker_Vacation() {
-        String[] stations = StationInfo.getInstance().getStationList_Vaction();
+        String[] stations = StationInfo.getInstance().getStationList_Vacation();
         for(String station: stations) {
             Marker marker = new Marker();
             marker.setOnClickListener(overlay -> markerOnClickEvent(marker)); // 클릭이벤트
             marker.setIcon(MarkerIcons.BLUE); // 아이콘 색상
             marker.setPosition(StationInfo.getInstance().getLatLng(station)); // 위치 설정
+
 
             // cpation 설정 ( 이 있으면 2줄로 표시
             if(station.contains("(")) {

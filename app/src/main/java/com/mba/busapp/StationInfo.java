@@ -1417,7 +1417,7 @@ public class StationInfo {
      * 방학 중 셔틀버스 정류장 정보
      * @return 방학 중 셔틀버스 정류장 정보
      */
-    public String[] getStationList_Vaction() {
+    public String[] getStationList_Vacation() {
         return new String[]{"명현관", "함박관", "명지대", "이마트·상공회의소", "진입로", "동부경찰서", "용인시장", "중앙공영주차장", "명지대역", "진입로(명지대방향)", "이마트·상공회의소(명지대방향)", "제1공학관", "명현관"};
     }
 
