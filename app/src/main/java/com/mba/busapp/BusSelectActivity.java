@@ -13,6 +13,15 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.temporal.ChronoField;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+
 public class BusSelectActivity extends AppCompatActivity {
 
     // 다음에 넘길 요일과 학기 String
@@ -108,6 +117,26 @@ public class BusSelectActivity extends AppCompatActivity {
             }
         });
 
+
+        /**
+         *  주말 여부
+         */
+        if (isWeekend()) {
+            ib01.performClick();
+        } else {
+            ib02.performClick();
+        }
+
+        /**
+         * 계절학기 여부
+         */
+        if (isSemester()) {
+            ib03.performClick();
+        } else if (isSeasonalSemester()) {
+            ib04.performClick();
+        } else {
+            ib05.performClick();
+        }
     }
 
 
@@ -125,6 +154,55 @@ public class BusSelectActivity extends AppCompatActivity {
             startActivity(intent);
         }
 
+    }
+
+    public boolean isWeekend() {
+        LocalDate today = LocalDate.now();
+
+        DayOfWeek day = DayOfWeek.of(today.get(ChronoField.DAY_OF_WEEK));
+        return day == DayOfWeek.SUNDAY || day == DayOfWeek.SATURDAY;
+    }
+
+    public boolean isSemester() {
+        /**
+         * 2022.03.02 ~ 06.14
+         * 2022.09.01 ~ 12.13
+         */
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
+
+            Date today = dateFormat.parse(String.valueOf(LocalDate.now()));
+            Date spring_start = dateFormat.parse("2022-03-02");
+            Date spring_end = dateFormat.parse("2022-06-14");
+            Date autumn_start = dateFormat.parse("2022-09-01");
+            Date autumn_end = dateFormat.parse("2023-12-13");
+
+            return spring_start.after(today) && spring_end.before(today) || autumn_start.after(today) && autumn_end.before(today);
+        } catch (Exception e) {
+
+        }
+        return true;
+    }
+
+    public boolean isSeasonalSemester() {
+        /**
+         * 2022.06.20 ~ 2022.07.08
+         * 2022.12.22 ~ 2023.01.11
+         */
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
+
+            Date today = dateFormat.parse(String.valueOf(LocalDate.now()));
+            Date summer_start = dateFormat.parse("2022-06-20");
+            Date summer_end = dateFormat.parse("2022-07-08");
+            Date winter_start = dateFormat.parse("2022-12-22");
+            Date winter_end = dateFormat.parse("2023-01-11");
+            return summer_start.after(today) && summer_end.before(today) || winter_start.after(today) && winter_end.before(today);
+        } catch (Exception e) {
+
+        }
+
+        return true;
     }
 }
 
