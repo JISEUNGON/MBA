@@ -63,7 +63,7 @@ public class BusManager {
                 String streamToString = streamOfString.collect(Collectors.joining());
 
                 String timeLeft = JsonParser.parseString(streamToString).getAsJsonObject().get("body").toString();
-                if (timeLeft.equals("")) return 9999;
+                if (timeLeft.equals("")) return -1;
                 else return Integer.parseInt(timeLeft);
             } else {
                 rd = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
@@ -73,7 +73,7 @@ public class BusManager {
             Log.e("[BusManager]", "<getBusInfo_city>" + e.getMessage());
             e.printStackTrace();
         }
-        return 9999;
+        return -1;
     }
 
     /**

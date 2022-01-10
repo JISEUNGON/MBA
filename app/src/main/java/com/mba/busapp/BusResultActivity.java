@@ -1,11 +1,14 @@
 package com.mba.busapp;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.naver.maps.geometry.LatLng;
@@ -14,6 +17,7 @@ import com.naver.maps.map.NaverMap;
 import com.naver.maps.map.OnMapReadyCallback;
 
 import java.util.Arrays;
+import java.util.Date;
 
 public class BusResultActivity extends AppCompatActivity implements OnMapReadyCallback {
     NaverMapManager naverMapManager;
@@ -49,6 +53,8 @@ public class BusResultActivity extends AppCompatActivity implements OnMapReadyCa
     int[] WEEKEND_REQUIRED_TIME = {1,1,1,1,1,1,1,1,1};
     int[] GHSTATION_REQUIRED_TIME = {15,15};
     //출력 데이터
+    int busArrivalTimeLeft;
+    int arrivalTimeLeft;
     //버스 도착시간
     DateFormat busArrivalTime;
     //학교 or 타겟정류장 도착 시간
@@ -66,12 +72,17 @@ public class BusResultActivity extends AppCompatActivity implements OnMapReadyCa
         time = intent.getStringExtra("currentTime");
         toSchool = intent.getBooleanExtra("toSchool", true);
         targetStation = intent.getStringExtra("targetStation");
+        //CITY_REQUIRED_TIME = intent.getIntArrayExtra("downtown_timerequire");
+        //MJSTATION_REQUIRED_TIME = intent.getIntArrayExtra("mjustation_timerequire");
 
         //time 을 split해서 currentDay, currentTime에 각각 요일, 시간 정보를 담는다.
         String [] dateData = time.split("_");
         currentTime = dateData[4] + ":" + dateData[5];
         currentDay = dateData[3];
 
+        Log.d("넘겨온 데이터", "***************************************************");
+        Log.d("명지대역 노선 구간별 시간", Arrays.toString(MJSTATION_REQUIRED_TIME));
+        Log.d("시내 노선 구간별 시간", Arrays.toString(CITY_REQUIRED_TIME));
         Log.d("방향", toSchool + "");
         Log.d("정류장", targetStation);
         Log.d("현재 시간", currentTime);
@@ -101,29 +112,23 @@ public class BusResultActivity extends AppCompatActivity implements OnMapReadyCa
 
                 //기흥역 버스
                 if(targetStation.equals("기흥역")){
-                    Log.d("startTime", "기흥역");
                     startTimes = Search.FindClosestBus(currentTime, GHSTATION_WEEKDAY_TIMETABLE);
                 }
                 //시내, 명지대역 노선이 겹치는 버스
                 else if(Arrays.asList(CITY_WEEKDAY_STATIONS).contains(targetStation)&&Arrays.asList(MJSTATION_WEEKDAY_STATIONS).contains(targetStation)){
-                    Log.d("startTime 분류", "명지대역,시내 겹치는 노선");
                     startTimes = Search.FindClosestBus(currentTime, INTEGRATED_WEEKDAY_TIMETABLE);
                 }
                 //시내
                 else if(Arrays.asList(CITY_WEEKDAY_STATIONS).contains(targetStation)){
-                    Log.d("startTime 분류", "시내");
                     startTimes = Search.FindClosestBus(currentTime, CITY_WEEKDAY_TIMETABLE);
                 }
                 //명지대역
                 else{
-                    Log.d("startTime 분류", "명지대역");
                     startTimes = Search.FindClosestBus(currentTime, MJSTATION_WEEKDAY_TIMETABLE);
                 }
-
-                Log.d("startTime 결과", Arrays.toString(startTimes));
-                
                 arrivalData = compareArrivalTimeToSchool(targetStation, startTimes, currentTime, false);
             }
+            Log.d("startTimes", Arrays.toString(startTimes));
         }
 
         //학교 -> 정류장인 경우
@@ -146,22 +151,18 @@ public class BusResultActivity extends AppCompatActivity implements OnMapReadyCa
             //평일
             else{
                 if(targetStation.equals("기흥역")){
-                    Log.d("startTime", "기흥역");
                     startTimes = Search.FindClosestBus(currentTime, GHSTATION_WEEKDAY_TIMETABLE);
                 }
                 //시내, 명지대역 노선이 겹치는 버스
                 else if(Arrays.asList(CITY_WEEKDAY_STATIONS).contains(targetStation)&&Arrays.asList(MJSTATION_WEEKDAY_STATIONS).contains(targetStation)){
-                    Log.d("startTime 분류", "명지대역,시내 겹치는 노선");
                     startTimes = Search.FindClosestBus(currentTime, INTEGRATED_WEEKDAY_TIMETABLE);
                 }
                 //시내
                 else if(Arrays.asList(CITY_WEEKDAY_STATIONS).contains(targetStation)){
-                    Log.d("startTime 분류", "시내");
                     startTimes = Search.FindClosestBus(currentTime, CITY_WEEKDAY_TIMETABLE);
                 }
                 //명지대역
                 else{
-                    Log.d("startTime 분류", "명지대역");
                     startTimes = Search.FindClosestBus(currentTime, MJSTATION_WEEKDAY_TIMETABLE);
                 }
 
@@ -173,12 +174,64 @@ public class BusResultActivity extends AppCompatActivity implements OnMapReadyCa
         busArrivalTime = arrivalData[0];
 
 
+
+
         //정류장이 진입로일 경우, 빨간버스와 추가 비교
+        busArrivalTimeLeft = DateFormat.compare(busArrivalTime.getTime(), currentTime);
+
+        if((toSchool&&targetStation.equals("진입로(명지대방향)"))){
+            int redBusTimeLeft = BusManager.getBusInfo_city();
+            //광역버스가 더 빨리 오거나, 셔틀버스가 끊겼을 때
+            if(busArrivalTimeLeft>redBusTimeLeft||busArrivalTimeLeft<0){
+                busArrivalTimeLeft = redBusTimeLeft;
+                //버스 도착 시간 수정 -> 현재시간 + 광역버스 대기시간
+                busArrivalTime = new DateFormat(currentTime);
+                busArrivalTime.addTime(busArrivalTimeLeft);
+                busType = "광역버스";
+                //학교 도착시간 수정 -> 현재시간 + 버스 대기시간 + 진입로 ~ 학교 경로 시간
+                arrivalTime = new DateFormat(currentTime);
+                //버스 대기시간 추가
+                arrivalTime.addTime(busArrivalTimeLeft);
+                //진입로 ~ 학교까지 시간 추가
+                arrivalTime.addTime(2);
+            }
+            else{
+                busType = "셔틀버스";
+            }
+
+        }
+        else{
+            busType = "셔틀버스";
+        }
+
+        arrivalTimeLeft = DateFormat.compare(arrivalTime.getTime(), currentTime);
 
 
+        //끝 값 처리: 버스가 끊겼을 때
+        if(busArrivalTimeLeft<0){
+            AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+            Intent intent1 = new Intent(this, BusSearchActivity.class);
 
+            dialog.setTitle("알림");
+            dialog.setMessage("금일 버스 운행이 종료되었습니다.");
+            dialog.setPositiveButton("이전으로",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            // 처리할 코드 작성
+                            startActivity(intent1);
+                        }
+                    });
+            dialog.show();
+
+        }
+        //출력데이터
+        Log.d("출력할 데이터", "***************************************************");
+        Log.d("현재시간", currentTime);
         Log.d("최종목적지 도착시간", arrivalTime.getTime());
+        Log.d("최종목적지까지 소요시간", arrivalTimeLeft + "분");
         Log.d("버스 예정 도착시간", busArrivalTime.getTime());
+        Log.d("버스 도착까지 남은 시간",busArrivalTimeLeft + "분");
+        Log.d("버스타입", busType);
 
         // 네이버맵 Listener 연결
         MapView mapView = findViewById(R.id.busresult_navermap);
@@ -279,7 +332,6 @@ public class BusResultActivity extends AppCompatActivity implements OnMapReadyCa
         if(toSchool) {
             //1. 기흥역 셔틀 버스
             if (targetStation.equals("기흥역")) {
-                Log.d("기흥역", "ok");
                 for (int i = 0; i < GHSTATION_WEEKDAY_STATIONS.length; i++) {
                     if (GHSTATION_WEEKDAY_STATIONS[i].equals(targetStation)) {
                         stationIndex = i;
@@ -297,7 +349,6 @@ public class BusResultActivity extends AppCompatActivity implements OnMapReadyCa
 
             //2. 명지대역 버스
             else if (Arrays.asList(MJSTATION_WEEKDAY_TIMETABLE).contains(startTime)) {
-                Log.d("명지대역", "ok");
                 for (int i = 0; i < MJSTATION_WEEKDAY_STATIONS.length; i++) {
                     if (MJSTATION_WEEKDAY_STATIONS[i].equals(targetStation)) {
                         stationIndex = i;
@@ -314,7 +365,6 @@ public class BusResultActivity extends AppCompatActivity implements OnMapReadyCa
             }
             //3.시내 버스
             else {
-                Log.d("시내", "ok");
                 for (int i = 0; i < CITY_WEEKDAY_STATIONS.length; i++) {
                     if (CITY_WEEKDAY_STATIONS[i].equals(targetStation)) {
                         stationIndex = i;
@@ -333,9 +383,7 @@ public class BusResultActivity extends AppCompatActivity implements OnMapReadyCa
         else{
             //버스 도착 예정 시간 = 버스 출발 시간
             busArrivalTime = new DateFormat(startTime);
-
             if (targetStation.equals("기흥역")) {
-                Log.d("기흥역", "ok");
                 for (int i = 0; i < GHSTATION_WEEKDAY_STATIONS.length; i++) {
                     if (GHSTATION_WEEKDAY_STATIONS[i].equals(targetStation)) {
                         stationIndex = i;
@@ -349,7 +397,6 @@ public class BusResultActivity extends AppCompatActivity implements OnMapReadyCa
 
             //2. 명지대역 버스
             else if (Arrays.asList(MJSTATION_WEEKDAY_TIMETABLE).contains(startTime)) {
-                Log.d("명지대역", "ok");
                 for (int i = 0; i < MJSTATION_WEEKDAY_STATIONS.length; i++) {
                     if (MJSTATION_WEEKDAY_STATIONS[i].equals(targetStation)) {
                         stationIndex = i;
@@ -362,7 +409,6 @@ public class BusResultActivity extends AppCompatActivity implements OnMapReadyCa
             }
             //3.시내 버스
             else {
-                Log.d("시내", "ok");
                 for (int i = 0; i < CITY_WEEKDAY_STATIONS.length; i++) {
                     if (CITY_WEEKDAY_STATIONS[i].equals(targetStation)) {
                         stationIndex = i;
@@ -414,4 +460,5 @@ public class BusResultActivity extends AppCompatActivity implements OnMapReadyCa
         }
         return arrivalData;
     }
+    
 }
