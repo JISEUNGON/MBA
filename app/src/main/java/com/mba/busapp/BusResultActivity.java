@@ -183,7 +183,7 @@ public class BusResultActivity extends AppCompatActivity implements OnMapReadyCa
             int redBusTimeLeft = BusManager.getBusInfo_city();
             //광역버스가 더 빨리 오거나, 셔틀버스가 끊겼을 때
             if(busArrivalTimeLeft>redBusTimeLeft||busArrivalTimeLeft<0){
-                busArrivalTimeLeft = redBusTimeLeft*60;
+                busArrivalTimeLeft = redBusTimeLeft;
                 //버스 도착 시간 수정 -> 현재시간 + 광역버스 대기시간
                 busArrivalTime = new DateFormat(currentTime);
                 busArrivalTime.addSecTime(busArrivalTimeLeft);

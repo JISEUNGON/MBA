@@ -71,7 +71,7 @@ public class BusManager {
 
                 String timeLeft = JsonParser.parseString(streamToString).getAsJsonObject().get("body").toString();
                 if (timeLeft.equals("")) return -1;
-                else return Integer.parseInt(timeLeft);
+                else return Integer.parseInt(timeLeft)*60;
             } else {
                 rd = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
                 Log.e("[BusManager]", "<getBusInfo_city>" + rd.readLine());
