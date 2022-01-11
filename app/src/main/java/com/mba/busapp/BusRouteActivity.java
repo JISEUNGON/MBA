@@ -3,19 +3,16 @@ package com.mba.busapp;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.text.Layout;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -27,10 +24,8 @@ import com.naver.maps.map.NaverMap;
 import com.naver.maps.map.OnMapReadyCallback;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
-import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
-import java.util.Map;
 
 /**
  * 버스 노선도 화면
@@ -172,7 +167,7 @@ public class BusRouteActivity extends AppCompatActivity implements OnMapReadyCal
 
                     // 기흥역은 15분 딜레이
                     estimated_times = depart_times.clone();
-                    for(int i=0; i < estimated_times.length; i++) estimated_times[i] = DateFormat.addTime(estimated_times[i], 15);
+                    for(int i=0; i < estimated_times.length; i++) estimated_times[i] = DateFormat.addSecTime(estimated_times[i], 900);
                 }
 
                 column_text = "기흥역 도착\n예정 시간";
@@ -187,7 +182,7 @@ public class BusRouteActivity extends AppCompatActivity implements OnMapReadyCal
                 if (semaster.equals("방학") || day.equals("주말")) {
                     depart_times = getResources().getStringArray(R.array.INTEGRATED_VACTION_OR_WEEKEND_TIMETABLE);
                     estimated_times = depart_times.clone();
-                    for(int i=0; i < estimated_times.length; i++) estimated_times[i] = DateFormat.addTime(estimated_times[i], 25);
+                    for(int i=0; i < estimated_times.length; i++) estimated_times[i] = DateFormat.addSecTime(estimated_times[i], 1500);
 
                 } else {
                     if(semaster.equals("계절학기")) {
@@ -198,7 +193,7 @@ public class BusRouteActivity extends AppCompatActivity implements OnMapReadyCal
                         Log.e("[ERROR]", "[BusRouteActivity]<makeTable> UnknownKeyword : " + semaster);
                     }
                     estimated_times = depart_times.clone();
-                    for(int i=0; i < estimated_times.length; i++) estimated_times[i] = DateFormat.addTime(estimated_times[i], 15);
+                    for(int i=0; i < estimated_times.length; i++) estimated_times[i] = DateFormat.addSecTime(estimated_times[i], 900);
                 }
 
                 column_text = "진입로 경유\n예정 시간";
@@ -213,7 +208,7 @@ public class BusRouteActivity extends AppCompatActivity implements OnMapReadyCal
                 if (semaster.equals("방학") || day.equals("주말")) {
                     depart_times = getResources().getStringArray(R.array.INTEGRATED_VACTION_OR_WEEKEND_TIMETABLE);
                     estimated_times = depart_times.clone();
-                    Arrays.stream(estimated_times).map(e -> DateFormat.addTime(e, 25));
+                    Arrays.stream(estimated_times).map(e -> DateFormat.addSecTime(e, 1500));
                 } else {
                     if(semaster.equals("계절학기")) {
                         depart_times = getResources().getStringArray(R.array.CITY_VACATION_SEMESTER_WEEKDAY_TIMETABLE);
@@ -223,7 +218,7 @@ public class BusRouteActivity extends AppCompatActivity implements OnMapReadyCal
                         Log.e("[ERROR]", "[BusRouteActivity]<makeTable> UnknownKeyword : " + semaster);
                     }
                     estimated_times = depart_times.clone();
-                    for(int i=0; i < estimated_times.length; i++) estimated_times[i] = DateFormat.addTime(estimated_times[i], 15);
+                    for(int i=0; i < estimated_times.length; i++) estimated_times[i] = DateFormat.addSecTime(estimated_times[i], 900);
                 }
 
                 column_text = "진입로 경유\n예정 시간";
