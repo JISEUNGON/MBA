@@ -203,6 +203,7 @@ public class BusSearchActivity  extends AppCompatActivity implements OnMapReadyC
             //your codes here
             intent.putExtra("downtown_timerequire", BusManager.getBusInfo_mju_downtown());
             intent.putExtra("mjustation_timerequire", BusManager.getBusInfo_mju_station());
+            intent.putExtra("vacation_or_weekend_timerequire", BusManager.getBusInfo_vacation_or_weekend());
         }
 
         startActivity(intent);
