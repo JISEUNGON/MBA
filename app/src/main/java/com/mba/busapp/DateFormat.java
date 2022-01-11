@@ -1,10 +1,5 @@
 package com.mba.busapp;
-
-
-import android.util.Log;
-
 import java.text.SimpleDateFormat;
-import java.util.Comparator;
 import java.util.Date;
 
 @FunctionalInterface
@@ -15,7 +10,7 @@ interface Compare {
 
 public class DateFormat implements Compare{
 
-    int totalSec = 0;
+    int totalSec;
     String timeFormat;
 
     //DateFormat으로 받은 HH:MM format을 비교할 수 있도록 분으로 변환한다.
@@ -45,7 +40,6 @@ public class DateFormat implements Compare{
         else if (hour >= 10 && min < 10) this.timeFormat = hour + ":0" + min;
         else this.timeFormat = hour + ":" + min;
     }
-
     //분 형태의 시간을 반환한다.
     public int getTotalSec() {
         return totalSec;

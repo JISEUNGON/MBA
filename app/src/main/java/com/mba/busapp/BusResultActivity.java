@@ -30,7 +30,7 @@ public class BusResultActivity extends AppCompatActivity implements OnMapReadyCa
     String currentDay;
     String currentTime;
 
-    //시간표, 정류장 데이터
+    //시간표, 정류장, 소요시간 데이터
     String [] MJSTATION_WEEKDAY_TIMETABLE;
     String [] CITY_WEEKDAY_TIMETABLE;
     String [] INTEGRATED_WEEKDAY_TIMETABLE;
@@ -41,24 +41,27 @@ public class BusResultActivity extends AppCompatActivity implements OnMapReadyCa
     String [] CITY_WEEKDAY_STATIONS;
     String [] GHSTATION_WEEKDAY_STATIONS;
     String [] WEEKEND_STATIONS;
-
-    //버스 출발 시간
-    String[] startTimes;
-    //버스 예상 도착 시간
-    DateFormat[] arrivalData;
-    //소요 시간
+    
     int[] MJSTATION_REQUIRED_TIME;
     int[] CITY_REQUIRED_TIME;
     int[] WEEKEND_REQUIRED_TIME;
     int[] GHSTATION_REQUIRED_TIME = {900,900};
+
+    //버스 출발 시간
+    String[] startTimes;
+
     //출력 데이터 (초 단위)
     int busArrivalTimeLeft;
     int arrivalTimeLeft;
+
+    //버스 도착 정보
+    ArrivalData arrivalData;
     //버스 도착시간
     DateFormat busArrivalTime;
     //학교 or 타겟정류장 도착 시간
     DateFormat arrivalTime;
-    String busType;
+    //버스 노선도
+    String routeType;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -172,9 +175,10 @@ public class BusResultActivity extends AppCompatActivity implements OnMapReadyCa
                 arrivalData = getWeekdayArrivalTime(targetStation, startTimes[1], false);
             }
         }
-        arrivalTime = arrivalData[1];
-        busArrivalTime = arrivalData[0];
 
+        arrivalTime = arrivalData.getArrivalTime();
+        busArrivalTime = arrivalData.getBusArrivalTime();
+        routeType = arrivalData.getRouteType();
 
         //정류장이 진입로일 경우, 빨간버스와 추가 비교
         busArrivalTimeLeft = DateFormat.compare(busArrivalTime, new DateFormat(currentTime));
@@ -187,7 +191,7 @@ public class BusResultActivity extends AppCompatActivity implements OnMapReadyCa
                 //버스 도착 시간 수정 -> 현재시간 + 광역버스 대기시간
                 busArrivalTime = new DateFormat(currentTime);
                 busArrivalTime.addSecTime(busArrivalTimeLeft);
-                busType = "광역버스";
+                routeType = "광역버스";
                 //학교 도착시간 수정 -> 현재시간 + 버스 대기시간 + 진입로 ~ 학교 경로 시간
                 arrivalTime = new DateFormat(currentTime);
                 //버스 대기시간 추가
@@ -196,13 +200,6 @@ public class BusResultActivity extends AppCompatActivity implements OnMapReadyCa
                 arrivalTime.addSecTime(MJSTATION_REQUIRED_TIME[MJSTATION_REQUIRED_TIME.length-2]);
                 arrivalTime.addSecTime(MJSTATION_REQUIRED_TIME[MJSTATION_REQUIRED_TIME.length-1]);
             }
-            else{
-                busType = "셔틀버스";
-            }
-
-        }
-        else{
-            busType = "셔틀버스";
         }
 
         arrivalTimeLeft = DateFormat.compare(arrivalTime, new DateFormat(currentTime));
@@ -232,7 +229,7 @@ public class BusResultActivity extends AppCompatActivity implements OnMapReadyCa
         Log.d("최종목적지까지 소요시간", arrivalTimeLeft + "초");
         Log.d("버스 예정 도착시간", busArrivalTime.getTime());
         Log.d("버스 도착까지 남은 시간",busArrivalTimeLeft + "초");
-        Log.d("버스타입", busType);
+        Log.d("버스노선타입", routeType);
 
 
 
@@ -273,13 +270,11 @@ public class BusResultActivity extends AppCompatActivity implements OnMapReadyCa
     //arrivalData :
     // arrivalData[0] = 학교 도착 예정 시간
     // arrivalData[1] = 버스가 정류장에 도착할 예정시간
-    public DateFormat[] getWeekendArrivalTime(String targetStation, String startTime, boolean toSchool){
+    public ArrivalData getWeekendArrivalTime(String targetStation, String startTime, boolean toSchool){
 
-        DateFormat[] arrivalData = new DateFormat[2];
-        //사용자가 학교 도착 예정 시간
-        DateFormat arrivalTime = new DateFormat(startTime);
-        //버스가 정류장에 도착할 예정시간
-        DateFormat busArrivalTime = new DateFormat(startTime);
+        //사용자가 학교 도착 예정 시간, 버스가 정류장에 도착할 예정시간
+        ArrivalData arrivalData = new ArrivalData(startTime);
+        arrivalData.setRouteType("주말방학노선");
         //정류장 index
         int stationIndex = 0;
         
@@ -293,49 +288,37 @@ public class BusResultActivity extends AppCompatActivity implements OnMapReadyCa
         if(toSchool) {
             //버스 도착 예정 시간 구하기
             for (int i = 0; i <= stationIndex; i++) {
-                busArrivalTime.addSecTime(WEEKEND_REQUIRED_TIME[i]);
+                arrivalData.addBusArrivalTime(WEEKEND_REQUIRED_TIME[i]);
             }
 
             //학교 도착예정 시간 구하기
             for (int i = 0; i < WEEKEND_REQUIRED_TIME.length; i++) {
-                arrivalTime.addSecTime(WEEKEND_REQUIRED_TIME[i]);
+                arrivalData.addArrivalTime(WEEKEND_REQUIRED_TIME[i]);
             }
         }
         //학교 -> target일 때
         else{
-            //버스 도착 예정 시간 = 버스 출발 시간
-            busArrivalTime = new DateFormat(startTime);
-
             //target 도착예정 시간 구하기
             for (int i = 0; i <= stationIndex; i++) {
-                arrivalTime.addSecTime(WEEKEND_REQUIRED_TIME[i]);
+                arrivalData.addArrivalTime(WEEKEND_REQUIRED_TIME[i]);
             }
         }
-
-        arrivalData[0] = busArrivalTime;
-        arrivalData[1] = arrivalTime;
-
         return arrivalData;
-
     }
     //arrivalData :
     // arrivalData[0] = 학교 도착 예정 시간
     // arrivalData[1] = 버스가 정류장에 도착할 예정시간
-    public DateFormat[] getWeekdayArrivalTime(String targetStation, String startTime, boolean toSchool){
+    public ArrivalData getWeekdayArrivalTime(String targetStation, String startTime, boolean toSchool){
 
-        DateFormat [] arrivalData = new DateFormat[2];
-
-        //사용자가 학교 도착 예정 시간
-        DateFormat arrivalTime = new DateFormat(startTime);
-        //버스가 정류장에 도착할 예정시간
-        DateFormat busArrivalTime = new DateFormat(startTime);
-
+        //사용자가 학교 도착 예정 시간, 버스가 정류장에 도착할 예정시간
+        ArrivalData arrivalData = new ArrivalData(startTime);
 
         int stationIndex = 0;
 
         if(toSchool) {
             //1. 기흥역 셔틀 버스
             if (targetStation.equals("기흥역")) {
+                arrivalData.setRouteType("기흥역노선");
                 for (int i = 0; i < GHSTATION_WEEKDAY_STATIONS.length; i++) {
                     if (GHSTATION_WEEKDAY_STATIONS[i].equals(targetStation)) {
                         stationIndex = i;
@@ -343,16 +326,17 @@ public class BusResultActivity extends AppCompatActivity implements OnMapReadyCa
                 }
                 //구해진 stationIndex까지 즉 출발점부터 start 정류장까지 걸리는 시간을 더한다.
                 for (int i = 0; i <= stationIndex; i++) {
-                    busArrivalTime.addSecTime(GHSTATION_REQUIRED_TIME[i]);
+                    arrivalData.addBusArrivalTime(GHSTATION_REQUIRED_TIME[i]);
                 }
                 //학교 도착예정 시간 구하기
                 for (int i = 0; i < GHSTATION_REQUIRED_TIME.length; i++) {
-                    arrivalTime.addSecTime(GHSTATION_REQUIRED_TIME[i]);
+                    arrivalData.addArrivalTime(GHSTATION_REQUIRED_TIME[i]);
                 }
             }
 
             //2. 명지대역 버스
             else if (Arrays.asList(MJSTATION_WEEKDAY_TIMETABLE).contains(startTime)) {
+                arrivalData.setRouteType("명지대역노선");
                 for (int i = 0; i < MJSTATION_WEEKDAY_STATIONS.length; i++) {
                     if (MJSTATION_WEEKDAY_STATIONS[i].equals(targetStation)) {
                         stationIndex = i;
@@ -360,34 +344,36 @@ public class BusResultActivity extends AppCompatActivity implements OnMapReadyCa
                 }
                 //구해진 stationIndex까지 즉 출발점부터 start 정류장까지 걸리는 시간을 더한다.
                 for (int i = 0; i <= stationIndex; i++) {
-                    busArrivalTime.addSecTime(MJSTATION_REQUIRED_TIME[i]);
+                    arrivalData.addBusArrivalTime(MJSTATION_REQUIRED_TIME[i]);
                 }
                 //학교 도착예정 시간 구하기
                 for (int i = 0; i < MJSTATION_REQUIRED_TIME.length; i++) {
-                    arrivalTime.addSecTime(MJSTATION_REQUIRED_TIME[i]);
+                    arrivalData.addArrivalTime(MJSTATION_REQUIRED_TIME[i]);
                 }
             }
             //3.시내 버스
             else {
+                arrivalData.setRouteType("시내노선");
                 for (int i = 0; i < CITY_WEEKDAY_STATIONS.length; i++) {
                     if (CITY_WEEKDAY_STATIONS[i].equals(targetStation)) {
                         stationIndex = i;
                     }
                 }
                 for (int i = 0; i <= stationIndex; i++) {
-                    busArrivalTime.addSecTime(CITY_REQUIRED_TIME[i]);
+                    arrivalData.addBusArrivalTime(CITY_REQUIRED_TIME[i]);
                 }
 
                 //학교 도착예정 시간 구하기
                 for (int i = 0; i < CITY_REQUIRED_TIME.length; i++) {
-                    arrivalTime.addSecTime(CITY_REQUIRED_TIME[i]);
+                    arrivalData.addArrivalTime(CITY_REQUIRED_TIME[i]);
                 }
             }
         }
+
         else{
             //버스 도착 예정 시간 = 버스 출발 시간
-            busArrivalTime = new DateFormat(startTime);
             if (targetStation.equals("기흥역")) {
+                arrivalData.setRouteType("기흥역노선");
                 for (int i = 0; i < GHSTATION_WEEKDAY_STATIONS.length; i++) {
                     if (GHSTATION_WEEKDAY_STATIONS[i].equals(targetStation)) {
                         stationIndex = i;
@@ -395,12 +381,13 @@ public class BusResultActivity extends AppCompatActivity implements OnMapReadyCa
                 }
                 //target 도착예정 시간 구하기
                 for (int i = 0; i <= stationIndex; i++) {
-                    arrivalTime.addSecTime(GHSTATION_REQUIRED_TIME[i]);
+                    arrivalData.addArrivalTime(GHSTATION_REQUIRED_TIME[i]);
                 }
             }
 
             //2. 명지대역 버스
             else if (Arrays.asList(MJSTATION_WEEKDAY_TIMETABLE).contains(startTime)) {
+                arrivalData.setRouteType("명지대역노선");
                 for (int i = 0; i < MJSTATION_WEEKDAY_STATIONS.length; i++) {
                     if (MJSTATION_WEEKDAY_STATIONS[i].equals(targetStation)) {
                         stationIndex = i;
@@ -408,11 +395,12 @@ public class BusResultActivity extends AppCompatActivity implements OnMapReadyCa
                 }
                 //target 도착예정 시간 구하기
                 for (int i = 0; i <= stationIndex; i++) {
-                    arrivalTime.addSecTime(MJSTATION_REQUIRED_TIME[i]);
+                    arrivalData.addArrivalTime(MJSTATION_REQUIRED_TIME[i]);
                 }
             }
             //3.시내 버스
             else {
+                arrivalData.setRouteType("시내노선");
                 for (int i = 0; i < CITY_WEEKDAY_STATIONS.length; i++) {
                     if (CITY_WEEKDAY_STATIONS[i].equals(targetStation)) {
                         stationIndex = i;
@@ -420,13 +408,11 @@ public class BusResultActivity extends AppCompatActivity implements OnMapReadyCa
                 }
                 //target 도착예정 시간 구하기
                 for (int i = 0; i <= stationIndex; i++) {
-                    arrivalTime.addSecTime(CITY_REQUIRED_TIME[i]);
+                    arrivalData.addArrivalTime(CITY_REQUIRED_TIME[i]);
                 }
             }
         }
 
-        arrivalData[0] = busArrivalTime;
-        arrivalData[1] = arrivalTime;
         return arrivalData;
 
     }
@@ -435,12 +421,12 @@ public class BusResultActivity extends AppCompatActivity implements OnMapReadyCa
     //도착 버스 시간 비교 메서드
     //INPUT : 도착 정류장, 2개의 버스출발시간(타겟시간 이전버스, 타겟시간 이후버스)
     //직전 버스, 이후 버스 중 어떤 버스가 먼저 도착할 지 판단한 후 먼저 도착하는 버스의 도착시간을 반환한다.
-    public DateFormat[] compareArrivalTimeToSchool(String startStation, String [] startTimes, String currentTime, boolean isWeekend){
+    public ArrivalData compareArrivalTimeToSchool(String startStation, String [] startTimes, String currentTime, boolean isWeekend){
 
-        DateFormat[] arrivalData;
+        ArrivalData arrivalData;
 
-        DateFormat[] bus1ArrivalData;
-        DateFormat[] bus2ArrivalData;
+        ArrivalData bus1ArrivalData;
+        ArrivalData bus2ArrivalData;
         
         //주말이면
         if (isWeekend) {
@@ -454,7 +440,7 @@ public class BusResultActivity extends AppCompatActivity implements OnMapReadyCa
         }
 
         //이전에 출발한 버스 시간 > 타겟 시간 : 아직 도착 전이기 때문에 ArrivalTime은 이전에 출발한 버스가 도착할 시간이 된다.
-        if(DateFormat.compare(bus1ArrivalData[0].getTime(), currentTime) > 0){
+        if(DateFormat.compare(bus1ArrivalData.getBusArrivalTime().getTime(), currentTime) > 0){
             arrivalData = bus1ArrivalData;
         }
         //이전에 출발한 버스 시간 < 타겟 시간 : ArrivalTime은 이후에 출발한 버스가 도착할 시간이 된다.
