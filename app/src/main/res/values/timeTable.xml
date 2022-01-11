@@ -237,7 +237,7 @@
         <item>18:00</item>
     </string-array>
     <string-array name="INTEGRATED_VACTION_OR_WEEKEND_TIMETABLE">
-        <item>0`8:20</item>
+        <item>08:20</item>
         <item>09:20</item>
         <item>10:20</item>
         <item>11:20</item>

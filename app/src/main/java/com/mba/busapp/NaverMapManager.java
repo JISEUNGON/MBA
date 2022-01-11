@@ -55,7 +55,7 @@ public class NaverMapManager {
         this.markers = new ArrayList<>();
         this.pathOverlay = new PathOverlay();
         this.clickEvent = true;
-        this.poly_width = 8;
+        this.poly_width = 13;
         this.markerClickListener = null;
 
         // 대중교통 그룹 추가
@@ -116,7 +116,8 @@ public class NaverMapManager {
     public void enablePoly_MjuStation() {
         pathOverlay.setCoords(StationInfo.getInstance().getPolyList_MjuStation());
         pathOverlay.setWidth(this.poly_width); // Poly 넓이
-        pathOverlay.setColor(Color.GREEN); // Poly 색
+        pathOverlay.setColor(Color.argb(0xFF, 0x5C, 0xD1, 0xE5)); // Poly 색
+        pathOverlay.setOutlineWidth(1);
         pathOverlay.setMap(naverMap); // 현 지도에 표시
     }
 
@@ -150,7 +151,8 @@ public class NaverMapManager {
     public void enablePoly_DownTown() {
         pathOverlay.setCoords(StationInfo.getInstance().getPolyList_DownTown());
         pathOverlay.setWidth(this.poly_width); // Poly 넓이
-        pathOverlay.setColor(Color.GREEN); // Poly 색
+        pathOverlay.setColor(Color.argb(0xFF, 0x5C, 0xD1, 0xE5)); // Poly 색
+        pathOverlay.setOutlineWidth(1);
         pathOverlay.setMap(naverMap); // 현 지도에 표시
     }
 
@@ -184,7 +186,8 @@ public class NaverMapManager {
     public void enablePoly_Giheung() {
         pathOverlay.setCoords(StationInfo.getInstance().getPolyList_Giheung());
         pathOverlay.setWidth(this.poly_width); // Poly 넓이
-        pathOverlay.setColor(Color.GREEN); // Poly 색
+        pathOverlay.setColor(Color.argb(0xFF, 0x5C, 0xD1, 0xE5)); // Poly 색
+        pathOverlay.setOutlineWidth(1);
         pathOverlay.setMap(naverMap); // 현 지도에 표시
     }
 
@@ -219,7 +222,8 @@ public class NaverMapManager {
     public void enablePoly_Vaction() {
         pathOverlay.setCoords(StationInfo.getInstance().getPolyList_Vacation());
         pathOverlay.setWidth(this.poly_width); // Poly 넓이
-        pathOverlay.setColor(Color.GREEN); // Poly 색
+        pathOverlay.setColor(Color.argb(0xFF, 0x5C, 0xD1, 0xE5)); // Poly 색
+        pathOverlay.setOutlineWidth(1);
         pathOverlay.setMap(naverMap); // 현 지도에 표시
     }
 

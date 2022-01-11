@@ -262,10 +262,10 @@ public class BusRouteActivity extends AppCompatActivity implements OnMapReadyCal
 
                 // 가장 가까운 값 파란색으로..
                 if (j == 0 && !col1_colored && DateFormat.compare(current_time, time) <= 0) {
-                    view.setTextColor(Color.BLUE);
+                    view.setTextColor(Color.RED);
                     col1_colored = true;
                 } else if (j == 1 && !col2_colored && DateFormat.compare(current_time, time) <= 0) {
-                    view.setTextColor(Color.BLUE);;
+                    view.setTextColor(Color.RED);;
                     col2_colored = true;
                 }
 
