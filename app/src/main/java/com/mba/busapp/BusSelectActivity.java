@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
@@ -18,6 +19,7 @@ import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.temporal.ChronoField;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -169,15 +171,16 @@ public class BusSelectActivity extends AppCompatActivity {
          * 2022.09.01 ~ 12.13
          */
         try {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
             Date today = dateFormat.parse(String.valueOf(LocalDate.now()));
             Date spring_start = dateFormat.parse("2022-03-02");
             Date spring_end = dateFormat.parse("2022-06-14");
             Date autumn_start = dateFormat.parse("2022-09-01");
-            Date autumn_end = dateFormat.parse("2023-12-13");
+            Date autumn_end = dateFormat.parse("2022-12-13");
 
-            return spring_start.after(today) && spring_end.before(today) || autumn_start.after(today) && autumn_end.before(today);
+            return spring_start.before(today) && spring_end.after(today) || autumn_start.before(today) && autumn_end.after(today);
+
         } catch (Exception e) {
 
         }
@@ -190,14 +193,13 @@ public class BusSelectActivity extends AppCompatActivity {
          * 2022.12.22 ~ 2023.01.11
          */
         try {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
-
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             Date today = dateFormat.parse(String.valueOf(LocalDate.now()));
             Date summer_start = dateFormat.parse("2022-06-20");
             Date summer_end = dateFormat.parse("2022-07-08");
             Date winter_start = dateFormat.parse("2022-12-22");
             Date winter_end = dateFormat.parse("2023-01-11");
-            return summer_start.after(today) && summer_end.before(today) || winter_start.after(today) && winter_end.before(today);
+            return summer_start.before(today) && summer_end.after(today) || winter_start.before(today) && winter_end.after(today);
         } catch (Exception e) {
 
         }

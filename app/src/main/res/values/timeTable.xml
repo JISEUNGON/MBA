@@ -187,7 +187,7 @@
         <item>19:30</item>
         <item>20:00</item>
     </string-array>
-    <string-array name="INTEGRATED_VACATION_SEMESTER_WEEKEND_TIMETABLE">
+    <string-array name="INTEGRATED_VACATION_SEMESTER_WEEKDAY_TIMETABLE">
         <item>08:00</item>
         <item>08:05</item>
         <item>08:15</item>
