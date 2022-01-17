@@ -100,9 +100,9 @@ public class BusAlgorithm {
         this.targetStation = targetStation;
         this.currentTime = currentTime;
         this.currentDay = currentDay;
-        this.MJSTATION_REQUIRED_TIME = mjRequiredTime;
-        this.CITY_REQUIRED_TIME = cityRequiredTime;
-        this.WEEKEND_REQUIRED_TIME = weekendRequiredTime;
+        MJSTATION_REQUIRED_TIME = mjRequiredTime;
+        CITY_REQUIRED_TIME = cityRequiredTime;
+        WEEKEND_REQUIRED_TIME = weekendRequiredTime;
 
         //정류장 -> 학교인 경우
         if(toSchool) {
@@ -504,7 +504,7 @@ public class BusAlgorithm {
 
         ArrivalData arrivalData;
 
-        ArrivalData                                                                                             bus1ArrivalData;
+        ArrivalData bus1ArrivalData;
         ArrivalData bus2ArrivalData;
 
         //주말이면
