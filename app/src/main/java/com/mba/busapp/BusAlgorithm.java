@@ -382,6 +382,7 @@ public class BusAlgorithm {
             }
         }
         return arrivalData;
+
     }
 
     //arrivalData :
