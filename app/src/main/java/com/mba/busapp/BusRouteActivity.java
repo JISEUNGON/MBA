@@ -18,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.common.util.ArrayUtils;
 import com.naver.maps.geometry.LatLng;
 import com.naver.maps.map.MapView;
 import com.naver.maps.map.NaverMap;
@@ -26,6 +27,7 @@ import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * 버스 노선도 화면
@@ -38,7 +40,7 @@ import java.util.Arrays;
 public class BusRouteActivity extends AppCompatActivity implements OnMapReadyCallback {
     private NaverMapManager mapManager;
     private SlidingUpPanelLayout slidingUpPanelLayout;
-    private String[] itemList;
+    private String[] routeList;
     private Spinner routeSpinner;
     private MapView mapView;
 
@@ -70,17 +72,21 @@ public class BusRouteActivity extends AppCompatActivity implements OnMapReadyCal
         mapView.setOnClickListener(e -> slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED));
 
         // spinner 값 설정
-        itemList = getResources().getStringArray(R.array.ROUTES_MJU_CITY_BUS);
+        routeList = getResources().getStringArray(R.array.ROUTES_MJU_CITY_BUS);
+        if (day.equals("주말") || semaster.equals("방학")){
+            routeList = new String[]{"명지대역"};
+        } else if (!semaster.equals("학기"))
+            routeList = new String[] {"명지대역", "시내"};
 
         routeSpinner = (Spinner) findViewById(R.id.routes_spinner);
-        routeSpinner.setAdapter(ArrayAdapter.createFromResource(this, R.array.ROUTES_MJU_CITY_BUS, R.layout.support_simple_spinner_dropdown_item));
+        routeSpinner.setAdapter(new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, routeList));
 
         routeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if(mapManager != null) {
-                    showMarker(itemList[i]);
-                    makeTable(itemList[i]);
+                    showMarker(routeList[i]);
+                    makeTable(routeList[i]);
                 }
             }
 
@@ -89,6 +95,7 @@ public class BusRouteActivity extends AppCompatActivity implements OnMapReadyCal
 
             }
         });
+
     }
 
     @Override
