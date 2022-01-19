@@ -1,6 +1,5 @@
 package com.mba.busapp;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,10 +15,8 @@ import com.naver.maps.map.MapView;
 import com.naver.maps.map.NaverMap;
 import com.naver.maps.map.OnMapReadyCallback;
 
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 
 public class BusResultActivity extends AppCompatActivity implements OnMapReadyCallback {
     MapView mapView;
@@ -48,9 +45,12 @@ public class BusResultActivity extends AppCompatActivity implements OnMapReadyCa
     DateFormat arrivalTime;
     //버스 노선도
     String routeType;
+    //마지막 노선
+    ArrayList<String> lastStation;
     
 
     @Override
+    @SuppressWarnings("unchecked")
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_busresult);
@@ -79,23 +79,23 @@ public class BusResultActivity extends AppCompatActivity implements OnMapReadyCa
         Log.d("현재 시간", currentTime);
         Log.d("요일", currentDay);
 
+        //알고리즘 객체 생성
         BusAlgorithm busAlgorithm = new BusAlgorithm(this);
 
+        //도착 정보 객체 구하기
         ArrivalData arrivalData = busAlgorithm.getArrivalData(toSchool, targetStation, currentTime, currentDay, MJSTATION_REQUIRED_TIME, CITY_REQUIRED_TIME, WEEKEND_REQUIRED_TIME);
 
+
         if(arrivalData!=null) {
-
-
-
             //정류장이 진입로일 경우, 빨간버스와 추가 비교
-            arrivalData = busAlgorithm.compareRedBusArrivalTime(arrivalData, toSchool, targetStation);
+            arrivalData = busAlgorithm.compareRedBusArrivalTime(arrivalData, currentTime, toSchool, targetStation);
 
             arrivalTime = arrivalData.getArrivalTime();
             busArrivalTime = arrivalData.getBusArrivalTime();
             busArrivalTimeLeft = DateFormat.compare(busArrivalTime, new DateFormat(currentTime));
             arrivalTimeLeft = DateFormat.compare(arrivalTime, new DateFormat(currentTime));
             routeType = arrivalData.getRouteType();
-
+            lastStation = arrivalData.getLastStations();
 
             //끝 값 처리: 버스가 끊겼을 때
             if (busArrivalTimeLeft < 0) {
@@ -122,6 +122,9 @@ public class BusResultActivity extends AppCompatActivity implements OnMapReadyCa
             Log.d("버스 예정 도착시간", busArrivalTime.getTime());
             Log.d("버스 도착까지 남은 시간", busArrivalTimeLeft + "초");
             Log.d("버스노선타입", routeType);
+            Log.d("마지막 정거장", lastStation.toString());
+
+
         }
 
         // 네이버맵 Listener 연결

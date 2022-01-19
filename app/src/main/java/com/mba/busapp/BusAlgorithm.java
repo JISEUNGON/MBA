@@ -13,13 +13,6 @@ import java.util.Arrays;
 import java.util.Date;
 
 public class BusAlgorithm {
-    boolean toSchool;       // 학교 to 정류장 or 정류장 to 학교
-    String targetStation;   // 타겟 정류장
-
-    //시간 데이터 분리
-    String currentDay;
-    String currentTime;
-
     //시간표, 정류장, 소요시간 데이터
     String [] MJSTATION_WEEKDAY_TIMETABLE;
     String [] CITY_WEEKDAY_TIMETABLE;
@@ -66,7 +59,7 @@ public class BusAlgorithm {
 
     }
 
-    public ArrivalData compareRedBusArrivalTime(ArrivalData shuttleBusArrivalData, boolean toSchool, String targetStation){
+    public ArrivalData compareRedBusArrivalTime(ArrivalData shuttleBusArrivalData,String currentTime, boolean toSchool, String targetStation){
 
         int busArrivalTimeLeft = DateFormat.compare(shuttleBusArrivalData.getBusArrivalTime(), new DateFormat(currentTime));
 
@@ -77,7 +70,7 @@ public class BusAlgorithm {
                 busArrivalTimeLeft = redBusTimeLeft;
 
                 ArrivalData redBusArrivalData = new ArrivalData(currentTime);
-                redBusArrivalData.setRouteType("광역버스");
+                redBusArrivalData.setRouteType("광역버스", currentTime);
                 //버스 도착 시간 수정 -> 현재시간 + 광역버스 대기시간
                 redBusArrivalData.addBusArrivalTime(busArrivalTimeLeft);
                 //목적지 도착 시간 수정 -> 현재시간 + 버스 대기시간 + 학교까지 이동 시간
@@ -95,11 +88,6 @@ public class BusAlgorithm {
     }
 
     public ArrivalData getArrivalData(boolean toSchool, String targetStation, String currentTime, String currentDay, int[] mjRequiredTime, int[] cityRequiredTime, int[] weekendRequiredTime){
-
-        this.toSchool = toSchool;
-        this.targetStation = targetStation;
-        this.currentTime = currentTime;
-        this.currentDay = currentDay;
         MJSTATION_REQUIRED_TIME = mjRequiredTime;
         CITY_REQUIRED_TIME = cityRequiredTime;
         WEEKEND_REQUIRED_TIME = weekendRequiredTime;
@@ -121,7 +109,7 @@ public class BusAlgorithm {
                     // 그 외 버스
                     else {
                         startTimes = Search.FindClosestBus(currentTime, WEEKEND_TIMETABLE);
-                        arrivalData = compareArrivalTimeToSchool(targetStation, startTimes, currentTime, true);
+                        arrivalData = compareArrivalTimeToSchool(targetStation, currentTime,startTimes, true);
                     }
                 }
                 //평일
@@ -132,7 +120,7 @@ public class BusAlgorithm {
                     if (targetStation.equals("기흥역")) {
                         if(isSemester()) {
                             startTimes = Search.FindClosestBus(currentTime, GHSTATION_WEEKDAY_TIMETABLE);
-                            arrivalData = compareArrivalTimeToSchool(targetStation, startTimes, currentTime, false);
+                            arrivalData = compareArrivalTimeToSchool(targetStation, currentTime, startTimes, false);
 
                         }
                         else{
@@ -145,19 +133,19 @@ public class BusAlgorithm {
                     //시내, 명지대역 노선이 겹치는 버스
                     else if (Arrays.asList(CITY_WEEKDAY_STATIONS).contains(targetStation) && Arrays.asList(MJSTATION_WEEKDAY_STATIONS).contains(targetStation)) {
                         startTimes = Search.FindClosestBus(currentTime, INTEGRATED_WEEKDAY_TIMETABLE);
-                        arrivalData = compareArrivalTimeToSchool(targetStation, startTimes, currentTime, false);
+                        arrivalData = compareArrivalTimeToSchool(targetStation,currentTime,startTimes, false);
 
                     }
                     //시내
                     else if (Arrays.asList(CITY_WEEKDAY_STATIONS).contains(targetStation)) {
                         startTimes = Search.FindClosestBus(currentTime, CITY_WEEKDAY_TIMETABLE);
-                        arrivalData = compareArrivalTimeToSchool(targetStation, startTimes, currentTime, false);
+                        arrivalData = compareArrivalTimeToSchool(targetStation,currentTime, startTimes, false);
 
                     }
                     //명지대역
                     else {
                         startTimes = Search.FindClosestBus(currentTime, MJSTATION_WEEKDAY_TIMETABLE);
-                        arrivalData = compareArrivalTimeToSchool(targetStation, startTimes, currentTime, false);
+                        arrivalData = compareArrivalTimeToSchool(targetStation, currentTime, startTimes, false);
                     }
                 }
             }
@@ -173,7 +161,7 @@ public class BusAlgorithm {
                 // 그 외 버스
                 else {
                     startTimes = Search.FindClosestBus(currentTime, WEEKEND_TIMETABLE);
-                    arrivalData = compareArrivalTimeToSchool(targetStation, startTimes, currentTime, true);
+                    arrivalData = compareArrivalTimeToSchool(targetStation,currentTime, startTimes, true);
                 }
             }
             Log.d("startTimes", Arrays.toString(startTimes));
@@ -196,7 +184,7 @@ public class BusAlgorithm {
                     // 그 외 버스
                     else {
                         startTimes = Search.FindClosestBus(currentTime, WEEKEND_TIMETABLE);
-                        arrivalData = getWeekendVacationArrivalTime(targetStation, startTimes[1], false);
+                        arrivalData = getWeekendVacationArrivalTime(targetStation,currentTime, startTimes[1], false);
                     }
                 }
 
@@ -205,7 +193,7 @@ public class BusAlgorithm {
                     if (targetStation.equals("기흥역")) {
                         if(isSemester()) {
                             startTimes = Search.FindClosestBus(currentTime, GHSTATION_WEEKDAY_TIMETABLE);
-                            arrivalData = getWeekdayArrivalTime(targetStation, startTimes[1], false);
+                            arrivalData = getWeekdayArrivalTime(targetStation,currentTime,  startTimes[1], false);
                         }
                         else{
                             //계절학기 중 평일에는 기흥역 노선이 없습니다.
@@ -217,17 +205,17 @@ public class BusAlgorithm {
                     //시내, 명지대역 노선이 겹치는 버스
                     else if (Arrays.asList(CITY_WEEKDAY_STATIONS).contains(targetStation) && Arrays.asList(MJSTATION_WEEKDAY_STATIONS).contains(targetStation)) {
                         startTimes = Search.FindClosestBus(currentTime, INTEGRATED_WEEKDAY_TIMETABLE);
-                        arrivalData = getWeekdayArrivalTime(targetStation, startTimes[1], false);
+                        arrivalData = getWeekdayArrivalTime(targetStation, currentTime, startTimes[1], false);
                     }
                     //시내
                     else if (Arrays.asList(CITY_WEEKDAY_STATIONS).contains(targetStation)) {
                         startTimes = Search.FindClosestBus(currentTime, CITY_WEEKDAY_TIMETABLE);
-                        arrivalData = getWeekdayArrivalTime(targetStation, startTimes[1], false);
+                        arrivalData = getWeekdayArrivalTime(targetStation,currentTime,  startTimes[1], false);
                     }
                     //명지대역
                     else {
                         startTimes = Search.FindClosestBus(currentTime, MJSTATION_WEEKDAY_TIMETABLE);
-                        arrivalData = getWeekdayArrivalTime(targetStation, startTimes[1], false);
+                        arrivalData = getWeekdayArrivalTime(targetStation, currentTime, startTimes[1], false);
                     }
                 }
             }
@@ -243,7 +231,7 @@ public class BusAlgorithm {
                 // 그 외 버스
                 else {
                     startTimes = Search.FindClosestBus(currentTime, WEEKEND_TIMETABLE);
-                    arrivalData = getWeekendVacationArrivalTime(targetStation, startTimes[1], false);
+                    arrivalData = getWeekendVacationArrivalTime(targetStation, currentTime, startTimes[1], false);
                 }
             }
             Log.d("startTimes", Arrays.toString(startTimes));
@@ -348,11 +336,11 @@ public class BusAlgorithm {
     //arrivalData :
     // arrivalData[0] = 학교 도착 예정 시간
     // arrivalData[1] = 버스가 정류장에 도착할 예정시간
-    private ArrivalData getWeekendVacationArrivalTime(String targetStation, String startTime, boolean toSchool){
+    private ArrivalData getWeekendVacationArrivalTime(String targetStation, String currentTime, String startTime, boolean toSchool){
 
         //사용자가 학교 도착 예정 시간, 버스가 정류장에 도착할 예정시간
         ArrivalData arrivalData = new ArrivalData(startTime);
-        arrivalData.setRouteType("주말방학노선");
+        arrivalData.setRouteType("주말방학노선", currentTime);
         //정류장 index
         int stationIndex = 0;
 
@@ -388,7 +376,7 @@ public class BusAlgorithm {
     //arrivalData :
     // arrivalData[0] = 학교 도착 예정 시간
     // arrivalData[1] = 버스가 정류장에 도착할 예정시간
-    private ArrivalData getWeekdayArrivalTime(String targetStation, String startTime, boolean toSchool){
+    private ArrivalData getWeekdayArrivalTime(String targetStation, String currentTime, String startTime, boolean toSchool){
 
         //사용자가 학교 도착 예정 시간, 버스가 정류장에 도착할 예정시간
         ArrivalData arrivalData = new ArrivalData(startTime);
@@ -398,7 +386,7 @@ public class BusAlgorithm {
         if(toSchool) {
             //1. 기흥역 셔틀 버스
             if (targetStation.equals("기흥역")) {
-                arrivalData.setRouteType("기흥역노선");
+                arrivalData.setRouteType("기흥역노선", currentTime);
                 for (int i = 0; i < GHSTATION_WEEKDAY_STATIONS.length; i++) {
                     if (GHSTATION_WEEKDAY_STATIONS[i].equals(targetStation)) {
                         stationIndex = i;
@@ -416,7 +404,7 @@ public class BusAlgorithm {
 
             //2. 명지대역 버스
             else if (Arrays.asList(MJSTATION_WEEKDAY_TIMETABLE).contains(startTime)) {
-                arrivalData.setRouteType("명지대역노선");
+                arrivalData.setRouteType("명지대역노선", currentTime);
                 for (int i = 0; i < MJSTATION_WEEKDAY_STATIONS.length; i++) {
                     if (MJSTATION_WEEKDAY_STATIONS[i].equals(targetStation)) {
                         stationIndex = i;
@@ -433,7 +421,7 @@ public class BusAlgorithm {
             }
             //3.시내 버스
             else {
-                arrivalData.setRouteType("시내노선");
+                arrivalData.setRouteType("시내노선", currentTime);
                 for (int i = 0; i < CITY_WEEKDAY_STATIONS.length; i++) {
                     if (CITY_WEEKDAY_STATIONS[i].equals(targetStation)) {
                         stationIndex = i;
@@ -453,7 +441,7 @@ public class BusAlgorithm {
         else{
             //버스 도착 예정 시간 = 버스 출발 시간
             if (targetStation.equals("기흥역")) {
-                arrivalData.setRouteType("기흥역노선");
+                arrivalData.setRouteType("기흥역노선", currentTime);
                 for (int i = 0; i < GHSTATION_WEEKDAY_STATIONS.length; i++) {
                     if (GHSTATION_WEEKDAY_STATIONS[i].equals(targetStation)) {
                         stationIndex = i;
@@ -467,7 +455,7 @@ public class BusAlgorithm {
 
             //2. 명지대역 버스
             else if (Arrays.asList(MJSTATION_WEEKDAY_TIMETABLE).contains(startTime)) {
-                arrivalData.setRouteType("명지대역노선");
+                arrivalData.setRouteType("명지대역노선", currentTime);
                 for (int i = 0; i < MJSTATION_WEEKDAY_STATIONS.length; i++) {
                     if (MJSTATION_WEEKDAY_STATIONS[i].equals(targetStation)) {
                         stationIndex = i;
@@ -480,7 +468,7 @@ public class BusAlgorithm {
             }
             //3.시내 버스
             else {
-                arrivalData.setRouteType("시내노선");
+                arrivalData.setRouteType("시내노선", currentTime);
                 for (int i = 0; i < CITY_WEEKDAY_STATIONS.length; i++) {
                     if (CITY_WEEKDAY_STATIONS[i].equals(targetStation)) {
                         stationIndex = i;
@@ -501,7 +489,7 @@ public class BusAlgorithm {
     //도착 버스 시간 비교 메서드
     //INPUT : 도착 정류장, 2개의 버스출발시간(타겟시간 이전버스, 타겟시간 이후버스)
     //직전 버스, 이후 버스 중 어떤 버스가 먼저 도착할 지 판단한 후 먼저 도착하는 버스의 도착시간을 반환한다.
-    private ArrivalData compareArrivalTimeToSchool(String startStation, String [] startTimes, String currentTime, boolean isWeekend){
+    private ArrivalData compareArrivalTimeToSchool(String startStation,String currentTime, String [] startTimes, boolean isWeekend){
 
         ArrivalData arrivalData;
 
@@ -510,13 +498,13 @@ public class BusAlgorithm {
 
         //주말이면
         if (isWeekend) {
-            bus1ArrivalData = getWeekendVacationArrivalTime(startStation, startTimes[0], true);
-            bus2ArrivalData = getWeekendVacationArrivalTime(startStation, startTimes[1], true);
+            bus1ArrivalData = getWeekendVacationArrivalTime(startStation,currentTime,  startTimes[0], true);
+            bus2ArrivalData = getWeekendVacationArrivalTime(startStation,currentTime,  startTimes[1], true);
         }
         //평일이면
         else{
-            bus1ArrivalData = getWeekdayArrivalTime(startStation, startTimes[0], true);
-            bus2ArrivalData = getWeekdayArrivalTime(startStation, startTimes[1], true);
+            bus1ArrivalData = getWeekdayArrivalTime(startStation, currentTime, startTimes[0], true);
+            bus2ArrivalData = getWeekdayArrivalTime(startStation,currentTime,  startTimes[1], true);
         }
                                                                                                                                                                                                                                                                                                                                                                                                                                                     //이전에 출발한 버스 시간 > 타겟 시간 : 아직 도착 전이기 때문에 ArrivalTime은 이전에 출발한 버스가 도착할 시간이 된다.
                                                                                                                                                                                                                                                                                                                                                                                                                                                     if(DateFormat.compare(bus1ArrivalData.getBusArrivalTime().getTime(), currentTime) > 0){
