@@ -46,7 +46,9 @@ public class BusResultActivity extends AppCompatActivity implements OnMapReadyCa
     //버스 노선도
     String routeType;
     //마지막 노선
-    ArrayList<String> lastStation;
+    ArrayList<String> lastStations;
+    //남은 노선
+    ArrayList<String> restStations;
     
 
     @Override
@@ -95,7 +97,8 @@ public class BusResultActivity extends AppCompatActivity implements OnMapReadyCa
             busArrivalTimeLeft = DateFormat.compare(busArrivalTime, new DateFormat(currentTime));
             arrivalTimeLeft = DateFormat.compare(arrivalTime, new DateFormat(currentTime));
             routeType = arrivalData.getRouteType();
-            lastStation = arrivalData.getLastStations();
+            lastStations = arrivalData.getLastStations();
+            restStations = arrivalData.getRestStaions();
 
             //끝 값 처리: 버스가 끊겼을 때
             if (busArrivalTimeLeft < 0) {
@@ -122,7 +125,9 @@ public class BusResultActivity extends AppCompatActivity implements OnMapReadyCa
             Log.d("버스 예정 도착시간", busArrivalTime.getTime());
             Log.d("버스 도착까지 남은 시간", busArrivalTimeLeft + "초");
             Log.d("버스노선타입", routeType);
-            Log.d("마지막 정거장", lastStation.toString());
+            Log.d("마지막 정거장", lastStations.toString());
+            Log.d("남은 정거장", restStations.toString());
+
 
 
         }

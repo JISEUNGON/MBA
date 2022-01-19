@@ -69,7 +69,7 @@ public class BusAlgorithm {
             if (busArrivalTimeLeft > redBusTimeLeft || busArrivalTimeLeft < 0) {
                 busArrivalTimeLeft = redBusTimeLeft;
 
-                ArrivalData redBusArrivalData = new ArrivalData(currentTime);
+                ArrivalData redBusArrivalData = new ArrivalData(currentTime, targetStation);
                 redBusArrivalData.setRouteType("광역버스", currentTime);
                 //버스 도착 시간 수정 -> 현재시간 + 광역버스 대기시간
                 redBusArrivalData.addBusArrivalTime(busArrivalTimeLeft);
@@ -77,6 +77,8 @@ public class BusAlgorithm {
                 redBusArrivalData.addArrivalTime(busArrivalTimeLeft);
                 redBusArrivalData.addArrivalTime(MJSTATION_REQUIRED_TIME[MJSTATION_REQUIRED_TIME.length - 2]);
                 redBusArrivalData.addArrivalTime(MJSTATION_REQUIRED_TIME[MJSTATION_REQUIRED_TIME.length - 1]);
+                redBusArrivalData.addRestStations(MJSTATION_WEEKDAY_STATIONS[MJSTATION_WEEKDAY_STATIONS.length-2]);
+                redBusArrivalData.addRestStations(MJSTATION_WEEKDAY_STATIONS[MJSTATION_WEEKDAY_STATIONS.length-1]);
 
                 return redBusArrivalData;
             }
@@ -339,7 +341,7 @@ public class BusAlgorithm {
     private ArrivalData getWeekendVacationArrivalTime(String targetStation, String currentTime, String startTime, boolean toSchool){
 
         //사용자가 학교 도착 예정 시간, 버스가 정류장에 도착할 예정시간
-        ArrivalData arrivalData = new ArrivalData(startTime);
+        ArrivalData arrivalData = new ArrivalData(startTime, targetStation);
         arrivalData.setRouteType("주말방학노선", currentTime);
         //정류장 index
         int stationIndex = 0;
@@ -352,14 +354,17 @@ public class BusAlgorithm {
 
         //target -> 학교일 때
         if(toSchool) {
-            //버스 도착 예정 시간 구하기
-            for (int i = 0; i <= stationIndex; i++) {
-                arrivalData.addBusArrivalTime(WEEKEND_REQUIRED_TIME[i]);
-            }
-
-            //학교 도착예정 시간 구하기
             for (int i = 0; i < WEEKEND_REQUIRED_TIME.length; i++) {
+                //학교 도착예정 시간 구하기
                 arrivalData.addArrivalTime(WEEKEND_REQUIRED_TIME[i]);
+                //구해진 stationIndex 까지 즉 출발점부터 start 정류장까지 걸리는 시간을 더한다.
+                if(i<=stationIndex){
+                    arrivalData.addBusArrivalTime(WEEKEND_REQUIRED_TIME[i]);
+                }
+                //구해진 stationIndex 부터 마지막 정류장까지 restStations 에 더한다.
+                else{
+                    arrivalData.addRestStations(WEEKEND_STATIONS[i]);
+                }
             }
         }
         //학교 -> target일 때
@@ -367,6 +372,8 @@ public class BusAlgorithm {
             //target 도착예정 시간 구하기
             for (int i = 0; i <= stationIndex; i++) {
                 arrivalData.addArrivalTime(WEEKEND_REQUIRED_TIME[i]);
+                arrivalData.addRestStations(WEEKEND_STATIONS[i]);
+
             }
         }
         return arrivalData;
@@ -379,7 +386,7 @@ public class BusAlgorithm {
     private ArrivalData getWeekdayArrivalTime(String targetStation, String currentTime, String startTime, boolean toSchool){
 
         //사용자가 학교 도착 예정 시간, 버스가 정류장에 도착할 예정시간
-        ArrivalData arrivalData = new ArrivalData(startTime);
+        ArrivalData arrivalData = new ArrivalData(startTime, targetStation);
 
         int stationIndex = 0;
 
@@ -392,13 +399,18 @@ public class BusAlgorithm {
                         stationIndex = i;
                     }
                 }
-                //구해진 stationIndex까지 즉 출발점부터 start 정류장까지 걸리는 시간을 더한다.
-                for (int i = 0; i <= stationIndex; i++) {
-                    arrivalData.addBusArrivalTime(GHSTATION_REQUIRED_TIME[i]);
-                }
-                //학교 도착예정 시간 구하기
+
                 for (int i = 0; i < GHSTATION_REQUIRED_TIME.length; i++) {
+                    //최종 도착지 까지 걸릴 시간을 계산한다.
                     arrivalData.addArrivalTime(GHSTATION_REQUIRED_TIME[i]);
+                     //구해진 stationIndex 까지 즉 출발점부터 start 정류장까지 걸리는 시간을 더한다.
+                    if(i<=stationIndex){
+                        arrivalData.addBusArrivalTime(GHSTATION_REQUIRED_TIME[i]);
+                    }
+                    //구해진 stationIndex 부터 마지막 정류장까지 restStations 에 더한다.
+                    else{
+                        arrivalData.addRestStations(GHSTATION_WEEKDAY_STATIONS[i]);
+                    }
                 }
             }
 
@@ -410,13 +422,20 @@ public class BusAlgorithm {
                         stationIndex = i;
                     }
                 }
-                //구해진 stationIndex까지 즉 출발점부터 start 정류장까지 걸리는 시간을 더한다.
-                for (int i = 0; i <= stationIndex; i++) {
-                    arrivalData.addBusArrivalTime(MJSTATION_REQUIRED_TIME[i]);
-                }
+
                 //학교 도착예정 시간 구하기
                 for (int i = 0; i < MJSTATION_REQUIRED_TIME.length; i++) {
+                    //최종 도착지 까지 걸릴 시간을 계산한다.
                     arrivalData.addArrivalTime(MJSTATION_REQUIRED_TIME[i]);
+                    //구해진 stationIndex 까지 즉 출발점부터 start 정류장까지 걸리는 시간을 더한다.
+                    if(i<=stationIndex) {
+                        arrivalData.addBusArrivalTime(MJSTATION_REQUIRED_TIME[i]);
+                    }
+                    //구해진 stationIndex 부터 마지막 정류장까지 restStations 에 더한다.
+                    else{
+                        Log.d("aa", "aaaas");
+                        arrivalData.addRestStations(MJSTATION_WEEKDAY_STATIONS[i]);
+                    }
                 }
             }
             //3.시내 버스
@@ -427,13 +446,17 @@ public class BusAlgorithm {
                         stationIndex = i;
                     }
                 }
-                for (int i = 0; i <= stationIndex; i++) {
-                    arrivalData.addBusArrivalTime(CITY_REQUIRED_TIME[i]);
-                }
-
                 //학교 도착예정 시간 구하기
                 for (int i = 0; i < CITY_REQUIRED_TIME.length; i++) {
                     arrivalData.addArrivalTime(CITY_REQUIRED_TIME[i]);
+                    //구해진 stationIndex 까지 즉 출발점부터 start 정류장까지 걸리는 시간을 더한다.
+                    if(i<=stationIndex) {
+                        arrivalData.addBusArrivalTime(CITY_REQUIRED_TIME[i]);
+                    }
+                    //구해진 stationIndex 부터 마지막 정류장까지 restStations 에 더한다.
+                    else{
+                        arrivalData.addRestStations(CITY_WEEKDAY_STATIONS[i]);
+                    }
                 }
             }
         }
@@ -450,6 +473,7 @@ public class BusAlgorithm {
                 //target 도착예정 시간 구하기
                 for (int i = 0; i <= stationIndex; i++) {
                     arrivalData.addArrivalTime(GHSTATION_REQUIRED_TIME[i]);
+                    arrivalData.addRestStations(GHSTATION_WEEKDAY_STATIONS[i]);
                 }
             }
 
@@ -464,6 +488,7 @@ public class BusAlgorithm {
                 //target 도착예정 시간 구하기
                 for (int i = 0; i <= stationIndex; i++) {
                     arrivalData.addArrivalTime(MJSTATION_REQUIRED_TIME[i]);
+                    arrivalData.addRestStations(MJSTATION_WEEKDAY_STATIONS[i]);
                 }
             }
             //3.시내 버스
@@ -477,6 +502,8 @@ public class BusAlgorithm {
                 //target 도착예정 시간 구하기
                 for (int i = 0; i <= stationIndex; i++) {
                     arrivalData.addArrivalTime(CITY_REQUIRED_TIME[i]);
+                    arrivalData.addRestStations(CITY_WEEKDAY_STATIONS[i]);
+
                 }
             }
         }

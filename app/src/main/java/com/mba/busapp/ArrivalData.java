@@ -5,18 +5,28 @@ package com.mba.busapp;
 
 import java.util.ArrayList;
 
+//주어진 버스 타임에 대한 모든 데이터를 가지는 클래스
 public class ArrivalData {
+    //현재 시간, 도착 정류장
+    //버스가 올시간, 도착 정류장에 도착할 시간
+    //남은 정류장, 마지막 정류장
     DateFormat busArrivalTime;
     DateFormat arrivalTime;
+    DateFormat currentTime;
     String routeType;
+    String targetStation;
+    ArrayList<String> restStations;
     ArrayList<String> lastStations;
 
     //Constructor
-    public ArrivalData(String time){
-        busArrivalTime = new DateFormat(time);
-        arrivalTime = new DateFormat(time);
+    public ArrivalData(String currentTime, String targetStation){
+        this.currentTime = new DateFormat(currentTime);
+        this.targetStation = targetStation;
+        busArrivalTime = new DateFormat(currentTime);
+        arrivalTime = new DateFormat(currentTime);
     }
-    public ArrivalData(String busArrival, String arrival){
+    public ArrivalData(String currentTime, String busArrival, String arrival){
+        this.currentTime = new DateFormat(currentTime);
         busArrivalTime = new DateFormat(busArrival);
         arrivalTime = new DateFormat(arrival);
     }
@@ -29,6 +39,13 @@ public class ArrivalData {
     public void addArrivalTime(int time){
         arrivalTime.addSecTime(time);
     }
+    //남은 정류장 추가
+    public void addRestStations(String station){
+        if (restStations == null) {
+            restStations = new ArrayList<>();
+        }
+        restStations.add(station);
+    }
 
     //Getter Setter
     public DateFormat getBusArrivalTime() {
@@ -39,8 +56,19 @@ public class ArrivalData {
         return arrivalTime;
     }
 
+    public String getTargetStation() {return targetStation;}
+
+
+    public DateFormat getCurrentTime() {return currentTime;}
+
     public String getRouteType() {
         return routeType;
+    }
+    public ArrayList getRestStaions() {
+        if (restStations == null) {
+            restStations = new ArrayList<>();
+        }
+        return restStations;
     }
 
     public ArrayList getLastStations() {
