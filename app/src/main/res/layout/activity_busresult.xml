@@ -1,15 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".BusResultActivity">
 
-    <com.naver.maps.map.MapView
-        android:id="@+id/busresult_navermap"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
 
-    </com.naver.maps.map.MapView>
+    <com.sothree.slidinguppanel.SlidingUpPanelLayout
+        android:id="@+id/bus_sliding_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom"
+        app:umanoPanelHeight="110dp"
+        app:umanoShadowHeight="0dp"
+        app:umanoOverlay="true"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="-46dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/mju01"
+            android:weightSum="10"
+            android:orientation="vertical">
+
+            <com.naver.maps.map.MapView
+                android:id="@+id/busresult_navermap"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+            </com.naver.maps.map.MapView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="60dp"
+                android:layout_height="5dp"
+                android:layout_marginBottom="10dp"
+                android:layout_gravity="center"
+                android:background="@drawable/round_img_drag_tip" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#00FFFFFF">
+
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="430dp"
+                    android:layout_marginBottom="4dp"
+                    android:background="@drawable/round_img_dra"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <ListView
+                    android:id="@+id/lv01"
+                    android:layout_width="373dp"
+                    android:layout_height="309dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="40dp"
+                    android:divider="#FFFFFF"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/remaintime"
+                    style="@style/Binggrae.content"
+                    android:layout_width="159dp"
+                    android:layout_height="52dp"
+                    android:layout_marginStart="-250dp"
+                    android:layout_marginBottom="348dp"
+                    android:text="남은시간"
+                    android:textSize="30dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.535"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/arrivaltime"
+                    style="@style/Binggrae.content"
+                    android:layout_width="159dp"
+                    android:layout_height="52dp"
+                    android:layout_marginStart="-250dp"
+                    android:layout_marginBottom="348dp"
+                    android:text="도착시간"
+                    android:textSize="30dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.87"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+
+    </com.sothree.slidinguppanel.SlidingUpPanelLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
