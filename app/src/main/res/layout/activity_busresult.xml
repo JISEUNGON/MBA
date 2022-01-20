@@ -77,15 +77,16 @@
                 <TextView
                     android:id="@+id/remaintime"
                     style="@style/Binggrae.content"
-                    android:layout_width="159dp"
+                    android:layout_width="100dp"
                     android:layout_height="52dp"
                     android:layout_marginStart="-250dp"
                     android:layout_marginBottom="348dp"
+                    android:gravity="bottom"
                     android:text="남은시간"
                     android:textSize="30dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.535"
+                    app:layout_constraintHorizontal_bias="0.479"
                     app:layout_constraintStart_toStartOf="parent" />
 
                 <TextView
@@ -95,11 +96,12 @@
                     android:layout_height="52dp"
                     android:layout_marginStart="-250dp"
                     android:layout_marginBottom="348dp"
+                    android:gravity="bottom"
                     android:text="도착시간"
-                    android:textSize="30dp"
+                    android:textSize="13dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.87"
+                    app:layout_constraintHorizontal_bias="0.749"
                     app:layout_constraintStart_toStartOf="parent" />
 
 

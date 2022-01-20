@@ -88,12 +88,8 @@ public class BussList extends BaseAdapter {
 
     }
 
-    // 자세히 보기 클릭했는지 확인
-    public boolean checkList(int i){
-
-        if(buspass.get(i).getName() == "자세히 보기"){
-            return true;
-        }
-        return false;
+    // 특정 위치 내용 변경
+    void changeBuss(int i, String s){
+        buspass.get(i).setName(s);
     }
 }
