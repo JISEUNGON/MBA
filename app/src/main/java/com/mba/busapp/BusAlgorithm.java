@@ -77,8 +77,9 @@ public class BusAlgorithm {
                 redBusArrivalData.addArrivalTime(busArrivalTimeLeft);
                 redBusArrivalData.addArrivalTime(MJSTATION_REQUIRED_TIME[MJSTATION_REQUIRED_TIME.length - 2]);
                 redBusArrivalData.addArrivalTime(MJSTATION_REQUIRED_TIME[MJSTATION_REQUIRED_TIME.length - 1]);
-                redBusArrivalData.addRestStations(MJSTATION_WEEKDAY_STATIONS[MJSTATION_WEEKDAY_STATIONS.length-2]);
-                redBusArrivalData.addRestStations(MJSTATION_WEEKDAY_STATIONS[MJSTATION_WEEKDAY_STATIONS.length-1]);
+                //남은 정류장 list 에 add
+                redBusArrivalData.addRestStations("이마트·상공회의소(명지대방향)");
+                redBusArrivalData.addRestStations("명지대학교 자연캠퍼스");
 
                 return redBusArrivalData;
             }
@@ -88,7 +89,10 @@ public class BusAlgorithm {
         //목적지가 진입로가 아닐 때
         return shuttleBusArrivalData;
     }
-
+    
+    //시즌별(학기중, 계절학기, 방학) 구분, 정류장-> 학교 유무 구분, 노선을 구분하여
+    //ArrivalData 객체를 구하는 함수
+    
     public ArrivalData getArrivalData(boolean toSchool, String targetStation, String currentTime, String currentDay, int[] mjRequiredTime, int[] cityRequiredTime, int[] weekendRequiredTime){
         MJSTATION_REQUIRED_TIME = mjRequiredTime;
         CITY_REQUIRED_TIME = cityRequiredTime;
@@ -241,6 +245,8 @@ public class BusAlgorithm {
         return arrivalData;
     }
 
+    //현재 시즌 구분해서
+    //xml 데이터 가져오기 (정류장 데이터, 시간 테이블)
     private void loadData(){
         if(isSemester()){
             //학기 중 평일: 모든 노선 O
