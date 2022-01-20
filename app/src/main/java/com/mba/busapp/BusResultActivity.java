@@ -92,7 +92,7 @@ public class BusResultActivity extends AppCompatActivity implements OnMapReadyCa
 
     // 버스 타입
     String busType;
-    
+
 
     @Override
     @SuppressWarnings("unchecked")
@@ -113,6 +113,8 @@ public class BusResultActivity extends AppCompatActivity implements OnMapReadyCa
         String [] dateData = time.split("_");
         currentTime = dateData[4] + ":" + dateData[5];
         currentDay = dateData[3];
+
+        currentTime = "15:00";
 
         Log.d("넘겨온 데이터", "***************************************************");
         Log.d("명지대역 노선 구간별 시간", Arrays.toString(MJSTATION_REQUIRED_TIME));

@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,6 +56,11 @@ public class BusSearchActivity  extends AppCompatActivity implements OnMapReadyC
     private String[] location = {"이마트·상공희의소 버스 정류장", "역북동행정복지센터 버스 정류장" ,"금호 부동산중개 앞", "행텐 주니어 용인점 앞", "안경창고 싸군 용인점 앞", "명지대사거리 버스 정류장", "역북동행정복지센터 버스 정류장", "이마트·상공희의소 버스 정류장", "기흥역 5번 출구 앞" };
     private int [] textViewLength = {170, 70, 100, 85, 140, 85, 180, 130, 70};
 
+    private int[] MJSTATION_REQUIRED_TIME;
+    private int[] CITY_REQUIRED_TIME;
+    private int[] WEEKEND_REQUIRED_TIME;
+
+
     List<String> list = new ArrayList<>(Arrays.asList(items));
 
 
@@ -65,8 +71,36 @@ public class BusSearchActivity  extends AppCompatActivity implements OnMapReadyC
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        class NewRunnable implements Runnable {
+            @Override
+            public void run() {
+                while (true) { // 코드 작성
+                    try {
+                        int SDK_INT = android.os.Build.VERSION.SDK_INT;
+                        if (SDK_INT > 8) {
+                            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                                    .permitAll().build();
+                            StrictMode.setThreadPolicy(policy);
+                            //your codes here
+                            MJSTATION_REQUIRED_TIME = BusManager.getBusInfo_mju_station();
+                            CITY_REQUIRED_TIME = BusManager.getBusInfo_mju_downtown();
+                            WEEKEND_REQUIRED_TIME = BusManager.getBusInfo_vacation_or_weekend();
+                        }
+                        //5분에 한번씩 거리 array 업데이트
+                        Thread.sleep(300000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bussearch);
+
+        NewRunnable nr = new NewRunnable() ;
+        Thread t = new Thread(nr) ;
+        t.start();
+
         switch_counter = 0; //switch 카운터 0으로 초기화
 
         slidingUpPanelLayout = (SlidingUpPanelLayout) findViewById(R.id.bussearch_slidingpanel);
@@ -191,20 +225,9 @@ public class BusSearchActivity  extends AppCompatActivity implements OnMapReadyC
         intent.putExtra("currentTime", currentTime);
         intent.putExtra("toSchool", toSchool);
         intent.putExtra("targetStation",targetStation);
-
-        /**
-         * 동기 방식 API 호출
-         */
-        int SDK_INT = android.os.Build.VERSION.SDK_INT;
-        if (SDK_INT > 8) {
-            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
-                    .permitAll().build();
-            StrictMode.setThreadPolicy(policy);
-            //your codes here
-            intent.putExtra("downtown_timerequire", BusManager.getBusInfo_mju_downtown());
-            intent.putExtra("mjustation_timerequire", BusManager.getBusInfo_mju_station());
-            intent.putExtra("vacation_or_weekend_timerequire", BusManager.getBusInfo_vacation_or_weekend());
-        }
+        intent.putExtra("downtown_timerequire", CITY_REQUIRED_TIME);
+        intent.putExtra("mjustation_timerequire", MJSTATION_REQUIRED_TIME);
+        intent.putExtra("vacation_or_weekend_timerequire", WEEKEND_REQUIRED_TIME);
 
         startActivity(intent);
     }
