@@ -68,7 +68,7 @@
                     android:layout_width="373dp"
                     android:layout_height="309dp"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginBottom="40dp"
+                    android:layout_marginBottom="4dp"
                     android:divider="#FFFFFF"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -92,7 +92,7 @@
                 <TextView
                     android:id="@+id/arrivaltime"
                     style="@style/Binggrae.content"
-                    android:layout_width="159dp"
+                    android:layout_width="207dp"
                     android:layout_height="52dp"
                     android:layout_marginStart="-250dp"
                     android:layout_marginBottom="348dp"
@@ -101,7 +101,7 @@
                     android:textSize="13dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.749"
+                    app:layout_constraintHorizontal_bias="0.812"
                     app:layout_constraintStart_toStartOf="parent" />
 
 

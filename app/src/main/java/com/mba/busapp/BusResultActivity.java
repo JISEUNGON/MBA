@@ -114,7 +114,6 @@ public class BusResultActivity extends AppCompatActivity implements OnMapReadyCa
         currentTime = dateData[4] + ":" + dateData[5];
         currentDay = dateData[3];
 
-        currentTime = "15:00";
 
         Log.d("넘겨온 데이터", "***************************************************");
         Log.d("명지대역 노선 구간별 시간", Arrays.toString(MJSTATION_REQUIRED_TIME));
@@ -206,6 +205,8 @@ public class BusResultActivity extends AppCompatActivity implements OnMapReadyCa
         else{
             busType = "셔틀버스";
         }
+
+
 
         // 버스 종류 + 타이머
         typeAndTimer = busType + "  " +lefttime;
@@ -362,7 +363,7 @@ public class BusResultActivity extends AppCompatActivity implements OnMapReadyCa
                     }
                 }
                 // 리스트에 추가
-                for(int i =WEEKEND_STATIONS.length -1; i >= end_i; i--){
+                for(int i =WEEKEND_STATIONS.length -2; i >= end_i; i--){
                     buspassList.add(WEEKEND_STATIONS[i]);
                 }
 
@@ -375,7 +376,7 @@ public class BusResultActivity extends AppCompatActivity implements OnMapReadyCa
                     }
                 }
                 // 리스트에 추가
-                for(int i =MJSTATION_WEEKDAY_STATIONS.length -1; i >= end_i; i--){
+                for(int i =MJSTATION_WEEKDAY_STATIONS.length -2; i >= end_i; i--){
                     buspassList.add(MJSTATION_WEEKDAY_STATIONS[i]);
                 }
 
@@ -388,7 +389,7 @@ public class BusResultActivity extends AppCompatActivity implements OnMapReadyCa
                     }
                 }
                 // 리스트에 추가
-                for(int i =CITY_WEEKDAY_STATIONS.length -1; i >= end_i; i--){
+                for(int i =CITY_WEEKDAY_STATIONS.length -2; i >= end_i; i--){
                     buspassList.add(CITY_WEEKDAY_STATIONS[i]);
                 }
 
@@ -401,7 +402,7 @@ public class BusResultActivity extends AppCompatActivity implements OnMapReadyCa
                     }
                 }
                 // 리스트에 추가
-                for(int i =GHSTATION_WEEKDAY_STATIONS.length -1; i >= end_i; i--){
+                for(int i =GHSTATION_WEEKDAY_STATIONS.length -2; i >= end_i; i--){
                     buspassList.add(GHSTATION_WEEKDAY_STATIONS[i]);
                 }
 
@@ -429,7 +430,7 @@ public class BusResultActivity extends AppCompatActivity implements OnMapReadyCa
                         listAdapter.addBussPass(ContextCompat.getDrawable(context,R.drawable.bus_pass_final), "명지대학교 자연캠퍼스");
                         listAdapter.notifyDataSetChanged();
                     }
-                    else{
+                    else if(toSchool == false){
                         // 출발지 와 도착지 출력
                         listAdapter.addBussPass(ContextCompat.getDrawable(context,R.drawable.buss_pass_start), "명지대학교 자연캠퍼스");
                         listAdapter.addBussPass(ContextCompat.getDrawable(context,R.drawable.buss_pass_line), typeAndTimer);
@@ -456,7 +457,16 @@ public class BusResultActivity extends AppCompatActivity implements OnMapReadyCa
 
                         // 도착지 출력
                         if(i == buspassList.size()-1){
-                            listAdapter.addBussPass(ContextCompat.getDrawable(context,R.drawable.bus_pass_final), "명지대학교 자연캠퍼스");
+
+                            // 마지막 정류장이 학교인 경우
+                            if(toSchool){
+                                listAdapter.addBussPass(ContextCompat.getDrawable(context,R.drawable.bus_pass_final), "명지대학교 자연캠퍼스");
+                            }
+                            // 마지막 정류장이 target인 경우
+                            else{
+                                listAdapter.addBussPass(ContextCompat.getDrawable(context,R.drawable.bus_pass_final), targetStation);
+                            }
+
                             listAdapter.notifyDataSetChanged();
                         }
                         // 거쳐가는 정류장 출력
@@ -484,7 +494,7 @@ public class BusResultActivity extends AppCompatActivity implements OnMapReadyCa
         // 몇시 도착 예정인지 표시
         TextView arrival_time = (TextView) findViewById(R.id.arrivaltime);
         long start_time = System.currentTimeMillis();
-        temp = currentTime + " ~ " + arrivalTime.getTime();
+        temp = currentTime + " 출발 ~ " + arrivalTime.getTime() + " 도착";
         arrival_time.setText(temp);
     }
 
