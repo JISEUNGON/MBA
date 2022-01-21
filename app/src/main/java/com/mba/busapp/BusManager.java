@@ -1,6 +1,7 @@
 package com.mba.busapp;
 
 import android.os.Build;
+import android.os.StrictMode;
 import android.util.Log;
 
 import androidx.annotation.RequiresApi;
@@ -58,23 +59,29 @@ public class BusManager {
     @RequiresApi(api = Build.VERSION_CODES.N)
     public static int getBusInfo_city() {
         try {
-            URL url = new URL("https://yax35ivans.apigw.ntruss.com/mba/v1/TLAVUb32yo/json");
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            int SDK_INT = android.os.Build.VERSION.SDK_INT;
+            if (SDK_INT > 8) {
+                StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                        .permitAll().build();
+                StrictMode.setThreadPolicy(policy);
+                URL url = new URL("https://yax35ivans.apigw.ntruss.com/mba/v1/TLAVUb32yo/json");
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
-            conn.setRequestMethod("GET");
-            conn.setRequestProperty("Content-type", "application/xml");
-            BufferedReader rd;
-            if (conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
-                InputStreamReader inputStreamReader = new InputStreamReader(conn.getInputStream());
-                Stream<String> streamOfString = new BufferedReader(inputStreamReader).lines();
-                String streamToString = streamOfString.collect(Collectors.joining());
+                conn.setRequestMethod("GET");
+                conn.setRequestProperty("Content-type", "application/xml");
+                BufferedReader rd;
+                if (conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
+                    InputStreamReader inputStreamReader = new InputStreamReader(conn.getInputStream());
+                    Stream<String> streamOfString = new BufferedReader(inputStreamReader).lines();
+                    String streamToString = streamOfString.collect(Collectors.joining());
 
-                String timeLeft = JsonParser.parseString(streamToString).getAsJsonObject().get("body").toString();
-                if (timeLeft.equals("")) return -1;
-                else return Integer.parseInt(timeLeft)*60;
-            } else {
-                rd = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
-                Log.e("[BusManager]", "<getBusInfo_city>" + rd.readLine());
+                    String timeLeft = JsonParser.parseString(streamToString).getAsJsonObject().get("body").toString();
+                    if (timeLeft.equals("")) return -1;
+                    else return Integer.parseInt(timeLeft) * 60;
+                } else {
+                    rd = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+                    Log.e("[BusManager]", "<getBusInfo_city>" + rd.readLine());
+                }
             }
         } catch (Exception e) {
             Log.e("[BusManager]", "<getBusInfo_city>" + e.getMessage());
