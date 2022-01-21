@@ -15,4 +15,5 @@
         <item name="android:fontFamily">@font/mba_font</item>
         <item name="android:includeFontPadding">false</item>
     </style>
+    
 </resources>

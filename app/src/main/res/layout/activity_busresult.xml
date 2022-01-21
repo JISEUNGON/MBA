@@ -40,13 +40,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <View
-                android:layout_width="60dp"
-                android:layout_height="5dp"
-                android:layout_marginBottom="10dp"
-                android:layout_gravity="center"
-                android:background="@drawable/round_img_drag_tip" />
-
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -54,6 +47,7 @@
 
 
                 <ImageView
+                    android:id="@+id/image01"
                     android:layout_width="0dp"
                     android:layout_height="430dp"
                     android:layout_marginBottom="4dp"

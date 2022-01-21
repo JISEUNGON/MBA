@@ -94,6 +94,7 @@ public class BusSearchActivity  extends AppCompatActivity implements OnMapReadyC
                 }
             }
         }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bussearch);
 

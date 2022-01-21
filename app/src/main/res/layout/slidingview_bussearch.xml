@@ -61,7 +61,7 @@
                 android:id="@+id/btnSearch"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                android:background="@drawable/custom_button_round"
+                android:background="@drawable/custom_button_round_pressed"
                 android:contentDescription="@string/app_name"
                 android:onClick="btn_moveNext"
                 android:src="@drawable/ic_bus"

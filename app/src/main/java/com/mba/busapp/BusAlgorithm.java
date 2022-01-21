@@ -89,7 +89,8 @@ public class BusAlgorithm {
         //목적지가 진입로가 아닐 때
         return shuttleBusArrivalData;
     }
-    
+
+
     //시즌별(학기중, 계절학기, 방학) 구분, 정류장-> 학교 유무 구분, 노선을 구분하여
     //ArrivalData 객체를 구하는 함수
     
