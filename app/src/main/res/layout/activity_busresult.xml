@@ -72,37 +72,37 @@
                     android:divider="#FFFFFF"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintHorizontal_bias="0.9"
+                    app:layout_constraintVertical_bias="0.9" />
 
                 <TextView
                     android:id="@+id/remaintime"
                     style="@style/Binggrae.content"
-                    android:layout_width="100dp"
+                    android:layout_width="80dp"
                     android:layout_height="52dp"
-                    android:layout_marginStart="-250dp"
-                    android:layout_marginBottom="348dp"
                     android:gravity="bottom"
                     android:text="남은시간"
                     android:textSize="30dp"
                     app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.479"
-                    app:layout_constraintStart_toStartOf="parent" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintHorizontal_bias="0.1"
+                    app:layout_constraintVertical_bias="0.1"/>
 
                 <TextView
                     android:id="@+id/arrivaltime"
                     style="@style/Binggrae.content"
                     android:layout_width="207dp"
                     android:layout_height="52dp"
-                    android:layout_marginStart="-250dp"
-                    android:layout_marginBottom="348dp"
+                    android:layout_marginBottom="5dp"
                     android:gravity="bottom"
                     android:text="도착시간"
                     android:textSize="13dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.812"
-                    app:layout_constraintStart_toStartOf="parent" />
+                    app:layout_constraintBottom_toBottomOf= "@id/remaintime"
+                    app:layout_constraintStart_toEndOf="@id/remaintime" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
