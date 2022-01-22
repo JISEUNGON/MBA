@@ -144,8 +144,6 @@ public class BusResultActivity extends AppCompatActivity implements OnMapReadyCa
             busType = "셔틀버스";
         }
 
-
-
         // 버스 종류 + 타이머
         typeAndTimer = busType + "  " +lefttime;
 

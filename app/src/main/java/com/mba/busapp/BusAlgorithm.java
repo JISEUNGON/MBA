@@ -308,7 +308,7 @@ public class BusAlgorithm {
             //today = dateFormat.parse("2022-03-05");     //학기
             //today = dateFormat.parse("2022-06-22");     //계절학기
 
-            Date spring_start = dateFormat.parse("2022-01-02");
+            Date spring_start = dateFormat.parse("2022-03-02");
             Date spring_end = dateFormat.parse("2022-06-14");
             Date autumn_start = dateFormat.parse("2022-09-01");
             Date autumn_end = dateFormat.parse("2022-12-13");
@@ -330,12 +330,6 @@ public class BusAlgorithm {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
             Date today = dateFormat.parse(String.valueOf(LocalDate.now()));
-
-            //TEST
-            //today = dateFormat.parse("2023-01-12"); //방학
-            //today = dateFormat.parse("2022-03-05");     //학기
-            //today = dateFormat.parse("2022-06-22");     //계절학기
-
 
             Date summer_start = dateFormat.parse("2022-06-20");
             Date summer_end = dateFormat.parse("2022-07-08");
