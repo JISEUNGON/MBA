@@ -1,9 +1,13 @@
 package com.mba.busapp;
 
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.os.StrictMode;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -12,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -19,6 +24,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -50,24 +56,21 @@ public class BusSearchActivity  extends AppCompatActivity implements OnMapReadyC
     private TextView selectedStation;
     private TextView selectedStationLocation;
     private ImageView selectedStationImg;
-    private int[] imageID;
+    private ImageButton button;
+
 
     private String[] items = {"정류장을 선택하세요", "이마트·상공회의소", "진입로", "동부경찰서", "용인시장", "중앙공영주차장", "명지대역", "진입로(명지대방향)","이마트·상공회의소(명지대방향)", "기흥역"};
     private String[] location = {"이마트·상공희의소 버스 정류장", "역북동행정복지센터 버스 정류장" ,"금호 부동산중개 앞", "행텐 주니어 용인점 앞", "안경창고 싸군 용인점 앞", "명지대사거리 버스 정류장", "역북동행정복지센터 버스 정류장", "이마트·상공희의소 버스 정류장", "기흥역 5번 출구 앞" };
-    private int [] textViewLength = {170, 70, 100, 85, 140, 85, 180, 130, 70};
+    private int[] textViewLength = {170, 70, 100, 85, 140, 85, 180, 130, 70};
+    private int[] imageID;
 
+    //노선별 소요 에상 시간
     private int[] MJSTATION_REQUIRED_TIME;
     private int[] CITY_REQUIRED_TIME;
     private int[] WEEKEND_REQUIRED_TIME;
 
-
     List<String> list = new ArrayList<>(Arrays.asList(items));
 
-
-    //intent로 넘길 값
-    private String currentTime;
-    private String targetStation;
-    private boolean toSchool;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -95,6 +98,7 @@ public class BusSearchActivity  extends AppCompatActivity implements OnMapReadyC
             }
         }
 
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bussearch);
 
@@ -113,9 +117,11 @@ public class BusSearchActivity  extends AppCompatActivity implements OnMapReadyC
         selectedStationLocation = (TextView) findViewById(R.id.tvStationLocation);
         selectedStationImg = (ImageView) findViewById(R.id.ivStations);
         schoolStation = (TextView) findViewById(R.id.tvSchool);
+        button = (ImageButton) findViewById(R.id.btnSearch);
 
         //이미지별 ID 저장
         imageID = setImageID();
+
 
         //어뎁터 생성
         ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
@@ -215,22 +221,54 @@ public class BusSearchActivity  extends AppCompatActivity implements OnMapReadyC
      * 버스 결과 화면으로 이동
      * @param v view
      */
-    public void btn_moveNext(View v) {
-        currentTime = setCurrentTime(Calendar.getInstance().getTime());
-        targetStation = spinner.getSelectedItem().toString();
-        toSchool = isToSchool(switch_counter);
+    public void btn_moveNext(View v){
+        String time = setCurrentTime(Calendar.getInstance().getTime());
+        String targetStation = spinner.getSelectedItem().toString();
+        boolean toSchool = isToSchool(switch_counter);
 
         slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
 
-        Intent intent = new Intent(this, BusResultActivity.class);
-        intent.putExtra("currentTime", currentTime);
-        intent.putExtra("toSchool", toSchool);
-        intent.putExtra("targetStation",targetStation);
-        intent.putExtra("downtown_timerequire", CITY_REQUIRED_TIME);
-        intent.putExtra("mjustation_timerequire", MJSTATION_REQUIRED_TIME);
-        intent.putExtra("vacation_or_weekend_timerequire", WEEKEND_REQUIRED_TIME);
+        String [] dateData = time.split("_");
+        String currentTime = dateData[4] + ":" + dateData[5];
+        String currentDay = dateData[3];
 
-        startActivity(intent);
+        //알고리즘 객체 생성
+        BusAlgorithm busAlgorithm = new BusAlgorithm(this);
+
+        //도착 정보 객체 구하기
+        ArrivalData arrivalData = busAlgorithm.getArrivalData(toSchool, targetStation, currentTime, currentDay, MJSTATION_REQUIRED_TIME, CITY_REQUIRED_TIME, WEEKEND_REQUIRED_TIME);
+
+        
+        //버스가 끊겼을 때 or 노선이 없을 때 출력할 다이얼로그
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        dialog.setTitle("알림");
+        dialog.setMessage("금일 버스 운행이 종료되었습니다.");
+        dialog.setPositiveButton("이전으로",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // 처리할 코드 작성
+                        // DO NOTHING
+                    }
+                });
+
+        if(arrivalData!=null){
+            //광역버스까지 비교 후
+            arrivalData = busAlgorithm.compareRedBusArrivalTime(arrivalData, currentTime, toSchool, targetStation);
+
+            //만약 버스가 끊겼으면
+            if (DateFormat.compare(arrivalData.getBusArrivalTime(), new DateFormat(currentTime)) < 0) {
+                //오류 처리 알람
+                dialog.show();
+            }
+            //버스가 끊기지 않았다면 : Result 페이지로 이동
+            else{
+                Intent intent = new Intent(BusSearchActivity.this, BusResultActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("ArrivalData",arrivalData);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        }
     }
 
     /**
@@ -238,7 +276,9 @@ public class BusSearchActivity  extends AppCompatActivity implements OnMapReadyC
      * @param v view
      */
     public void btn_switch(View v) {
+        //카운터 증가 (toSchool 유무 판단 변수)
         switch_counter++;
+        //레이아웃 변경 (위치 교환)
         ConstraintLayout.LayoutParams params1 = (ConstraintLayout.LayoutParams) spinner.getLayoutParams();
         ConstraintLayout.LayoutParams params2 = (ConstraintLayout.LayoutParams) schoolStation.getLayoutParams();
         schoolStation.setLayoutParams(params1);
@@ -377,4 +417,5 @@ public class BusSearchActivity  extends AppCompatActivity implements OnMapReadyC
         super.onLowMemory();
         mapView.onLowMemory();
     }
+
 }

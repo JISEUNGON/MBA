@@ -3,10 +3,12 @@ package com.mba.busapp;
 //도착 정보를 담는 클래스
 //버스의 도착 시간, 목적지에 도착할 시간, 해당 버스의 노선도 정보를 담는다
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 //주어진 버스 타임에 대한 모든 데이터를 가지는 클래스
-public class ArrivalData {
+@SuppressWarnings("serial")
+public class ArrivalData implements Serializable {
     //현재 시간, 도착 정류장
     //버스가 올시간, 도착 정류장에 도착할 시간
     //남은 정류장, 마지막 정류장
@@ -15,18 +17,18 @@ public class ArrivalData {
     DateFormat currentTime;
     String routeType;
     String targetStation;
+    boolean toSchool;
     ArrayList<String> restStations;
     ArrayList<String> lastStations;
 
     //Constructor
     public ArrivalData(String currentTime, String targetStation){
-        this.currentTime = new DateFormat(currentTime);
         this.targetStation = targetStation;
         busArrivalTime = new DateFormat(currentTime);
         arrivalTime = new DateFormat(currentTime);
     }
-    public ArrivalData(String currentTime, String busArrival, String arrival){
-        this.currentTime = new DateFormat(currentTime);
+    public ArrivalData(String busArrival, String arrival, String targetStation){
+        this.targetStation = targetStation;
         busArrivalTime = new DateFormat(busArrival);
         arrivalTime = new DateFormat(arrival);
     }
@@ -58,6 +60,8 @@ public class ArrivalData {
 
     public String getTargetStation() {return targetStation;}
 
+    public boolean isToSchool(){return toSchool;}
+
 
     public DateFormat getCurrentTime() {return currentTime;}
 
@@ -76,6 +80,14 @@ public class ArrivalData {
             lastStations = new ArrayList<>();
         }
         return lastStations;
+    }
+
+    public void setToSchool(boolean toSchool){this.toSchool = toSchool;}
+
+    public void setTargetStation(String targetStation){this.targetStation = targetStation;}
+
+    public void setCurrentTime(DateFormat currentTime){
+        this.currentTime = currentTime;
     }
 
     public void setRouteType(String type, String currentTime){

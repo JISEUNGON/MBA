@@ -1,4 +1,5 @@
 package com.mba.busapp;
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -7,8 +8,8 @@ interface Compare {
     public int compareTo(String src, String dest);
 }
 
-
-public class DateFormat implements Compare{
+@SuppressWarnings("serial")
+public class DateFormat implements Compare, Serializable {
 
     int totalSec;
     String timeFormat;

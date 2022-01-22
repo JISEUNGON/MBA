@@ -53,7 +53,8 @@ public class BusAlgorithm {
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         // 처리할 코드 작성
-                        context.startActivity(intent1);
+                        // DO NOTHING
+
                     }
                 });
 
@@ -80,6 +81,9 @@ public class BusAlgorithm {
                 //남은 정류장 list 에 add
                 redBusArrivalData.addRestStations("이마트·상공회의소(명지대방향)");
                 redBusArrivalData.addRestStations("명지대학교 자연캠퍼스");
+
+                redBusArrivalData.setCurrentTime(new DateFormat(currentTime));
+                redBusArrivalData.setToSchool(true);
 
                 return redBusArrivalData;
             }
@@ -243,6 +247,12 @@ public class BusAlgorithm {
             }
             Log.d("startTimes", Arrays.toString(startTimes));
         }
+
+        if(arrivalData!=null) {
+            arrivalData.setCurrentTime(new DateFormat(currentTime));
+            arrivalData.setToSchool(toSchool);
+        }
+
         return arrivalData;
     }
 
@@ -298,7 +308,7 @@ public class BusAlgorithm {
             //today = dateFormat.parse("2022-03-05");     //학기
             //today = dateFormat.parse("2022-06-22");     //계절학기
 
-            Date spring_start = dateFormat.parse("2022-03-02");
+            Date spring_start = dateFormat.parse("2022-01-02");
             Date spring_end = dateFormat.parse("2022-06-14");
             Date autumn_start = dateFormat.parse("2022-09-01");
             Date autumn_end = dateFormat.parse("2022-12-13");
