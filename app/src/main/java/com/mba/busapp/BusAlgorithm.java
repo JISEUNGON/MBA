@@ -47,7 +47,6 @@ public class BusAlgorithm {
         loadData();
 
         dialog = new AlertDialog.Builder(context);
-        Intent intent1 = new Intent(context, BusSearchActivity.class);
         dialog.setTitle("알림");
         dialog.setPositiveButton("이전으로",
                 new DialogInterface.OnClickListener() {
@@ -97,7 +96,6 @@ public class BusAlgorithm {
 
     //시즌별(학기중, 계절학기, 방학) 구분, 정류장-> 학교 유무 구분, 노선을 구분하여
     //ArrivalData 객체를 구하는 함수
-    
     public ArrivalData getArrivalData(boolean toSchool, String targetStation, String currentTime, String currentDay, int[] mjRequiredTime, int[] cityRequiredTime, int[] weekendRequiredTime){
         MJSTATION_REQUIRED_TIME = mjRequiredTime;
         CITY_REQUIRED_TIME = cityRequiredTime;
@@ -230,6 +228,7 @@ public class BusAlgorithm {
                     }
                 }
             }
+
             //(동/하계) 방학 기간일 때
             else{
                 Log.d("기간", "방학");
@@ -248,6 +247,7 @@ public class BusAlgorithm {
             Log.d("startTimes", Arrays.toString(startTimes));
         }
 
+        //버스 도착 정보가 있을 때 현재시간과 toSchool 정보 setting
         if(arrivalData!=null) {
             arrivalData.setCurrentTime(new DateFormat(currentTime));
             arrivalData.setToSchool(toSchool);
@@ -288,11 +288,12 @@ public class BusAlgorithm {
         }
     }
 
+    //주말 여부 판단 함수
     private boolean isWeekend(String days){
         return (days.equals("토")||days.equals("일"));
     }
 
-
+    //학기 중 여부 판단 함수
     private boolean isSemester() {
         /**
          * 2022.03.02 ~ 06.14
@@ -302,11 +303,6 @@ public class BusAlgorithm {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
             Date today = dateFormat.parse(String.valueOf(LocalDate.now()));
-
-            //TEST
-            //today = dateFormat.parse("2023-01-12"); //방학
-            //today = dateFormat.parse("2022-03-05");     //학기
-            //today = dateFormat.parse("2022-06-22");     //계절학기
 
             Date spring_start = dateFormat.parse("2022-03-02");
             Date spring_end = dateFormat.parse("2022-06-14");
@@ -321,6 +317,7 @@ public class BusAlgorithm {
         return true;
     }
 
+    //계절학기 여부 판단 함수
     private boolean isSeasonalSemester() {
         /**
          * 2022.06.20 ~ 2022.07.08
@@ -346,17 +343,17 @@ public class BusAlgorithm {
     }
 
 
-    //arrivalData :
-    // arrivalData[0] = 학교 도착 예정 시간
-    // arrivalData[1] = 버스가 정류장에 도착할 예정시간
+    //주말/방학 노선에 대해서 도착 정보를 구하는 함수
     private ArrivalData getWeekendVacationArrivalTime(String targetStation, String currentTime, String startTime, boolean toSchool){
 
         //사용자가 학교 도착 예정 시간, 버스가 정류장에 도착할 예정시간
         ArrivalData arrivalData = new ArrivalData(startTime, targetStation);
+        
         arrivalData.setRouteType("주말방학노선", currentTime);
         //정류장 index
         int stationIndex = 0;
 
+        //index 구하기
         for (int i = 0; i < WEEKEND_STATIONS.length; i++) {
             if (WEEKEND_STATIONS[i].equals(targetStation)) {
                 stationIndex = i;
@@ -391,16 +388,16 @@ public class BusAlgorithm {
 
     }
 
-    //arrivalData :
-    // arrivalData[0] = 학교 도착 예정 시간
-    // arrivalData[1] = 버스가 정류장에 도착할 예정시간
+    //계절학기/학기의 평일 노선에 대해서 도착 정보를 구하는 함수
     private ArrivalData getWeekdayArrivalTime(String targetStation, String currentTime, String startTime, boolean toSchool){
 
         //사용자가 학교 도착 예정 시간, 버스가 정류장에 도착할 예정시간
         ArrivalData arrivalData = new ArrivalData(startTime, targetStation);
 
+        //정류장 index
         int stationIndex = 0;
 
+        //targetStation -> 학교일 때
         if(toSchool) {
             //1. 기흥역 셔틀 버스
             if (targetStation.equals("기흥역")) {
@@ -471,7 +468,7 @@ public class BusAlgorithm {
                 }
             }
         }
-
+        //학교일 때 -> targetStation 일 때
         else{
             //버스 도착 예정 시간 = 버스 출발 시간
             if (targetStation.equals("기흥역")) {
@@ -518,9 +515,7 @@ public class BusAlgorithm {
                 }
             }
         }
-
         return arrivalData;
-
     }
 
 
@@ -531,7 +526,9 @@ public class BusAlgorithm {
 
         ArrivalData arrivalData;
 
+        //현재 시간 이전 시간에 출발한 버스에 대한 도착 정보
         ArrivalData bus1ArrivalData;
+        //현재 시간 이후 시간에 출발한 버스에 대한 도착 정보
         ArrivalData bus2ArrivalData;
 
         //주말이면
@@ -544,8 +541,8 @@ public class BusAlgorithm {
             bus1ArrivalData = getWeekdayArrivalTime(startStation, currentTime, startTimes[0], true);
             bus2ArrivalData = getWeekdayArrivalTime(startStation,currentTime,  startTimes[1], true);
         }
-                                                                                                                                                                                                                                                                                                                                                                                                                                                    //이전에 출발한 버스 시간 > 타겟 시간 : 아직 도착 전이기 때문에 ArrivalTime은 이전에 출발한 버스가 도착할 시간이 된다.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                    if(DateFormat.compare(bus1ArrivalData.getBusArrivalTime().getTime(), currentTime) > 0){
+        //이전에 출발한 버스 시간 > 타겟 시간 : 아직 도착 전이기 때문에 ArrivalTime은 이전에 출발한 버스가 도착할 시간이 된다.
+        if(DateFormat.compare(bus1ArrivalData.getBusArrivalTime().getTime(), currentTime) > 0){
             arrivalData = bus1ArrivalData;
         }
         //이전에 출발한 버스 시간 < 타겟 시간 : ArrivalTime은 이후에 출발한 버스가 도착할 시간이 된다.

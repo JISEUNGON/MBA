@@ -50,7 +50,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageButton
-                    android:id="@+id/imageButton3"
+                    android:id="@+id/btnSwitch"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_marginStart="4dp"
@@ -104,7 +104,7 @@
 
 
                 <TextView
-                    android:id="@+id/tvStations"
+                    android:id="@+id/tvStation"
                     style="@style/Binggrae.content"
                     android:layout_width="70dp"
                     android:layout_height="50dp"
@@ -116,8 +116,8 @@
                     android:textColor="@color/black"
                     android:textSize="20sp"
                     android:textStyle="bold"
-                    app:layout_constraintBottom_toTopOf="@id/ivStations"
-                    app:layout_constraintStart_toStartOf="@id/ivStations" />
+                    app:layout_constraintBottom_toTopOf="@id/ivStation"
+                    app:layout_constraintStart_toStartOf="@id/ivStation" />
 
                 <TextView
                     android:id="@+id/tvStationLocation"
@@ -130,11 +130,11 @@
                     android:textColor="@color/gray"
                     android:textSize="11sp"
                     android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="@id/tvStations"
-                    app:layout_constraintStart_toEndOf="@id/tvStations" />
+                    app:layout_constraintBottom_toBottomOf="@id/tvStation"
+                    app:layout_constraintStart_toEndOf="@id/tvStation" />
 
                 <ImageView
-                    android:id="@+id/ivStations"
+                    android:id="@+id/ivStation"
                     android:layout_width="250dp"
                     android:layout_height="130dp"
                     android:layout_marginTop="60dp"
@@ -170,7 +170,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.891"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintBottom_toBottomOf="@+id/ivStations" />
+                    app:layout_constraintBottom_toBottomOf="@+id/ivStation" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>

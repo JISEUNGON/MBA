@@ -1,7 +1,6 @@
 package com.mba.busapp;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -13,7 +12,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
@@ -23,9 +21,6 @@ import com.naver.maps.map.NaverMap;
 import com.naver.maps.map.OnMapReadyCallback;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class BusResultActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -128,7 +123,7 @@ public class BusResultActivity extends AppCompatActivity implements OnMapReadyCa
         WEEKEND_STATIONS = getResources().getStringArray(R.array.WEEKEND_VACTION_STATIONS);
 
         // 리스트뷰 연결
-        lv = (ListView)findViewById(R.id.lv01);
+        lv = (ListView)findViewById(R.id.listView);
         listAdapter = new BussList();
 
         lv.setAdapter(listAdapter);
@@ -421,14 +416,14 @@ public class BusResultActivity extends AppCompatActivity implements OnMapReadyCa
         });
 
         // 도착시 까지 남은 시간 표시
-        TextView remaining_time = (TextView) findViewById(R.id.remaintime);
+        TextView remaining_time = (TextView) findViewById(R.id.tvRemainTime);
         // 초를 분으로 변경
         int sec_to_min =  arrivalTimeLeft / 60;
         String temp = sec_to_min + "분";
         remaining_time.setText(temp);
 
         // 몇시 도착 예정인지 표시
-        TextView arrival_time = (TextView) findViewById(R.id.arrivaltime);
+        TextView arrival_time = (TextView) findViewById(R.id.tvArrivalTime);
         long start_time = System.currentTimeMillis();
         temp = currentTime + " 출발 ~ " + arrivalTime.getTime() + " 도착";
         arrival_time.setText(temp);

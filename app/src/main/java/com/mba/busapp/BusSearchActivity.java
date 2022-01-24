@@ -1,17 +1,11 @@
 package com.mba.busapp;
 
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.os.StrictMode;
-import android.util.DisplayMetrics;
-import android.util.Log;
-import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -20,7 +14,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -42,7 +35,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.Optional;
 import java.util.TimeZone;
 
 public class BusSearchActivity  extends AppCompatActivity implements OnMapReadyCallback, AdapterView.OnItemSelectedListener {
@@ -113,9 +105,9 @@ public class BusSearchActivity  extends AppCompatActivity implements OnMapReadyC
 
         //ID로 컴포넌트 연결
         spinner = (Spinner) findViewById(R.id.spinner);
-        selectedStation = (TextView) findViewById(R.id.tvStations);
+        selectedStation = (TextView) findViewById(R.id.tvStation);
         selectedStationLocation = (TextView) findViewById(R.id.tvStationLocation);
-        selectedStationImg = (ImageView) findViewById(R.id.ivStations);
+        selectedStationImg = (ImageView) findViewById(R.id.ivStation);
         schoolStation = (TextView) findViewById(R.id.tvSchool);
         button = (ImageButton) findViewById(R.id.btnSearch);
 

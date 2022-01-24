@@ -17,7 +17,7 @@
 
 
             <TextView
-                android:id="@+id/tvStations"
+                android:id="@+id/tvStation"
                 style="@style/Binggrae.content"
                 android:layout_width="70dp"
                 android:layout_height="50dp"
@@ -29,8 +29,8 @@
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@id/ivStations"
-                app:layout_constraintStart_toStartOf="@id/ivStations" />
+                app:layout_constraintBottom_toTopOf="@id/ivStation"
+                app:layout_constraintStart_toStartOf="@id/ivStation" />
 
             <TextView
                 android:id="@+id/tvStationLocation"
@@ -43,11 +43,11 @@
                 android:textColor="@color/gray"
                 android:textSize="11sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@id/tvStations"
-                app:layout_constraintStart_toEndOf="@id/tvStations" />
+                app:layout_constraintBottom_toBottomOf="@id/tvStation"
+                app:layout_constraintStart_toEndOf="@id/tvStation" />
 
             <ImageView
-                android:id="@+id/ivStations"
+                android:id="@+id/ivStation"
                 android:layout_width="250dp"
                 android:layout_height="130dp"
                 android:layout_marginTop="60dp"
