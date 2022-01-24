@@ -48,7 +48,7 @@ public class NaverMapManager {
     interface MarkerClickListener {
         void onClick(Marker marker);
     }
-
+    
     public NaverMapManager(NaverMap naverMap, AppCompatActivity appCompatActivity) {
         this.naverMap = naverMap;
         this.appCompatActivity = appCompatActivity;
@@ -60,6 +60,41 @@ public class NaverMapManager {
 
         // 대중교통 그룹 추가
         naverMap.setLayerGroupEnabled(NaverMap.LAYER_GROUP_TRANSIT, true);
+    }
+
+    /**
+     * restStation에 있는 정류장만 Poly 활성화
+     * @param restStations
+     */
+    public void enablePoly(ArrayList<String> restStations) {
+        pathOverlay.setCoords(StationInfo.getInstance().getPolyList_restStation(restStations));
+        pathOverlay.setWidth(this.poly_width); // Poly 넓이
+        pathOverlay.setColor(Color.argb(0xFF, 0x5C, 0xD1, 0xE5)); // Poly 색
+        pathOverlay.setOutlineWidth(1);
+        pathOverlay.setMap(naverMap); // 현 지도에 표시
+    }
+
+    /**
+     * restStation에 있는 정류장의 Marker만 화럿ㅇ화
+     * @param rest
+     */
+    public void enableMarker(ArrayList<String> rest) {
+        for(String station: rest) {
+            Marker marker = new Marker();
+            marker.setIcon(MarkerIcons.BLUE); // 아이콘 색상
+            marker.setPosition(StationInfo.getInstance().getLatLng(station)); // 위치 설정
+
+            // cpation 설정 ( 이 있으면 2줄로 표시
+            if(station.contains("(")) {
+                String[] groups = station.split("\\(");
+                marker.setCaptionText(groups[0] + "\n(" + groups[1]);
+            } else {
+                marker.setCaptionText(station);
+            }
+
+            marker.setMap(naverMap); // 현 지도에 표시
+            markers.add(marker);
+        }
     }
 
     /**

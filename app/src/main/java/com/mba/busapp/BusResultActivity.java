@@ -21,6 +21,7 @@ import com.naver.maps.map.NaverMap;
 import com.naver.maps.map.OnMapReadyCallback;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class BusResultActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -330,7 +331,15 @@ public class BusResultActivity extends AppCompatActivity implements OnMapReadyCa
     @Override
     public void onMapReady(@NonNull NaverMap naverMap) {
         naverMapManager = new NaverMapManager(naverMap, this);
-        naverMapManager.setCameraPosition(new LatLng(37.233972549267705, 127.18874893910944), 15);
+
+        ArrayList<String> rest = (ArrayList<String>) restStations.clone();
+        rest.add(0, targetStation);
+        rest.remove(rest.size() - 1);
+        for (String st: lastStations)
+            rest.add(st);
+        naverMapManager.enableMarker(rest);
+        naverMapManager.enablePoly(rest);
+        naverMapManager.setCameraPosition(naverMapManager.getMarker(rest.get(0)).getPosition(), 15);
 
     }
 

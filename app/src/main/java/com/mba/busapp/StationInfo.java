@@ -6,6 +6,7 @@ import com.naver.maps.geometry.LatLng;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * 정류장 정보, 경로 관리
@@ -1475,10 +1476,16 @@ public class StationInfo {
         String[] stations = new String[]{"명현관", "함박관", "명지대 정문", "이마트·상공회의소", "진입로", "동부경찰서", "용인시장", "중앙공영주차장", "명지대역", "진입로(명지대방향)", "이마트·상공회의소(명지대방향)", "제1공학관", "명현관"};
         ArrayList<LatLng> routes = new ArrayList<>();
         for (int i = 0; i < stations.length - 1; i++) {
-            Log.e("DEBUG --> ", stations[i] + "/" + stations[i+1]);
             routes.addAll(routeInfo.get(stations[i]).get(stations[i+1]));
         }
         return routes;
     }
-    
+
+    public List<LatLng> getPolyList_restStation(ArrayList<String> restStations) {
+        ArrayList<LatLng> routes = new ArrayList<>();
+        for(int i=0; i < restStations.size() - 1; i++){
+            routes.addAll(routeInfo.get(restStations.get(i)).get(restStations.get(i+1)));
+        }
+        return routes;
+    }
 }
