@@ -145,7 +145,6 @@ public class BusResultActivity extends AppCompatActivity implements OnMapReadyCa
         // 예상 소요 시간 + 몇개 정류장 남았는지 확인
         String lefttimeAndexpand = "예상 소요시간: " + (arrivalTimeLeft-busArrivalTimeLeft)/60 + "분  자세히 보기";
 
-
         // 리스드뷰 변수 설정
         isexpand = false;
         context = this;
@@ -157,8 +156,14 @@ public class BusResultActivity extends AppCompatActivity implements OnMapReadyCa
 
         lefttime = min + "분 " + sec + " 초";
 
+        // 타이머 변수
+        int timer_time = busArrivalTimeLeft-60;
+        if(timer_time <=0){
+            timer_time = 1;
+        }
+
         //타미어 설정
-        CountDownTimer BusTimer = new CountDownTimer(busArrivalTimeLeft*1000,1000) {
+        CountDownTimer BusTimer = new CountDownTimer(timer_time*1000,1000) {
 
             // 시작 시
             @Override
@@ -196,10 +201,12 @@ public class BusResultActivity extends AppCompatActivity implements OnMapReadyCa
                 }
             }
 
-            // 마지막 시
+            // 마지막 실행 시
             @Override
             public void onFinish() {
-
+                typeAndTimer = "곧 도착";
+                listAdapter.changeBuss(1,typeAndTimer);
+                listAdapter.notifyDataSetChanged();
             }
         }.start();
 
