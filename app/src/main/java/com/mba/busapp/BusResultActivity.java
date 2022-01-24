@@ -210,135 +210,32 @@ public class BusResultActivity extends AppCompatActivity implements OnMapReadyCa
         // 리스트뷰에 넘겨줄 데이터 판별하기기
         // 정류장 -> 학교
         if(toSchool){
-
             // 출발지 와 도착지 출력
             listAdapter.addBussPass(ContextCompat.getDrawable(this,R.drawable.buss_pass_start), targetStation);
             listAdapter.addBussPass(ContextCompat.getDrawable(this,R.drawable.buss_pass_line), typeAndTimer);
             listAdapter.addBussPass(ContextCompat.getDrawable(this,R.drawable.buss_pass_line), lefttimeAndexpand);
-            listAdapter.addBussPass(ContextCompat.getDrawable(this,R.drawable.bus_pass_final), "명지대학교 자연캠퍼스");
+            listAdapter.addBussPass(ContextCompat.getDrawable(this,R.drawable.bus_pass_final),lastStations.get(lastStations.size()-1));
 
-
-            // 인덱스 생성
-            int start_i = 0;
-
-            // 노선 탐색
-            if(routeType.equals("주말방학노선")){
-                // 몇번쨰에 있는지 확인
-                for(int i = 0; i <  WEEKEND_STATIONS.length; i++){
-                    if(WEEKEND_STATIONS[i].equals(targetStation)){
-                        start_i = i + 1;
-                    }
-                }
-                // 리스트에 추가
-                for(; start_i < WEEKEND_STATIONS.length; start_i++){
-                    buspassList.add(WEEKEND_STATIONS[start_i]);
-                }
+            //리스트에 중간 노선 추가
+            for(int i =0; i<restStations.size()-1; i++){
+                buspassList.add(restStations.get(i));
             }
-            else if(routeType.equals("명지대역노선")){
-                // 몇번쨰에 있는지 확인
-                for(int i = 0; i <  MJSTATION_WEEKDAY_STATIONS.length; i++){
-                    if(targetStation.equals(MJSTATION_WEEKDAY_STATIONS[i])){
-                        start_i = i +1;
-                    }
-                }
-                // 리스트에 추가
-                for(; start_i < MJSTATION_WEEKDAY_STATIONS.length; start_i++){
-                    buspassList.add(MJSTATION_WEEKDAY_STATIONS[start_i]);
-                }
+            for(int i =0; i<lastStations.size(); i++){
+                buspassList.add(lastStations.get(i));
             }
-            else if(routeType.equals("시내노선")){
-                // 몇번째에 있는지 확인
-                for(int i = 0; i <  CITY_WEEKDAY_STATIONS.length; i++){
-                    if(targetStation.equals(CITY_WEEKDAY_STATIONS[i])){
-                        start_i = i +1;
-                    }
-                }
-                // 리스트에 추가
-                for(; start_i < CITY_WEEKDAY_STATIONS.length; start_i++){
-                    buspassList.add(CITY_WEEKDAY_STATIONS[start_i]);
-                }
-            }
-            else if(routeType.equals("기흥역노선")){
-                // 몇번째에 있는지 확인
-                for(int i = 0; i <  GHSTATION_WEEKDAY_STATIONS.length; i++){
-                    if(targetStation.equals(GHSTATION_WEEKDAY_STATIONS[i])){
-                        start_i = i +1;
-                    }
-                }
-                // 리스트에 추가
-                for(; start_i < GHSTATION_WEEKDAY_STATIONS.length; start_i++){
-                    buspassList.add(GHSTATION_WEEKDAY_STATIONS[start_i]);
-                }
-            }
-
-
-
         }
         // 학교 -> 정류장
         else {
-
             // 출발지 와 도착지 출력
             listAdapter.addBussPass(ContextCompat.getDrawable(this,R.drawable.buss_pass_start), "명지대학교 자연캠퍼스");
             listAdapter.addBussPass(ContextCompat.getDrawable(this,R.drawable.buss_pass_line), typeAndTimer);
             listAdapter.addBussPass(ContextCompat.getDrawable(this,R.drawable.buss_pass_line), lefttimeAndexpand);
             listAdapter.addBussPass(ContextCompat.getDrawable(this,R.drawable.bus_pass_final), targetStation);
 
-            // 인덱스 생성
-            int end_i = 0;
-
-            if(routeType.equals("주말방학노선")){
-                // 몇번쨰에 있는지 확인
-                for(int i = 0; i <  WEEKEND_STATIONS.length; i++){
-                    if(WEEKEND_STATIONS[i].equals(targetStation)){
-                        end_i = i;
-                    }
-                }
-                // 리스트에 추가
-                for(int i =WEEKEND_STATIONS.length -2; i >= end_i; i--){
-                    buspassList.add(WEEKEND_STATIONS[i]);
-                }
-
+            //리스트에 중간 노선 추가
+            for(int i =0; i<restStations.size()-1; i++){
+                buspassList.add(restStations.get(i));
             }
-            else if(routeType.equals("명지대역노선")){
-                // 몇번쨰에 있는지 확인
-                for(int i = 0; i <  MJSTATION_WEEKDAY_STATIONS.length; i++){
-                    if(MJSTATION_WEEKDAY_STATIONS[i].equals(targetStation)){
-                        end_i = i;
-                    }
-                }
-                // 리스트에 추가
-                for(int i =MJSTATION_WEEKDAY_STATIONS.length -2; i >= end_i; i--){
-                    buspassList.add(MJSTATION_WEEKDAY_STATIONS[i]);
-                }
-
-            }
-            else if(routeType.equals("시내노선")){
-                // 몇번쨰에 있는지 확인
-                for(int i = 0; i <  CITY_WEEKDAY_STATIONS.length; i++){
-                    if(CITY_WEEKDAY_STATIONS[i].equals(targetStation)){
-                        end_i = i;
-                    }
-                }
-                // 리스트에 추가
-                for(int i =CITY_WEEKDAY_STATIONS.length -2; i >= end_i; i--){
-                    buspassList.add(CITY_WEEKDAY_STATIONS[i]);
-                }
-
-            }
-            else if(routeType.equals("기흥역노선")){
-                // 몇번쨰에 있는지 확인
-                for(int i = 0; i <  GHSTATION_WEEKDAY_STATIONS.length; i++){
-                    if(GHSTATION_WEEKDAY_STATIONS[i].equals(targetStation)){
-                        end_i = i;
-                    }
-                }
-                // 리스트에 추가
-                for(int i =GHSTATION_WEEKDAY_STATIONS.length -2; i >= end_i; i--){
-                    buspassList.add(GHSTATION_WEEKDAY_STATIONS[i]);
-                }
-
-            }
-
         }
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -351,14 +248,12 @@ public class BusResultActivity extends AppCompatActivity implements OnMapReadyCa
                     //Toast.makeText(context, "축소", Toast.LENGTH_SHORT).show();
                     // 버스 삭제
                     listAdapter.removeAllBus();
-
-
                     if(toSchool){
                         // 출발지 와 도착지 출력
                         listAdapter.addBussPass(ContextCompat.getDrawable(context,R.drawable.buss_pass_start), targetStation);
                         listAdapter.addBussPass(ContextCompat.getDrawable(context,R.drawable.buss_pass_line), typeAndTimer);
                         listAdapter.addBussPass(ContextCompat.getDrawable(context,R.drawable.buss_pass_line), lefttimeAndexpand);
-                        listAdapter.addBussPass(ContextCompat.getDrawable(context,R.drawable.bus_pass_final), "명지대학교 자연캠퍼스");
+                        listAdapter.addBussPass(ContextCompat.getDrawable(context,R.drawable.bus_pass_final),lastStations.get(lastStations.size()-1));
                         listAdapter.notifyDataSetChanged();
                     }
                     else if(toSchool == false){
@@ -372,8 +267,6 @@ public class BusResultActivity extends AppCompatActivity implements OnMapReadyCa
                     }
                     // 리스트뷰 갱신
                     listAdapter.notifyDataSetChanged();
-
-
                 }
                 // 확대하는 경우
                 else if(isexpand == false && position == 2){
@@ -391,13 +284,12 @@ public class BusResultActivity extends AppCompatActivity implements OnMapReadyCa
 
                             // 마지막 정류장이 학교인 경우
                             if(toSchool){
-                                listAdapter.addBussPass(ContextCompat.getDrawable(context,R.drawable.bus_pass_final), "명지대학교 자연캠퍼스");
+                                listAdapter.addBussPass(ContextCompat.getDrawable(context,R.drawable.bus_pass_final),lastStations.get(lastStations.size()-1));
                             }
                             // 마지막 정류장이 target인 경우
                             else{
                                 listAdapter.addBussPass(ContextCompat.getDrawable(context,R.drawable.bus_pass_final), targetStation);
                             }
-
                             listAdapter.notifyDataSetChanged();
                         }
                         // 거쳐가는 정류장 출력
@@ -406,7 +298,6 @@ public class BusResultActivity extends AppCompatActivity implements OnMapReadyCa
                             listAdapter.addBussPass(ContextCompat.getDrawable(context,R.drawable.buss_pass_line), "");
                             listAdapter.notifyDataSetChanged();
                         }
-
                     }
 
                 }
