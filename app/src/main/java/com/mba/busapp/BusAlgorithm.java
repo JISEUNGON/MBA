@@ -78,7 +78,6 @@ public class BusAlgorithm {
                 redBusArrivalData.addArrivalTime(MJSTATION_REQUIRED_TIME[MJSTATION_REQUIRED_TIME.length - 2]);
                 redBusArrivalData.addArrivalTime(MJSTATION_REQUIRED_TIME[MJSTATION_REQUIRED_TIME.length - 1]);
                 //남은 정류장 list 에 add
-                redBusArrivalData.addRestStations("이마트·상공회의소(명지대방향)");
                 redBusArrivalData.addRestStations("명지대학교 자연캠퍼스");
 
                 redBusArrivalData.setCurrentTime(new DateFormat(currentTime));
