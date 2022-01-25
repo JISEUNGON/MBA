@@ -205,7 +205,7 @@ public class BusResultActivity extends AppCompatActivity implements OnMapReadyCa
             // 마지막 실행 시
             @Override
             public void onFinish() {
-                typeAndTimer = "곧 도착";
+                typeAndTimer = busType + "  " + "곧 도착";
                 listAdapter.changeBuss(1,typeAndTimer);
                 listAdapter.notifyDataSetChanged();
             }
