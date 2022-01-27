@@ -8,8 +8,12 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="330dp"
-        android:layout_height="340dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="300dp"
         android:contentDescription="@string/text_imageView"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -20,48 +24,52 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="wrap_content"
         style="@style/Binggrae.content"
-        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
         android:text="@string/text_main"
         android:textColor="@color/black"
         android:textSize="11sp"
         app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.167"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/button" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button"
-        android:layout_width="305dp"
+        style="@style/Binggrae.content"
+        android:layout_width="0dp"
         android:layout_height="48dp"
-        android:layout_marginBottom="128dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginEnd="54dp"
+        android:layout_marginBottom="47dp"
         android:background="@drawable/round_bt02"
         android:onClick="btn_searchBus"
-        style="@style/Binggrae.content"
         android:text="@string/btn_searchBus"
         android:textColor="@color/white"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/imageButton7"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/imageButton7"
-        android:layout_width="305dp"
+        style="@style/Binggrae.content"
+        android:layout_width="0dp"
         android:layout_height="48dp"
+        android:layout_marginBottom="30dp"
         android:background="@drawable/round_bt02"
         android:onClick="btn_busRoute"
-        style="@style/Binggrae.content"
         android:text="@string/btn_busRoute"
         android:textColor="@color/white"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.949"
+        app:layout_constraintEnd_toEndOf="@+id/button"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/button"
+        app:layout_constraintTop_toTopOf="@+id/button"
+        app:layout_constraintVertical_bias="0.948"
         app:srcCompat="@drawable/btn_busroute" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

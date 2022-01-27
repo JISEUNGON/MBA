@@ -37,15 +37,17 @@
                 <Spinner
                     android:id="@+id/spinner"
                     style="@style/Binggrae.content"
-                    android:layout_width="335dp"
+                    android:layout_width="0dp"
                     android:layout_height="50dp"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginStart="20dp"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
+                    android:layout_marginEnd="1dp"
                     android:background="@drawable/custom_search_spinner"
                     android:entries="@array/spinner"
                     android:minHeight="48dp"
                     android:spinnerMode="dropdown"
+                    app:layout_constraintEnd_toStartOf="@+id/btnSwitch"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -53,31 +55,37 @@
                     android:id="@+id/btnSwitch"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:layout_marginStart="4dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="1dp"
                     android:background="@color/purple_700"
                     android:onClick="btn_switch"
                     android:src="@drawable/ic_switch"
-                    app:layout_constraintStart_toEndOf="@+id/spinner"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.16"
                     app:tint="@color/white" />
 
                 <TextView
                     android:id="@+id/tvSchool"
                     style="@style/Binggrae.content"
-                    android:layout_width="335dp"
+                    android:layout_width="0dp"
                     android:layout_height="50dp"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="84dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="50dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
                     android:background="@drawable/custom_search_textview"
                     android:gravity="center|left"
                     android:paddingLeft="10dp"
                     android:text="@string/school_station"
                     android:textColor="@color/grey_600"
                     android:textSize="17sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintVertical_bias="0.111"  />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -106,8 +114,9 @@
                 <TextView
                     android:id="@+id/tvStation"
                     style="@style/Binggrae.content"
-                    android:layout_width="70dp"
+                    android:layout_width="0dp"
                     android:layout_height="50dp"
+                    android:layout_marginEnd="250dp"
                     android:autoSizeMaxTextSize="20sp"
                     android:autoSizeMinTextSize="13sp"
                     android:autoSizeTextType="uniform"
@@ -117,29 +126,41 @@
                     android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toTopOf="@id/ivStation"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="@id/ivStation" />
 
                 <TextView
                     android:id="@+id/tvStationLocation"
                     style="@style/Binggrae.content"
-                    android:layout_width="160dp"
-                    android:layout_height="50dp"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
                     android:layout_marginBottom="1dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginEnd="100dp"
                     android:gravity="bottom|left"
                     android:text="정류장 설명"
                     android:textColor="@color/gray"
                     android:textSize="11sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="@id/tvStation"
-                    app:layout_constraintStart_toEndOf="@id/tvStation" />
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toEndOf="@id/tvStation"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="1.0" />
 
                 <ImageView
                     android:id="@+id/ivStation"
-                    android:layout_width="250dp"
-                    android:layout_height="130dp"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="30dp"
                     android:layout_marginTop="60dp"
+                    android:layout_marginBottom="21dp"
+                    android:layout_marginEnd="20dp"
                     android:src="@drawable/mju_chamber"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/btnSearch"
                     app:layout_constraintHorizontal_bias="0.11"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -148,32 +169,37 @@
                     android:id="@+id/btnSearch"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    android:background="@drawable/custom_button_round"
+                    android:layout_marginStart="260dp"
+                    android:layout_marginTop="70dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginBottom="60dp"
+                    android:background="@drawable/custom_button_round_pressed"
                     android:contentDescription="@string/app_name"
                     android:onClick="btn_moveNext"
                     android:src="@drawable/ic_bus"
-                    app:layout_constraintBottom_toTopOf="@id/tvBusSearch"
-                    app:layout_constraintStart_toStartOf="@id/tvBusSearch" />
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.962"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="1.0" />
 
                 <TextView
                     android:id="@+id/tvBusSearch"
                     style="@style/Binggrae.content"
-                    android:layout_width="80dp"
-                    android:layout_height="20dp"
+                    android:layout_width="63dp"
+                    android:layout_height="18dp"
                     android:gravity="center"
                     android:text="@string/search_bus"
                     android:textColor="@color/purple_700"
                     android:textSize="12sp"
                     android:textStyle="bold"
-
-                    android:layout_marginBottom="5dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.891"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintBottom_toBottomOf="@+id/ivStation" />
+                    app:layout_constraintEnd_toEndOf="@+id/btnSearch"
+                    app:layout_constraintHorizontal_bias="0.888"
+                    app:layout_constraintStart_toStartOf="@+id/btnSearch"
+                    app:layout_constraintTop_toBottomOf="@+id/btnSearch" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.sothree.slidinguppanel.SlidingUpPanelLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
