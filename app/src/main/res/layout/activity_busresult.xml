@@ -62,15 +62,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="309dp"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginBottom="4dp"
                     android:layout_marginStart="20dp"
+                    android:layout_marginTop="90dp"
                     android:divider="#FFFFFF"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintHorizontal_bias="0.9"
-                    app:layout_constraintVertical_bias="0.9" />
+                    app:layout_constraintVertical_bias="0.521" />
 
                 <TextView
                     android:id="@+id/tvRemainTime"
@@ -79,6 +79,7 @@
                     android:layout_height="52dp"
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="230dp"
+                    android:layout_marginTop="10dp"
                     android:gravity="bottom"
                     android:text="남은시간"
                     android:textSize="30dp"
@@ -90,6 +91,7 @@
                     app:layout_constraintVertical_bias="0.1"/>
 
                 <TextView
+                    android:layout_marginTop="10dp"
                     android:id="@+id/tvArrivalTime"
                     style="@style/Binggrae.content"
                     android:layout_width="207dp"
