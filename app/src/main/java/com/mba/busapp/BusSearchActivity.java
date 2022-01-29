@@ -248,7 +248,7 @@ public class BusSearchActivity  extends AppCompatActivity implements OnMapReadyC
             arrivalData = busAlgorithm.compareRedBusArrivalTime(arrivalData, currentTime, toSchool, targetStation);
 
             //만약 버스가 끊겼으면
-            if (DateFormat.compare(arrivalData.getBusArrivalTime(), new DateFormat(currentTime)) < 0 || DateFormat.compare(arrivalData.getBusArrivalTime(), new DateFormat(currentTime)) > 7200) {
+            if (false && DateFormat.compare(arrivalData.getBusArrivalTime(), new DateFormat(currentTime)) < 0 || DateFormat.compare(arrivalData.getBusArrivalTime(), new DateFormat(currentTime)) > 7200) {
                 //오류 처리 알람
                 dialog.show();
             }

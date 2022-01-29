@@ -83,7 +83,7 @@ public class NaverMapManager {
             Marker marker = new Marker();
             marker.setIcon(MarkerIcons.BLUE); // 아이콘 색상
             marker.setPosition(StationInfo.getInstance().getLatLng(station)); // 위치 설정
-
+            Log.e("DEBUG -->", station);
             // cpation 설정 ( 이 있으면 2줄로 표시
             if(station.contains("(")) {
                 String[] groups = station.split("\\(");

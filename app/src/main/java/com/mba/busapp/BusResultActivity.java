@@ -333,10 +333,14 @@ public class BusResultActivity extends AppCompatActivity implements OnMapReadyCa
         naverMapManager = new NaverMapManager(naverMap, this);
 
         ArrayList<String> rest = (ArrayList<String>) restStations.clone();
-        rest.add(0, targetStation);
-        rest.remove(rest.size() - 1);
-        for (String st: lastStations)
-            rest.add(st);
+        if (toSchool) {
+            rest.add(0, targetStation);
+            rest.remove(rest.size() - 1);
+            for (String st: lastStations)
+                rest.add(st);
+        }
+        else
+            rest.add(0, "명지대");
         naverMapManager.enableMarker(rest);
         naverMapManager.enablePoly(rest);
         naverMapManager.setCameraPosition(naverMapManager.getMarker(rest.get(0)).getPosition(), 15);

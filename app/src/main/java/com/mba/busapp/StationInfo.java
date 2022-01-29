@@ -17,7 +17,7 @@ public class StationInfo {
     // 정류장 정보
     private final static HashMap<String, LatLng> stationInfo = new HashMap<String, LatLng>() {{
         put("명현관", new LatLng(37.2233933, 127.1813636));
-        put("함박관", new LatLng(37.219509212602546, 127.1829915220452));
+        put("함박관", new LatLng(37.2216057, 127.1883458));
         put("명지대 정문", new LatLng(37.2241558, 127.1878371));
         put("명지대", new LatLng(37.224283500000006, 127.18728609999998));
         put("이마트·상공회의소", new LatLng(37.230680400000004, 127.1882456));
@@ -1447,6 +1447,8 @@ public class StationInfo {
         routes.add(new LatLng(37.2242450,127.1884851));
         routeInfo.get("진입로(명지대방향)").put("명지대 버스정류장", routes);
         routeInfo.get("이마트·상공회의소(명지대방향)").put("명지대 버스정류장", routes);
+        routeInfo.get("명지대 버스정류장").put("이마트·상공회의소", routes);
+        routeInfo.get("명지대 버스정류장").put("진입로", routes);
 
     }
 
