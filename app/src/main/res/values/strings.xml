@@ -1,6 +1,6 @@
 <resources>
     // AndroidManifest
-    <string name="app_name">MBA</string>
+    <string name="app_name">M.B.A</string>
     // mainActivity
     <string name="btn_searchBus">버스 찾기</string>
     <string name="btn_busRoute">버스 노선도</string>

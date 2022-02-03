@@ -6,23 +6,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.temporal.ChronoField;
-import java.util.Arrays;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 public class BusSelectActivity extends AppCompatActivity {
 
@@ -51,11 +43,11 @@ public class BusSelectActivity extends AppCompatActivity {
         ImageButton ib05 = (ImageButton)findViewById(R.id.vacation);
 
         // 텍스트뷰
-        TextView text1 = (TextView)findViewById(R.id.textView13);
-        TextView text2 = (TextView)findViewById(R.id.textView10);
-        TextView text3 = (TextView)findViewById(R.id.textView14);
-        TextView text4 = (TextView)findViewById(R.id.textView15);
-        TextView text5 = (TextView)findViewById(R.id.textView16);
+        TextView text1 = (TextView)findViewById(R.id.weekend_text);
+        TextView text2 = (TextView)findViewById(R.id.weekday_text);
+        TextView text3 = (TextView)findViewById(R.id.semester_text);
+        TextView text4 = (TextView)findViewById(R.id.vacationstudy_text);
+        TextView text5 = (TextView)findViewById(R.id.vacation_text);
 
 
         // 요일 리스너

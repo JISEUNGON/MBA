@@ -7,69 +7,152 @@
     tools:context=".MainActivity">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/main_image"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="100dp"
-        android:layout_marginEnd="50dp"
-        android:layout_marginBottom="300dp"
         android:contentDescription="@string/text_imageView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.25"
+        app:layout_constraintBottom_toBottomOf="@+id/main_image_bottom"
+        app:layout_constraintEnd_toEndOf="@id/main_image_end"
+        app:layout_constraintStart_toStartOf="@+id/main_image_start"
+        app:layout_constraintTop_toTopOf="@id/main_image_top"
         app:srcCompat="@drawable/main_logo" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/main_text"
         style="@style/Binggrae.content"
         android:layout_width="wrap_content"
-        android:layout_height="20dp"
+        android:layout_height="0dp"
         android:text="@string/text_main"
         android:textColor="@color/black"
+        android:autoSizeMaxTextSize="21sp"
+        android:autoSizeMinTextSize="8sp"
         android:textSize="11sp"
-        app:layout_constraintBottom_toTopOf="@+id/button"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/main_text_bottom"
+        app:layout_constraintEnd_toEndOf="@id/main_text_end"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/button" />
+        app:layout_constraintStart_toStartOf="@+id/main_bus_search"
+        app:layout_constraintTop_toTopOf="@id/text_main_top" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/button"
+        android:id="@+id/main_bus_search"
         style="@style/Binggrae.content"
         android:layout_width="0dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="52dp"
-        android:layout_marginEnd="54dp"
-        android:layout_marginBottom="47dp"
+        android:layout_height="0dp"
         android:background="@drawable/round_bt02"
         android:onClick="btn_searchBus"
         android:text="@string/btn_searchBus"
         android:textColor="@color/white"
+        android:autoSizeMaxTextSize="30sp"
+        android:autoSizeMinTextSize="17sp"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/imageButton7"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/main_bus_search_bottom"
+        app:layout_constraintEnd_toEndOf="@id/button_end"
         app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="@id/main_bus_search_start"
+        app:layout_constraintTop_toTopOf="@id/main_text_bottom" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/imageButton7"
+        android:id="@+id/btn_route"
         style="@style/Binggrae.content"
         android:layout_width="0dp"
-        android:layout_height="48dp"
-        android:layout_marginBottom="30dp"
+        android:layout_height="0dp"
         android:background="@drawable/round_bt02"
         android:onClick="btn_busRoute"
         android:text="@string/btn_busRoute"
         android:textColor="@color/white"
+        android:autoSizeMaxTextSize="30sp"
+        android:autoSizeMinTextSize="17sp"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/button"
+        app:layout_constraintBottom_toBottomOf="@id/btn_route_bottom"
+        app:layout_constraintEnd_toEndOf="@+id/main_bus_search"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/button"
-        app:layout_constraintTop_toTopOf="@+id/button"
+        app:layout_constraintStart_toStartOf="@+id/main_bus_search"
+        app:layout_constraintTop_toTopOf="@+id/btn_route_top"
         app:layout_constraintVertical_bias="0.948"
         app:srcCompat="@drawable/btn_busroute" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/main_image_start"
+        android:layout_width="1dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.085" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/main_image_end"
+        android:layout_width="1dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.88" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/main_image_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.137" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/main_image_bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.59" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/text_main_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.727" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/main_text_bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.755" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/main_bus_search_bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.82" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/btn_route_bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.951" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/btn_route_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.879" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/main_bus_search_start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.126" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/button_end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.869" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/main_text_end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.42" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

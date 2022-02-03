@@ -4,13 +4,11 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -42,7 +40,7 @@ public class BussList extends BaseAdapter {
             view = li.inflate(R.layout.bus_pass_layout,viewGroup,false);
         }
         TextView tv = view.findViewById(R.id.tv);
-        ImageView iv = view.findViewById(R.id.imageView);
+        ImageView iv = view.findViewById(R.id.main_image);
 
         tv.setTextColor(Color.BLACK);
 
