@@ -8,19 +8,20 @@
 
     <TextView
         android:id="@+id/bus_route_select"
-        style="@style/Binggrae.content"
+        style="@style/Binggrae.title"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:gravity="center"
         android:text="버스 노선표 선택"
         android:textColor="@color/purple_700"
-        android:textSize="35sp"
-        android:autoSizeMaxTextSize="45sp"
-        android:autoSizeMinTextSize="28sp"
+        android:autoSizeMaxTextSize="100sp"
+        android:autoSizeMinTextSize="12sp"
+        android:autoSizeTextType="uniform"
+        android:autoSizeStepGranularity="2sp"
         app:layout_constraintBottom_toBottomOf="@+id/bus_route_select_bottom"
-        app:layout_constraintEnd_toEndOf="@id/bus_route_select_end"
+        app:layout_constraintEnd_toEndOf="@id/route_end"
         app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="@id/bus_route_select_start"
+        app:layout_constraintStart_toStartOf="@id/route_start"
         app:layout_constraintTop_toTopOf="@id/bus_route_select_top" />
 
     <TextView
@@ -30,9 +31,10 @@
         android:layout_height="0dp"
         android:text="평일"
         android:textColor="@color/gray"
-        android:textSize="17sp"
-        android:autoSizeMaxTextSize="27sp"
-        android:autoSizeMinTextSize="10sp"
+        android:autoSizeMaxTextSize="25sp"
+        android:autoSizeMinTextSize="12sp"
+        android:autoSizeTextType="uniform"
+        android:autoSizeStepGranularity="2sp"
         android:gravity="center"
         app:layout_constraintBottom_toBottomOf="@+id/weekend_text_bottom"
         app:layout_constraintEnd_toEndOf="@+id/weekday"
@@ -48,9 +50,10 @@
         android:text="주말"
         android:gravity="center"
         android:textColor="@color/gray"
-        android:textSize="17dp"
-        android:autoSizeMaxTextSize="27sp"
-        android:autoSizeMinTextSize="10sp"
+        android:autoSizeMaxTextSize="25sp"
+        android:autoSizeMinTextSize="12sp"
+        android:autoSizeTextType="uniform"
+        android:autoSizeStepGranularity="2sp"
         app:layout_constraintBottom_toBottomOf="@+id/weekend_text_bottom"
         app:layout_constraintEnd_toEndOf="@+id/weekend"
         app:layout_constraintHorizontal_bias="0.239"
@@ -59,19 +62,19 @@
 
     <TextView
         android:id="@+id/select_day"
-        style="@style/Binggrae.content"
+        style="@style/Binggrae.title"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:text="요일선택"
         android:gravity="center"
         android:textColor="@color/black"
-        android:textSize="15sp"
-        android:autoSizeMaxTextSize="25sp"
-        android:autoSizeMinTextSize="8sp"
+        android:autoSizeMaxTextSize="50sp"
+        android:autoSizeMinTextSize="12sp"
+        android:autoSizeTextType="uniform"
+        android:autoSizeStepGranularity="2sp"
         app:layout_constraintBottom_toBottomOf="@+id/select_day_bottom"
-        app:layout_constraintEnd_toEndOf="@id/select_day_end"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="@id/select_day_start"
+        app:layout_constraintEnd_toEndOf="@id/weekday_start"
+        app:layout_constraintStart_toStartOf="@id/weekend_end"
         app:layout_constraintTop_toTopOf="@id/select_day_top" />
 
     <ImageButton
@@ -79,10 +82,11 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@android:color/transparent"
-        app:layout_constraintBottom_toBottomOf="@+id/weekday_bottom"
+        app:layout_constraintBottom_toBottomOf="@+id/image_bar_week_bottom"
         app:layout_constraintEnd_toEndOf="@id/weekday_end"
         app:layout_constraintStart_toStartOf="@id/weekday_start"
-        app:layout_constraintTop_toTopOf="@id/weekday_top"
+        app:layout_constraintTop_toTopOf="@id/image_bar_week_top"
+        android:scaleType="fitCenter"
         app:srcCompat="@drawable/unselect_weekday_img"
         tools:ignore="SpeakableTextPresentCheck" />
 
@@ -91,10 +95,11 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@android:color/transparent"
-        app:layout_constraintBottom_toBottomOf="@+id/weekday_bottom"
+        app:layout_constraintBottom_toBottomOf="@+id/image_bar_week_bottom"
         app:layout_constraintEnd_toEndOf="@id/weekend_end"
         app:layout_constraintStart_toStartOf="@id/weekend_start"
-        app:layout_constraintTop_toTopOf="@id/weekday_top"
+        app:layout_constraintTop_toTopOf="@id/image_bar_week_top"
+        android:scaleType="fitCenter"
         app:srcCompat="@drawable/unselect_weekend_img"
         tools:ignore="SpeakableTextPresentCheck" />
 
@@ -103,10 +108,11 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@android:color/transparent"
-        app:layout_constraintBottom_toBottomOf="@+id/bar3_bottom"
+        app:layout_constraintBottom_toBottomOf="@+id/image_bar_semester_bottom"
         app:layout_constraintEnd_toEndOf="@id/vacationstudy_end"
         app:layout_constraintStart_toStartOf="@id/vacationstudy_start"
-        app:layout_constraintTop_toTopOf="@id/bar3_top"
+        app:layout_constraintTop_toTopOf="@id/image_bar_semester_top"
+        android:scaleType="fitCenter"
         app:srcCompat="@drawable/unselect_vacationstudy_img"
         tools:ignore="SpeakableTextPresentCheck" />
 
@@ -117,9 +123,10 @@
         android:layout_height="0dp"
         android:text="방학"
         android:textColor="@color/gray"
-        android:textSize="17dp"
-        android:autoSizeMaxTextSize="27sp"
-        android:autoSizeMinTextSize="10sp"
+        android:autoSizeMaxTextSize="25sp"
+        android:autoSizeMinTextSize="12sp"
+        android:autoSizeTextType="uniform"
+        android:autoSizeStepGranularity="2sp"
         android:gravity="center"
         app:layout_constraintBottom_toBottomOf="@+id/vacation_text_bottom"
         app:layout_constraintEnd_toEndOf="@+id/vacation"
@@ -133,9 +140,10 @@
         android:layout_height="0dp"
         android:text="계절학기"
         android:textColor="@color/gray"
-        android:textSize="17dp"
-        android:autoSizeMaxTextSize="27sp"
-        android:autoSizeMinTextSize="10sp"
+        android:autoSizeMaxTextSize="25sp"
+        android:autoSizeMinTextSize="12sp"
+        android:autoSizeTextType="uniform"
+        android:autoSizeStepGranularity="2sp"
         android:gravity="center"
         app:layout_constraintBottom_toBottomOf="@+id/vacation_text_bottom"
         app:layout_constraintEnd_toEndOf="@id/vacationstudy_end"
@@ -144,17 +152,20 @@
 
     <TextView
         android:id="@+id/select_semester"
-        style="@style/Binggrae.content"
+        style="@style/Binggrae.title"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="0dp"
         android:text="학기선택"
         android:gravity="center"
         android:textColor="@color/black"
-        android:textSize="15dp"
+        android:autoSizeMaxTextSize="50sp"
+        android:autoSizeMinTextSize="12sp"
+        android:autoSizeTextType="uniform"
+        android:autoSizeStepGranularity="2sp"
         app:layout_constraintBottom_toBottomOf="@id/select_semester_bottom"
-        app:layout_constraintEnd_toEndOf="@id/select_day_end"
-        app:layout_constraintStart_toStartOf="@id/select_day_start"
+        app:layout_constraintEnd_toEndOf="@id/weekday_start"
+        app:layout_constraintStart_toStartOf="@id/weekend_end"
         app:layout_constraintTop_toTopOf="@id/select_semester_top" />
 
     <ImageButton
@@ -162,10 +173,11 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@android:color/transparent"
-        app:layout_constraintBottom_toBottomOf="@+id/vacationstudy"
+        app:layout_constraintBottom_toBottomOf="@+id/image_bar_semester_bottom"
         app:layout_constraintEnd_toEndOf="@id/semester_end"
         app:layout_constraintStart_toStartOf="@id/semester_start"
-        app:layout_constraintTop_toTopOf="@+id/vacationstudy"
+        app:layout_constraintTop_toTopOf="@+id/image_bar_semester_top"
+        android:scaleType="fitCenter"
         app:srcCompat="@drawable/unselect_semester_img"
         tools:ignore="SpeakableTextPresentCheck" />
 
@@ -174,8 +186,8 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="@+id/bar3_bottom"
-        app:layout_constraintEnd_toEndOf="@id/bar3_end"
-        app:layout_constraintStart_toStartOf="@+id/bar3_start"
+        app:layout_constraintEnd_toEndOf="@id/vacation_start"
+        app:layout_constraintStart_toStartOf="@+id/vacationstudy_end"
         app:layout_constraintTop_toTopOf="@+id/bar3_top"
         app:srcCompat="@drawable/line" />
 
@@ -184,10 +196,11 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@android:color/transparent"
-        app:layout_constraintBottom_toBottomOf="@+id/vacationstudy"
+        app:layout_constraintBottom_toBottomOf="@+id/image_bar_semester_bottom"
         app:layout_constraintEnd_toEndOf="@id/vacation_end"
         app:layout_constraintStart_toStartOf="@id/vacation_start"
-        app:layout_constraintTop_toTopOf="@+id/vacationstudy"
+        app:layout_constraintTop_toTopOf="@+id/image_bar_semester_top"
+        android:scaleType="fitCenter"
         app:srcCompat="@drawable/unselect_vacation_img"
         tools:ignore="SpeakableTextPresentCheck" />
 
@@ -198,9 +211,10 @@
         android:layout_height="0dp"
         android:text="학기"
         android:textColor="@color/gray"
-        android:textSize="17dp"
-        android:autoSizeMaxTextSize="27sp"
-        android:autoSizeMinTextSize="10sp"
+        android:autoSizeMaxTextSize="25sp"
+        android:autoSizeMinTextSize="12sp"
+        android:autoSizeTextType="uniform"
+        android:autoSizeStepGranularity="2sp"
         android:gravity="center"
         app:layout_constraintBottom_toBottomOf="@+id/vacation_text_bottom"
         app:layout_constraintEnd_toStartOf="@+id/semester_end"
@@ -213,8 +227,8 @@
         android:layout_height="0dp"
         android:layout_marginStart="0dp"
         app:layout_constraintBottom_toBottomOf="@+id/bar3_bottom"
-        app:layout_constraintEnd_toEndOf="@id/bar2_end"
-        app:layout_constraintStart_toStartOf="@id/bar2_start"
+        app:layout_constraintEnd_toEndOf="@id/vacationstudy_start"
+        app:layout_constraintStart_toStartOf="@id/semester_end"
         app:layout_constraintTop_toTopOf="@+id/bar3_top"
         app:srcCompat="@drawable/line" />
 
@@ -223,9 +237,10 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="@id/weekday_bottom"
-        app:layout_constraintEnd_toEndOf="@id/bar1_end"
-        app:layout_constraintStart_toStartOf="@id/bar1_start"
+        app:layout_constraintEnd_toEndOf="@id/weekday_start"
+        app:layout_constraintStart_toStartOf="@id/weekend_end"
         app:layout_constraintTop_toTopOf="@id/weekday_top"
+        app:flow_horizontalBias="0.5"
         app:srcCompat="@drawable/line" />
 
     <androidx.appcompat.widget.AppCompatButton
@@ -276,14 +291,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.234" />
+        app:layout_constraintGuide_percent="0.25" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/weekday_bottom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.452" />
+        app:layout_constraintGuide_percent="0.45" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/weekend_text_top"
@@ -346,56 +361,28 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.896" />
+        app:layout_constraintGuide_percent="0.90" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/route_bottom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.99" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/bus_route_select_start"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.094" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/bus_route_select_end"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.904" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/select_day_start"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.415" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/select_day_end"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.6" />
+        app:layout_constraintGuide_percent="0.95" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/weekend_start"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.124" />
+        app:layout_constraintGuide_percent="0.12" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/weekend_end"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.423" />
+        app:layout_constraintGuide_percent="0.42" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/weekday_start"
@@ -409,91 +396,49 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.857" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/bar1_start"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.484" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/bar1_end"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.516" />
+        app:layout_constraintGuide_percent="0.87" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/semester_start"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.064" />
+        app:layout_constraintGuide_percent="0.05" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/semester_end"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.316" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/bar2_start"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.324" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/bar2_end"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.35" />
+        app:layout_constraintGuide_percent="0.32" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/vacationstudy_start"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.36" />
+        app:layout_constraintGuide_percent="0.37" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/vacationstudy_end"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.616" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/bar3_start"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.63" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/bar3_end"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.654" />
+        app:layout_constraintGuide_percent="0.64" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/vacation_start"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.664" />
+        app:layout_constraintGuide_percent="0.69" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/vacation_end"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.916" />
+        app:layout_constraintGuide_percent="0.95" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/route_start"
@@ -508,5 +453,33 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.918" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/image_bar_semester_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.65" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/image_bar_semester_bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.75" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/image_bar_week_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.3" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/image_bar_week_bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.4" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,6 +10,7 @@
         android:id="@+id/main_image"
         android:layout_width="0dp"
         android:layout_height="0dp"
+
         android:contentDescription="@string/text_imageView"
         app:layout_constraintBottom_toBottomOf="@+id/main_image_bottom"
         app:layout_constraintEnd_toEndOf="@id/main_image_end"
@@ -20,18 +21,19 @@
     <TextView
         android:id="@+id/main_text"
         style="@style/Binggrae.content"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         android:text="@string/text_main"
         android:textColor="@color/black"
         android:autoSizeMaxTextSize="21sp"
         android:autoSizeMinTextSize="8sp"
-        android:textSize="11sp"
+        android:autoSizeStepGranularity="2sp"
+        android:autoSizeTextType="uniform"
+        android:gravity="center_vertical"
         app:layout_constraintBottom_toTopOf="@+id/main_text_bottom"
         app:layout_constraintEnd_toEndOf="@id/main_text_end"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/main_bus_search"
-        app:layout_constraintTop_toTopOf="@id/text_main_top" />
+        app:layout_constraintStart_toStartOf="@+id/main_bus_search_start"
+        app:layout_constraintTop_toBottomOf="@id/text_main_top" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/main_bus_search"
@@ -42,12 +44,12 @@
         android:onClick="btn_searchBus"
         android:text="@string/btn_searchBus"
         android:textColor="@color/white"
-        android:autoSizeMaxTextSize="30sp"
-        android:autoSizeMinTextSize="17sp"
-        android:textSize="20sp"
+        android:autoSizeMaxTextSize="50sp"
+        android:autoSizeMinTextSize="12sp"
+        android:autoSizeTextType="uniform"
+        android:autoSizeStepGranularity="2sp"
         app:layout_constraintBottom_toBottomOf="@+id/main_bus_search_bottom"
         app:layout_constraintEnd_toEndOf="@id/button_end"
-        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="@id/main_bus_search_start"
         app:layout_constraintTop_toTopOf="@id/main_text_bottom" />
 
@@ -60,15 +62,14 @@
         android:onClick="btn_busRoute"
         android:text="@string/btn_busRoute"
         android:textColor="@color/white"
-        android:autoSizeMaxTextSize="30sp"
-        android:autoSizeMinTextSize="17sp"
-        android:textSize="20sp"
+        android:autoSizeMaxTextSize="50sp"
+        android:autoSizeMinTextSize="12sp"
+        android:autoSizeTextType="uniform"
+        android:autoSizeStepGranularity="2sp"
         app:layout_constraintBottom_toBottomOf="@id/btn_route_bottom"
-        app:layout_constraintEnd_toEndOf="@+id/main_bus_search"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/main_bus_search"
+        app:layout_constraintEnd_toEndOf="@+id/button_end"
+        app:layout_constraintStart_toStartOf="@+id/main_bus_search_start"
         app:layout_constraintTop_toTopOf="@+id/btn_route_top"
-        app:layout_constraintVertical_bias="0.948"
         app:srcCompat="@drawable/btn_busroute" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -76,14 +77,14 @@
         android:layout_width="1dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.085" />
+        app:layout_constraintGuide_percent="0.1" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/main_image_end"
         android:layout_width="1dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.88" />
+        app:layout_constraintGuide_percent="0.9" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/main_image_top"
@@ -125,14 +126,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.951" />
+        app:layout_constraintGuide_percent="0.945" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/btn_route_top"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.879" />
+        app:layout_constraintGuide_percent="0.880" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/main_bus_search_start"
