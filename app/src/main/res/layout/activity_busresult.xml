@@ -41,6 +41,7 @@
             android:orientation="vertical">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/sld_background"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="#00FFFFFF">
@@ -59,53 +60,123 @@
 
                 <ListView
                     android:id="@+id/listView"
-                    android:layout_width="match_parent"
-                    android:layout_height="309dp"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="90dp"
                     android:divider="#FFFFFF"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.521" />
+                    app:layout_constraintBottom_toBottomOf="@id/lv_bottom"
+                    app:layout_constraintEnd_toEndOf="@id/lv_end"
+                    app:layout_constraintStart_toStartOf="@id/lv_start"
+                    app:layout_constraintTop_toTopOf="@id/lv_top" />
 
                 <TextView
                     android:id="@+id/tvRemainTime"
                     style="@style/Binggrae.content"
-                    android:layout_width="match_parent"
-                    android:layout_height="52dp"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="230dp"
-                    android:layout_marginTop="10dp"
-                    android:gravity="bottom"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:gravity="bottom|left"
                     android:text="남은시간"
-                    android:textSize="30dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintHorizontal_bias="0.1"
-                    app:layout_constraintVertical_bias="0.1"/>
+                    app:layout_constraintBottom_toBottomOf="@id/tv_bottom"
+                    app:layout_constraintTop_toTopOf="@id/tv_top"
+                    app:layout_constraintEnd_toEndOf="@id/remaintv_end"
+                    app:layout_constraintStart_toStartOf="@id/lv_start"
+                    app:autoSizeTextType="uniform"
+                    android:autoSizeMinTextSize="30sp"
+                    android:autoSizeMaxTextSize="38sp"
+                    android:autoSizeStepGranularity="2sp"/>
 
                 <TextView
-                    android:layout_marginTop="10dp"
                     android:id="@+id/tvArrivalTime"
                     style="@style/Binggrae.content"
-                    android:layout_width="207dp"
-                    android:layout_height="52dp"
-                    android:layout_marginBottom="5dp"
-                    android:gravity="bottom"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:gravity="bottom|left"
                     android:text="도착시간"
-                    android:textSize="13dp"
-                    app:layout_constraintBottom_toBottomOf= "@id/tvRemainTime"
-                    app:layout_constraintStart_toEndOf="@id/tvRemainTime" />
+                    app:layout_constraintBottom_toBottomOf="@id/tv_bottom"
+                    app:layout_constraintTop_toTopOf="@id/tv_top"
+                    app:layout_constraintEnd_toEndOf="@id/ariivaltv_end"
+                    app:layout_constraintStart_toStartOf="@id/arrivaltv_start"
+                    app:autoSizeTextType="uniform"
+                    android:autoSizeMinTextSize="16sp"
+                    android:autoSizeMaxTextSize="30sp"
+                    android:autoSizeStepGranularity="2sp"/>
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/lv_top"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.3" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/lv_bottom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.95" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/lv_start"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.1" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/lv_end"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.9" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/tv_top"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.1" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/tv_bottom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.2" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/remaintv_start"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.15" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/remaintv_end"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.3" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/ariivaltv_end"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.85" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/arrivaltv_start"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.35" />
+
+
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
 
     </com.sothree.slidinguppanel.SlidingUpPanelLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
