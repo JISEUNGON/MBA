@@ -236,7 +236,6 @@ public class BusRouteActivity extends AppCompatActivity implements OnMapReadyCal
         // 테이블 동적뷰 생성
         TableLayout tableLayout = (TableLayout) findViewById(R.id.busroute_tablelayout);
         TableRow.LayoutParams view_layoutParams = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT);
-        view_layoutParams.setMargins(1, 0, 1, 0); // 사이가 떨어져있어..
 
         // 이전 View 모두 삭제
         tableLayout.removeAllViews();
@@ -257,8 +256,13 @@ public class BusRouteActivity extends AppCompatActivity implements OnMapReadyCal
             // Textview 생성
             for(int j = 0; j < 2; j++) {
                 String time;
-                if (j == 0) time = depart_times[i];
-                else time = estimated_times[i];
+                if (j == 0) {
+                    time = depart_times[i];
+                    view_layoutParams.setMargins(1, 0, 0, 0);
+                } else {
+                    time = estimated_times[i];
+                    view_layoutParams.setMargins(0, 0, 1, 0);
+                }
 
                 TextView view = new TextView(this);
                 view.setText(time);

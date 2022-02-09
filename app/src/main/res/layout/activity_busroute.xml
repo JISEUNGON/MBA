@@ -126,8 +126,9 @@
                         android:layout_width="60dp"
                         android:layout_height="5dp"
                         android:layout_marginTop="5dp"
-                        android:layout_marginEnd="176dp"
                         android:background="@drawable/slidinglayout_gray_drag_tip"
+                        app:layout_constraintVertical_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -144,7 +145,10 @@
                         style="@style/Binggrae.title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
+                        android:autoSizeMaxTextSize="30sp"
+                        android:autoSizeMinTextSize="12sp"
+                        android:autoSizeTextType="uniform"
+                        android:autoSizeStepGranularity="2sp"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:text="출발 시각" />
@@ -152,6 +156,10 @@
                     <TextView
                         android:id="@+id/busroute_col2"
                         style="@style/Binggrae.title"
+                        android:autoSizeMaxTextSize="30sp"
+                        android:autoSizeMinTextSize="12sp"
+                        android:autoSizeTextType="uniform"
+                        android:autoSizeStepGranularity="2sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
