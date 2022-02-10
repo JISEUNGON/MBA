@@ -4,11 +4,9 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        xmlns:tools="http://schemas.android.com/tools"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+        android:layout_height="match_parent">
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -43,33 +41,34 @@
                     app:layout_constraintBottom_toBottomOf="@id/tvStation_bottom"
                     app:layout_constraintStart_toStartOf="@+id/ivStation_start"
                     app:layout_constraintTop_toTopOf="@+id/tvStation_top"
-                    />
+                    app:layout_constraintVertical_bias="1" />
 
                 <TextView
                     android:id="@+id/tvStationLocation"
                     style="@style/Binggrae.content"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
+                    android:layout_marginStart="5dp"
+                    android:autoSizeMaxTextSize="21sp"
+                    android:autoSizeMinTextSize="8sp"
                     android:gravity="bottom|left"
                     android:text="정류장 설명"
                     android:textColor="@color/gray"
-                    android:autoSizeMaxTextSize="21sp"
-                    android:autoSizeMinTextSize="8sp"
-                    android:textSize="11sp"
                     android:textStyle="bold"
+                    android:layout_marginBottom="5dp"
                     app:layout_constraintBottom_toTopOf="@+id/tvStation_bottom"
                     app:layout_constraintEnd_toStartOf="@+id/btnSearch_end"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toEndOf="@+id/tvStation"
                     app:layout_constraintTop_toTopOf="@+id/tvStation_top"
-                    app:layout_constraintVertical_bias="1.0" />
+                    app:layout_constraintVertical_bias="0.0" />
 
                 <ImageView
                     android:id="@+id/ivStation"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:src="@drawable/mju_chamber"
-                    android:scaleType="fitCenter"
+                    android:scaleType="centerCrop"
                     app:layout_constraintBottom_toBottomOf="@id/ivStation_bottom"
                     app:layout_constraintEnd_toStartOf="@+id/ivStation_end"
                     app:layout_constraintStart_toStartOf="@id/ivStation_start"
@@ -78,10 +77,11 @@
                 <ImageButton
                     android:id="@+id/btnSearch"
                     android:layout_width="0dp"
-                    android:layout_height="0dp"
+                    android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
                     android:background="@drawable/custom_button_round_pressed"
                     android:contentDescription="@string/app_name"
+                    android:src="@drawable/ic_bus_fake"
                     android:onClick="btn_moveNext"
                     app:layout_constraintBottom_toBottomOf="@id/btnSearch_bottom"
                     app:layout_constraintEnd_toEndOf="@id/btnSearch_end"
@@ -94,8 +94,8 @@
                     android:id="@+id/btnSearch_bus"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    app:layout_constraintHeight_percent="0.3"
-                    app:layout_constraintWidth_percent="0.2"
+                    app:layout_constraintHeight_percent="0.25"
+                    app:layout_constraintWidth_percent="0.15"
                     android:scaleType="fitCenter"
                     android:contentDescription="@string/app_name"
                     android:background="?android:selectableItemBackground"
@@ -118,6 +118,7 @@
                     android:autoSizeMaxTextSize="30sp"
                     android:autoSizeMinTextSize="10sp"
                     android:autoSizeStepGranularity="2sp"
+                    app:layout_constraintVertical_bias="0.15"
                     app:layout_constraintEnd_toEndOf="@+id/btnSearch_end"
                     app:layout_constraintStart_toStartOf="@+id/btnSearch_start"
                     app:layout_constraintTop_toBottomOf="@+id/btnSearch"
@@ -177,14 +178,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    app:layout_constraintGuide_percent="0.37" />
+                    app:layout_constraintGuide_percent="0.40" />
 
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/btnSearch_bottom"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    app:layout_constraintGuide_percent="0.78" />
+                    app:layout_constraintGuide_percent="0.85" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
