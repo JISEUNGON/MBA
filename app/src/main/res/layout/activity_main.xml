@@ -45,7 +45,7 @@
         android:text="@string/btn_searchBus"
         android:textColor="@color/white"
         android:autoSizeMaxTextSize="30sp"
-        android:autoSizeMinTextSize="12sp"
+        android:autoSizeMinTextSize="8sp"
         android:autoSizeTextType="uniform"
         android:autoSizeStepGranularity="2sp"
         app:layout_constraintBottom_toBottomOf="@+id/main_bus_search_bottom"
