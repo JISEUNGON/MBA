@@ -72,18 +72,18 @@
                 <TextView
                     android:id="@+id/tvRemainTime"
                     style="@style/Binggrae.content"
-                    android:layout_width="0dp"
+                    android:layout_width="85dp"
                     android:layout_height="0dp"
                     android:gravity="bottom|left"
-                    android:text="남은시간"
+                    android:text="00분"
                     app:layout_constraintBottom_toBottomOf="@id/tv_bottom"
                     app:layout_constraintTop_toTopOf="@id/tv_top"
-                    app:layout_constraintEnd_toEndOf="@id/remaintv_end"
                     app:layout_constraintStart_toStartOf="@id/lv_start"
-                    app:autoSizeTextType="uniform"
-                    android:autoSizeMinTextSize="30sp"
+                    android:autoSizeTextType="uniform"
+                    android:autoSizeMinTextSize="20sp"
                     android:autoSizeMaxTextSize="38sp"
-                    android:autoSizeStepGranularity="2sp"/>
+                    android:autoSizeStepGranularity="2sp"
+                    app:layout_constraintHorizontal_bias="0" />
 
                 <TextView
                     android:id="@+id/tvArrivalTime"
@@ -92,21 +92,22 @@
                     android:layout_height="0dp"
                     android:gravity="bottom|left"
                     android:text="도착시간"
-                    app:layout_constraintBottom_toBottomOf="@id/tv_bottom"
+                    app:layout_constraintBottom_toBottomOf="@id/tvArrival_bottom"
                     app:layout_constraintTop_toTopOf="@id/tv_top"
-                    app:layout_constraintEnd_toEndOf="@id/ariivaltv_end"
-                    app:layout_constraintStart_toStartOf="@id/arrivaltv_start"
-                    app:autoSizeTextType="uniform"
-                    android:autoSizeMinTextSize="16sp"
-                    android:autoSizeMaxTextSize="30sp"
-                    android:autoSizeStepGranularity="2sp"/>
+                    app:layout_constraintEnd_toEndOf="@id/tvArrival_end"
+                    app:layout_constraintStart_toEndOf="@id/tvRemainTime"
+                    android:autoSizeTextType="uniform"
+                    android:autoSizeMinTextSize="10sp"
+                    android:autoSizeMaxTextSize="22sp"
+                    android:autoSizeStepGranularity="2sp"
+                    android:textColor="@color/gray"/>
 
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/lv_top"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    app:layout_constraintGuide_percent="0.3" />
+                    app:layout_constraintGuide_percent="0.25" />
 
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/lv_bottom"
@@ -144,35 +145,31 @@
                     app:layout_constraintGuide_percent="0.2" />
 
                 <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/remaintv_start"
+                    android:id="@+id/tvRemain_start"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     app:layout_constraintGuide_percent="0.15" />
 
                 <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/remaintv_end"
+                    android:id="@+id/tvRemain_end"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     app:layout_constraintGuide_percent="0.3" />
 
                 <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/ariivaltv_end"
+                    android:id="@+id/tvArrival_end"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     app:layout_constraintGuide_percent="0.85" />
-
                 <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/arrivaltv_start"
+                    android:id="@+id/tvArrival_bottom"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintGuide_percent="0.35" />
-
-
-
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.19" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>

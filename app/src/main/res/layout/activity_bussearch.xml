@@ -138,10 +138,12 @@
             <com.naver.maps.map.MapView
                 android:id="@+id/bussearch_navermap"
                 style="@style/Binggrae.content"
-                app:layout_constraintTop_toBottomOf="@id/serach_bar"
-                app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"/>
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/serach_bar"
+                app:layout_constraintVertical_bias="1.0"
+                tools:layout_editor_absoluteX="33dp" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -172,33 +174,34 @@
                         style="@style/Binggrae.title"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
-                        android:autoSizeMaxTextSize="30sp"
+                        android:autoSizeMaxTextSize="25sp"
                         android:autoSizeMinTextSize="10sp"
+                        android:autoSizeStepGranularity="1sp"
                         android:autoSizeTextType="uniform"
                         android:gravity="bottom|left"
                         android:text="정류장"
                         android:textColor="@color/black"
                         app:layout_constraintBottom_toBottomOf="@id/tvStation_bottom"
                         app:layout_constraintStart_toStartOf="@+id/ivStation_start"
-                        app:layout_constraintTop_toTopOf="@+id/tvStation_top"
-                        app:layout_constraintVertical_bias="1" />
+                        app:layout_constraintTop_toTopOf="@+id/tvStation_top" />
 
                     <TextView
                         android:id="@+id/tvStationLocation"
                         style="@style/Binggrae.content"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:layout_marginStart="5dp"
-                        android:autoSizeMaxTextSize="15sp"
-                        android:autoSizeMinTextSize="4sp"
                         android:gravity="bottom|left"
                         android:text="정류장 설명"
                         android:textColor="@color/gray"
                         android:textStyle="bold"
                         android:layout_marginBottom="5dp"
-                        android:textSize="11sp"
-                        app:layout_constraintBottom_toTopOf="@+id/tvStation_bottom"
-                        app:layout_constraintEnd_toStartOf="@+id/btnSearch_end"
+                        android:autoSizeMaxTextSize="15sp"
+                        android:autoSizeMinTextSize="10sp"
+                        android:autoSizeStepGranularity="1sp"
+                        android:autoSizeTextType="uniform"
+                        app:layout_constraintBottom_toBottomOf="@+id/tvStation_bottom"
+                        app:layout_constraintEnd_toStartOf="@+id/tvBusSearch_end"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toEndOf="@+id/tvStation"
                         app:layout_constraintTop_toTopOf="@+id/tvStation_top"
@@ -210,6 +213,7 @@
                         android:layout_height="0dp"
                         android:src="@drawable/mju_chamber"
                         android:scaleType="centerCrop"
+                        android:layout_marginTop="5dp"
                         app:layout_constraintBottom_toBottomOf="@id/ivStation_bottom"
                         app:layout_constraintEnd_toStartOf="@+id/ivStation_end"
                         app:layout_constraintStart_toStartOf="@id/ivStation_start"
@@ -224,11 +228,10 @@
                         android:contentDescription="@string/app_name"
                         android:src="@drawable/ic_bus_fake"
                         android:onClick="btn_moveNext"
-                        app:layout_constraintBottom_toBottomOf="@id/btnSearch_bottom"
-                        app:layout_constraintEnd_toEndOf="@id/btnSearch_end"
+                        app:layout_constraintBottom_toTopOf="@id/tvBusSearch"
+                        app:layout_constraintEnd_toEndOf="@id/tvBusSearch_end"
                         app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="@id/btnSearch_start"
-                        app:layout_constraintTop_toTopOf="@id/ivStation_top"
+                        app:layout_constraintStart_toStartOf="@id/tvBusSearch_start"
                         />
 
                     <ImageButton
@@ -242,35 +245,43 @@
                         android:background="?android:selectableItemBackground"
                         android:onClick="btn_moveNext"
                         android:src="@drawable/ic_bus"
-                        app:layout_constraintBottom_toBottomOf="@id/btnSearch_bottom"
-                        app:layout_constraintEnd_toEndOf="@id/btnSearch_end"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="@id/btnSearch_start"
-                        app:layout_constraintTop_toTopOf="@id/ivStation_top"
+                        app:layout_constraintBottom_toTopOf="@id/tvBusSearch"
+                        app:layout_constraintEnd_toEndOf="@id/tvBusSearch_end"
+                        app:layout_constraintStart_toStartOf="@id/tvBusSearch_start"
+                        app:layout_constraintTop_toTopOf="@id/btnSearch"
                         />
 
                     <TextView
                         android:id="@+id/tvBusSearch"
                         style="@style/Binggrae.title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
                         android:text="@string/search_bus"
                         android:textColor="@color/purple_700"
+                        android:autoSizeTextType="uniform"
                         android:autoSizeMaxTextSize="30sp"
                         android:autoSizeMinTextSize="10sp"
                         android:autoSizeStepGranularity="2sp"
-                        app:layout_constraintVertical_bias="0.15"
-                        app:layout_constraintEnd_toEndOf="@+id/btnSearch_end"
-                        app:layout_constraintStart_toStartOf="@+id/btnSearch_start"
-                        app:layout_constraintTop_toBottomOf="@+id/btnSearch"
+                        android:gravity="center"
+                        app:layout_constraintEnd_toEndOf="@+id/tvBusSearch_end"
+                        app:layout_constraintStart_toStartOf="@+id/tvBusSearch_start"
+                        app:layout_constraintTop_toTopOf="@+id/tvBusSearch_top"
                         app:layout_constraintBottom_toBottomOf="@id/ivStation_bottom"/>
+
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/tvBusSearch_top"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        app:layout_constraintGuide_percent="0.81" />
 
                     <androidx.constraintlayout.widget.Guideline
                         android:id="@+id/tvStation_top"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        app:layout_constraintGuide_percent="0.122" />
+                        app:layout_constraintGuide_percent="0.1" />
 
                     <androidx.constraintlayout.widget.Guideline
                         android:id="@+id/tvStation_bottom"
@@ -301,18 +312,18 @@
                         app:layout_constraintGuide_percent="0.714" />
 
                     <androidx.constraintlayout.widget.Guideline
-                        android:id="@+id/btnSearch_start"
+                        android:id="@+id/tvBusSearch_start"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        app:layout_constraintGuide_percent="0.76" />
+                        app:layout_constraintGuide_percent="0.768" />
 
                     <androidx.constraintlayout.widget.Guideline
-                        android:id="@+id/btnSearch_end"
+                        android:id="@+id/tvBusSearch_end"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        app:layout_constraintGuide_percent="0.965" />
+                        app:layout_constraintGuide_percent="0.958" />
 
                     <androidx.constraintlayout.widget.Guideline
                         android:id="@+id/ivStation_top"

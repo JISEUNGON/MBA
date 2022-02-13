@@ -53,7 +53,7 @@ public class BusSearchActivity  extends AppCompatActivity implements OnMapReadyC
 
     private String[] items = {"정류장을 선택하세요", "이마트·상공회의소", "진입로", "동부경찰서", "용인시장", "중앙공영주차장", "명지대역", "진입로(명지대방향)","이마트·상공회의소(명지대방향)", "기흥역"};
     private String[] location = {"이마트·상공희의소 버스 정류장", "역북동행정복지센터 버스 정류장" ,"금호 부동산중개 앞", "행텐 주니어 용인점 앞", "안경창고 싸군 용인점 앞", "명지대사거리 버스 정류장", "역북동행정복지센터 버스 정류장", "이마트·상공희의소 버스 정류장", "기흥역 5번 출구 앞" };
-    private int[] textViewLength = {170, 70, 100, 85, 140, 85, 180, 130, 70};
+    private int[] textViewLength = {200, 80, 130, 120, 170, 110, 210, 120, 80};
     private int[] imageID;
 
     //노선별 소요 에상 시간
