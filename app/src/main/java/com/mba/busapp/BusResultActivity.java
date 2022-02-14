@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import com.naver.maps.geometry.LatLng;
+import com.naver.maps.map.CameraAnimation;
 import com.naver.maps.map.MapView;
 import com.naver.maps.map.NaverMap;
 import com.naver.maps.map.OnMapReadyCallback;
@@ -343,7 +344,7 @@ public class BusResultActivity extends AppCompatActivity implements OnMapReadyCa
             rest.add(0, "명지대");
         naverMapManager.enableMarker(rest);
         naverMapManager.enablePoly(rest);
-        naverMapManager.setCameraPosition(naverMapManager.getMarker(rest.get(0)).getPosition(), 15);
+        naverMapManager.setCameraPosition(naverMapManager.getMarker(rest.get(0)).getPosition(), 15, CameraAnimation.None);
 
     }
 

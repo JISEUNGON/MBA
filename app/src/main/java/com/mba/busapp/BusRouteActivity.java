@@ -20,6 +20,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.common.util.ArrayUtils;
 import com.naver.maps.geometry.LatLng;
+import com.naver.maps.map.CameraAnimation;
 import com.naver.maps.map.MapView;
 import com.naver.maps.map.NaverMap;
 import com.naver.maps.map.OnMapReadyCallback;
@@ -48,6 +49,8 @@ public class BusRouteActivity extends AppCompatActivity implements OnMapReadyCal
     private String day;
     private String semaster;
 
+    // UX 개선
+    boolean isFirst = true;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -120,13 +123,14 @@ public class BusRouteActivity extends AppCompatActivity implements OnMapReadyCal
                 if (semaster.equals("방학") || day.equals("주말")) {
                     mapManager.enableMarker_Vacation();
                     mapManager.enablePoly_Vaction();
-                    mapManager.setCameraPosition(new LatLng(37.2297982,127.1959162), 13);
+                    if (isFirst) mapManager.setCameraPosition(new LatLng(37.2297982,127.1959162), 12, CameraAnimation.None);
+                    else mapManager.setCameraPosition(new LatLng(37.2297982,127.1959162), 12, CameraAnimation.Easing);
 
                 } else {
                     mapManager.enableMarker_MjuStation();
                     mapManager.enablePoly_MjuStation();
-                    mapManager.setCameraPosition(new LatLng(37.2329535, 127.1892392), 13);
-
+                    if (isFirst) mapManager.setCameraPosition(new LatLng(37.2329535, 127.1892392), 13, CameraAnimation.None);
+                    else mapManager.setCameraPosition(new LatLng(37.2329535, 127.1892392), 13, CameraAnimation.Easing);
                 }
                 break;
             case "시내":
@@ -137,17 +141,20 @@ public class BusRouteActivity extends AppCompatActivity implements OnMapReadyCal
                     mapManager.enableMarker_DownTown();
                     mapManager.enablePoly_DownTown();
                 }
-                mapManager.setCameraPosition(new LatLng(37.2297982,127.1959162), 13);
+                if (isFirst) mapManager.setCameraPosition(new LatLng(37.2297982,127.1959162), 13, CameraAnimation.None);
+                else mapManager.setCameraPosition(new LatLng(37.2297982,127.1959162), 13, CameraAnimation.Easing);
 
                 break;
             case "기흥역":
                 mapManager.enableMarker_Giheung();
                 mapManager.enablePoly_Giheung();
-                mapManager.setCameraPosition(new LatLng(37.2454122, 127.1500397), 11);
+                if (isFirst) mapManager.setCameraPosition(new LatLng(37.2454122, 127.1500397), 11, CameraAnimation.None);
+                else mapManager.setCameraPosition(new LatLng(37.2454122, 127.1500397), 11, CameraAnimation.Easing);
                 break;
             default:
                 Log.e("[DEBUG]", "[BusRouteActivity]<showMarker> " + route);
         }
+        isFirst = false;
     }
 
     public void makeTable(String route) {

@@ -53,16 +53,16 @@
                     android:id="@+id/btnBusSchedule"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-
                     android:background="@drawable/custom_button_round"
                     android:contentDescription="@string/app_name"
                     android:onClick="btn_slidingView"
                     android:src="@drawable/ic_bus_schedule"
                     app:layout_constraintBottom_toBottomOf="@id/btnBusSchedule_bottom"
                     app:layout_constraintEnd_toEndOf="@id/btnBusSchedule_end"
-                    app:layout_constraintStart_toEndOf="@id/btnBusSchedule_end"
                     app:layout_constraintStart_toStartOf="@id/btnBusSchedule_start"
-                    app:layout_constraintTop_toTopOf="@id/btnBusSchedule_top"/>
+                    app:layout_constraintTop_toTopOf="@id/btnBusSchedule_top"
+                    app:layout_constraintVertical_bias="1"
+                    />
 
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/btnBusSchedule_top"
@@ -76,7 +76,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    app:layout_constraintGuide_percent="0.958" />
+                    app:layout_constraintGuide_percent="0.95" />
 
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/btnBusSchedule_start"

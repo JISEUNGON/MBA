@@ -83,7 +83,6 @@ public class NaverMapManager {
             Marker marker = new Marker();
             marker.setIcon(MarkerIcons.BLUE); // 아이콘 색상
             marker.setPosition(StationInfo.getInstance().getLatLng(station)); // 위치 설정
-            Log.e("DEBUG -->", station);
             // cpation 설정 ( 이 있으면 2줄로 표시
             if(station.contains("(")) {
                 String[] groups = station.split("\\(");
@@ -306,8 +305,8 @@ public class NaverMapManager {
      * 네이버맵 현 위치 이동 + zoom
      * @param position 이동할 위치
      */
-    public void setCameraPosition(LatLng position, int zoom) {
-        CameraUpdate cameraUpdate = CameraUpdate.scrollAndZoomTo(position, zoom).animate(CameraAnimation.Fly, 3000);
+    public void setCameraPosition(LatLng position, int zoom, CameraAnimation animation) {
+        CameraUpdate cameraUpdate = CameraUpdate.scrollAndZoomTo(position, zoom).animate(animation, 3000);
         naverMap.moveCamera(cameraUpdate);
     }
 

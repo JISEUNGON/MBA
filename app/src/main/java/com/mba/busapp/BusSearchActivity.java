@@ -25,6 +25,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.naver.maps.geometry.LatLng;
+import com.naver.maps.map.CameraAnimation;
 import com.naver.maps.map.MapView;
 import com.naver.maps.map.NaverMap;
 import com.naver.maps.map.OnMapReadyCallback;
@@ -72,9 +73,6 @@ public class BusSearchActivity  extends AppCompatActivity implements OnMapReadyC
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bussearch);
-
-        apiThread = createThread();
-        apiThread.start();
 
         switch_counter = 0; //switch 카운터 0으로 초기화
 
@@ -144,7 +142,7 @@ public class BusSearchActivity  extends AppCompatActivity implements OnMapReadyC
 
         mapManager = new NaverMapManager(naverMap, this);
 
-        mapManager.setCameraPosition(new LatLng(37.233972549267705, 127.18874893910944), 15);
+        mapManager.setCameraPosition(new LatLng(37.233972549267705, 127.18874893910944), 15, CameraAnimation.None);
         mapManager.enableLocation();
         mapManager.enableMarker_ALL();
 
@@ -293,11 +291,7 @@ public class BusSearchActivity  extends AppCompatActivity implements OnMapReadyC
     }
 
     @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
-
-    }
-
-
+    public void onNothingSelected(AdapterView<?> adapterView) { }
 
     //현재시간 세팅
     public String setCurrentTime(Date date){
@@ -364,6 +358,9 @@ public class BusSearchActivity  extends AppCompatActivity implements OnMapReadyC
                             MJSTATION_REQUIRED_TIME = BusManager.getBusInfo_mju_station();
                             CITY_REQUIRED_TIME = BusManager.getBusInfo_mju_downtown();
                             WEEKEND_REQUIRED_TIME = BusManager.getBusInfo_vacation_or_weekend();
+                            
+                            // 통신 도중에 인터럽트 발생하는 경우 처리
+                            if (MJSTATION_REQUIRED_TIME == null || CITY_REQUIRED_TIME == null || WEEKEND_REQUIRED_TIME == null) throw new InterruptedException();
                             needCall = false;
                         }
                         Thread.sleep(300000);
@@ -396,7 +393,12 @@ public class BusSearchActivity  extends AppCompatActivity implements OnMapReadyC
     {
         super.onResume();
         Log.e("[OnResume]", "called");
-        setForeground();
+        if (apiThread == null) {
+            apiThread = createThread();
+            apiThread.start();
+        }
+        else
+            setForeground();
         mapView.onResume();
     }
 
