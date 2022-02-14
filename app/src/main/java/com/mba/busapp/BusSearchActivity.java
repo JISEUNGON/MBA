@@ -1,11 +1,14 @@
 package com.mba.busapp;
 
+import android.app.Activity;
+import android.app.Application;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -61,42 +64,17 @@ public class BusSearchActivity  extends AppCompatActivity implements OnMapReadyC
     private int[] CITY_REQUIRED_TIME;
     private int[] WEEKEND_REQUIRED_TIME;
 
-    List<String> list = new ArrayList<>(Arrays.asList(items));
-
+    private List<String> list = new ArrayList<>(Arrays.asList(items));
+    private boolean isForeground = true; // foreground flag
+    private Thread apiThread = null;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        class NewRunnable implements Runnable {
-            @Override
-            public void run() {
-                while (true) { // 코드 작성
-                    try {
-                        int SDK_INT = android.os.Build.VERSION.SDK_INT;
-                        if (SDK_INT > 8) {
-                            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
-                                    .permitAll().build();
-                            StrictMode.setThreadPolicy(policy);
-                            //your codes here
-                            MJSTATION_REQUIRED_TIME = BusManager.getBusInfo_mju_station();
-                            CITY_REQUIRED_TIME = BusManager.getBusInfo_mju_downtown();
-                            WEEKEND_REQUIRED_TIME = BusManager.getBusInfo_vacation_or_weekend();
-                        }
-                        //5분에 한번씩 거리 array 업데이트
-                        Thread.sleep(300000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }
-
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bussearch);
 
-        NewRunnable nr = new NewRunnable() ;
-        Thread t = new Thread(nr) ;
-        t.start();
+        apiThread = createThread();
+        apiThread.start();
 
         switch_counter = 0; //switch 카운터 0으로 초기화
 
@@ -357,14 +335,59 @@ public class BusSearchActivity  extends AppCompatActivity implements OnMapReadyC
         return Math.round((float)dp * density);
     }
 
-    public Object getOuter() {
-        return this;
+    private void setForeground() {
+        isForeground = true;
+//        Thread.currentThread().interrupt();
+        apiThread.interrupt();
+    }
+
+    private void setBackground() {
+        isForeground = false;
+    }
+    private Thread createThread() {
+        class NewRunnable implements Runnable {
+            @Override
+            public void run() {
+                int SDK_INT = android.os.Build.VERSION.SDK_INT;
+                if (SDK_INT > 8) {
+                    StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                            .permitAll().build();
+                    StrictMode.setThreadPolicy(policy);
+                    //your codes her
+                }
+                while (true) { // 코드 작성
+                    boolean needCall = true;
+                    try {
+                        //5분에 한번씩 거리 array 업데이트
+                        if (needCall && isForeground) {
+                            Log.e("Thread", "Thread called");
+                            MJSTATION_REQUIRED_TIME = BusManager.getBusInfo_mju_station();
+                            CITY_REQUIRED_TIME = BusManager.getBusInfo_mju_downtown();
+                            WEEKEND_REQUIRED_TIME = BusManager.getBusInfo_vacation_or_weekend();
+                            needCall = false;
+                        }
+                        Thread.sleep(300000);
+                    } catch (InterruptedException e) {
+                        // interrupt 발생시 (foreground 진입시)
+                        if (needCall) {
+                            Log.e("Thread", "Thread called");
+                            MJSTATION_REQUIRED_TIME = BusManager.getBusInfo_mju_station();
+                            CITY_REQUIRED_TIME = BusManager.getBusInfo_mju_downtown();
+                            WEEKEND_REQUIRED_TIME = BusManager.getBusInfo_vacation_or_weekend();
+                        }
+                    }
+                }
+            }
+        }
+        NewRunnable nr = new NewRunnable() ;
+        return new Thread(nr);
     }
 
     @Override
     public void onStart()
     {
         super.onStart();
+        Log.e("[Onstart]", "called");
         mapView.onStart();
     }
 
@@ -372,6 +395,8 @@ public class BusSearchActivity  extends AppCompatActivity implements OnMapReadyC
     public void onResume()
     {
         super.onResume();
+        Log.e("[OnResume]", "called");
+        setForeground();
         mapView.onResume();
     }
 
@@ -379,6 +404,8 @@ public class BusSearchActivity  extends AppCompatActivity implements OnMapReadyC
     public void onPause()
     {
         super.onPause();
+        Log.e("[OnPause]", "called");
+        setBackground();
         mapView.onPause();
     }
 
@@ -386,6 +413,7 @@ public class BusSearchActivity  extends AppCompatActivity implements OnMapReadyC
     public void onSaveInstanceState(Bundle outState)
     {
         super.onSaveInstanceState(outState);
+        Log.e("[onSaveInstanceState]", "called");
         mapView.onSaveInstanceState(outState);
     }
 
@@ -393,6 +421,8 @@ public class BusSearchActivity  extends AppCompatActivity implements OnMapReadyC
     public void onStop()
     {
         super.onStop();
+        Log.e("[OnStop]", "called");
+        setBackground();
         mapView.onStop();
     }
 
@@ -400,6 +430,8 @@ public class BusSearchActivity  extends AppCompatActivity implements OnMapReadyC
     public void onDestroy()
     {
         super.onDestroy();
+        Log.e("[OnDestroy]", "called");
+        setBackground();
         mapView.onDestroy();
     }
 
@@ -407,7 +439,12 @@ public class BusSearchActivity  extends AppCompatActivity implements OnMapReadyC
     public void onLowMemory()
     {
         super.onLowMemory();
+        Log.e("[OnLowMemory]", "called");
+        setForeground();
         mapView.onLowMemory();
     }
 
+    private Object getOuter() {
+        return this;
+    }
 }
