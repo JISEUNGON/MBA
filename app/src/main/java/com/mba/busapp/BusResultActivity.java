@@ -20,6 +20,7 @@ import com.naver.maps.map.CameraAnimation;
 import com.naver.maps.map.MapView;
 import com.naver.maps.map.NaverMap;
 import com.naver.maps.map.OnMapReadyCallback;
+import com.naver.maps.map.UiSettings;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -345,7 +346,9 @@ public class BusResultActivity extends AppCompatActivity implements OnMapReadyCa
         naverMapManager.enableMarker(rest);
         naverMapManager.enablePoly(rest);
         naverMapManager.setCameraPosition(naverMapManager.getMarker(rest.get(0)).getPosition(), 15, CameraAnimation.None);
-
+        UiSettings uiSettings = naverMap.getUiSettings();
+        uiSettings.setCompassEnabled(false);
+        uiSettings.setLocationButtonEnabled(false);
     }
 
     @Override

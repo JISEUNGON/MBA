@@ -7,6 +7,7 @@
     tools:context=".BusResultActivity">
 
 
+
     <com.sothree.slidinguppanel.SlidingUpPanelLayout
         android:id="@+id/bus_sliding_layout"
         android:layout_width="match_parent"
@@ -31,6 +32,53 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/location_button_top"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        app:layout_constraintGuide_percent="0.8" />
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/location_button_bottom"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        app:layout_constraintGuide_percent="0.85" />
+
+                    <com.naver.maps.map.widget.LocationButtonView
+                        android:id="@+id/zoom"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@id/location_button_top"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintHorizontal_bias="0.03"
+                        app:layout_constraintBottom_toBottomOf="@id/location_button_bottom" />
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/logo_button_bottom"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        app:layout_constraintGuide_percent="0.88" />
+
+                    <com.naver.maps.map.widget.LogoView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@id/location_button_bottom"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintHorizontal_bias="0.035"
+                        app:layout_constraintBottom_toBottomOf="@id/logo_button_bottom">
+                    </com.naver.maps.map.widget.LogoView>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
             </com.naver.maps.map.MapView>
         </LinearLayout>
