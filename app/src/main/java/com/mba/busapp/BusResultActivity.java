@@ -414,8 +414,8 @@ public class BusResultActivity extends AppCompatActivity implements OnMapReadyCa
             @Override
             public void run() {
                 try {
-                    Thread.sleep(2000);
-                    if(arrivalData!=null){
+                    Thread.sleep(1000);
+                    if (arrivalData != null) {
                         dialog.dismiss();
                     }
                     dialog.dismiss();
