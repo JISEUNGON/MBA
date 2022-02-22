@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.StrictMode;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -15,7 +16,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
-import com.naver.maps.geometry.LatLng;
 import com.naver.maps.map.CameraAnimation;
 import com.naver.maps.map.MapView;
 import com.naver.maps.map.NaverMap;
@@ -23,7 +23,6 @@ import com.naver.maps.map.OnMapReadyCallback;
 import com.naver.maps.map.UiSettings;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class BusResultActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -37,6 +36,9 @@ public class BusResultActivity extends AppCompatActivity implements OnMapReadyCa
     String[] CITY_WEEKDAY_STATIONS;
     String[] GHSTATION_WEEKDAY_STATIONS;
 
+    //도착 정보 객체
+    ArrivalData arrivalData;
+    
     //출력 데이터
     boolean toSchool;                   //학교 to 정류장 or 정류장 to 학교
     String targetStation;               //최종 목적지
@@ -48,6 +50,7 @@ public class BusResultActivity extends AppCompatActivity implements OnMapReadyCa
     String routeType;                   //버스 노선도
     ArrayList<String> lastStations;     //마지막 노선
     ArrayList<String> restStations;     //남은 노선
+    ProgressDialog dialog;
 
 
     // 리스트 뷰
@@ -63,31 +66,35 @@ public class BusResultActivity extends AppCompatActivity implements OnMapReadyCa
     Context context;
 
     // 확대 했는지 확인
-    boolean isexpand;
+    boolean isExpand;
 
     // 타이머
     int min, sec;
-    String lefttime;
+    String leftTime;
 
     // 버스 종류와 타이머
     String typeAndTimer;
 
     // 타이머 시작
-    boolean isstart;
+    boolean isStart;
 
     // 버스 타입
     String busType;
 
 
     @Override
-    @SuppressWarnings("unchecked")
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_busresult);
 
+        dialog = new ProgressDialog(this);
+        dialog.show();
+        Thread dialogThread = createThread();
+        dialogThread.start();
+
         //intent로 넘겨올 값 :  도착정보 (ArrivalData)
         Intent intent = getIntent();
-        ArrivalData arrivalData = (ArrivalData) intent.getSerializableExtra("ArrivalData");
+        arrivalData = (ArrivalData) intent.getSerializableExtra("ArrivalData");
 
         //데이터 세팅
         toSchool = arrivalData.isToSchool();                                                    //학교 to 정류장 or 정류장 to 학교
@@ -143,21 +150,21 @@ public class BusResultActivity extends AppCompatActivity implements OnMapReadyCa
         }
 
         // 버스 종류 + 타이머
-        typeAndTimer = busType + "  " +lefttime;
+        typeAndTimer = busType + "  " + leftTime;
 
         // 예상 소요 시간 + 몇개 정류장 남았는지 확인
-        String lefttimeAndexpand = "예상 소요시간: " + (arrivalTimeLeft-busArrivalTimeLeft)/60 + "분  자세히 보기";
+        String leftTimeAndExpand = "예상 소요시간: " + (arrivalTimeLeft-busArrivalTimeLeft)/60 + "분  자세히 보기";
 
         // 리스드뷰 변수 설정
-        isexpand = false;
+        isExpand = false;
         context = this;
 
         // 타미어 시간 설정
         min = busArrivalTimeLeft / 60;
         sec = busArrivalTimeLeft % 60;
-        isstart = true;
+        isStart = true;
 
-        lefttime = min + "분 " + sec + " 초";
+        leftTime = min + "분 " + sec + " 초";
 
         // 타이머 변수
         int timer_time = busArrivalTimeLeft-60;
@@ -179,9 +186,9 @@ public class BusResultActivity extends AppCompatActivity implements OnMapReadyCa
                     sec--;
 
                     // 시간, 분 설정
-                    lefttime = min + "분 " + sec + " 초";
+                    leftTime = min + "분 " + sec + " 초";
                     // 버스 종류 + 타이머 재설정
-                    typeAndTimer = busType + "  " +lefttime;
+                    typeAndTimer = busType + "  " + leftTime;
 
                     listAdapter.changeBuss(1,typeAndTimer);
                     listAdapter.notifyDataSetChanged();
@@ -195,9 +202,9 @@ public class BusResultActivity extends AppCompatActivity implements OnMapReadyCa
                     min--;
 
                     // 시간, 분 설정
-                    lefttime = min + "분 " + sec + " 초";
+                    leftTime = min + "분 " + sec + " 초";
                     // 버스 종류 + 타이머 재설정
-                    typeAndTimer = busType + "  " +lefttime;
+                    typeAndTimer = busType + "  " + leftTime;
                     listAdapter.changeBuss(1,typeAndTimer);
                     listAdapter.notifyDataSetChanged();
 
@@ -207,7 +214,7 @@ public class BusResultActivity extends AppCompatActivity implements OnMapReadyCa
             // 마지막 실행 시
             @Override
             public void onFinish() {
-                typeAndTimer = busType + "  " + "곧 도착";
+                typeAndTimer = busType + "  " + "곧 도착 또는 출발";
                 listAdapter.changeBuss(1,typeAndTimer);
                 listAdapter.notifyDataSetChanged();
             }
@@ -223,7 +230,7 @@ public class BusResultActivity extends AppCompatActivity implements OnMapReadyCa
             // 출발지 와 도착지 출력
             listAdapter.addBussPass(ContextCompat.getDrawable(this,R.drawable.buss_pass_start), targetStation);
             listAdapter.addBussPass(ContextCompat.getDrawable(this,R.drawable.buss_pass_line), typeAndTimer);
-            listAdapter.addBussPass(ContextCompat.getDrawable(this,R.drawable.buss_pass_line), lefttimeAndexpand);
+            listAdapter.addBussPass(ContextCompat.getDrawable(this,R.drawable.buss_pass_line), leftTimeAndExpand);
             listAdapter.addBussPass(ContextCompat.getDrawable(this,R.drawable.bus_pass_final),lastStations.get(lastStations.size()-1));
 
             //리스트에 중간 노선 추가
@@ -239,7 +246,7 @@ public class BusResultActivity extends AppCompatActivity implements OnMapReadyCa
             // 출발지 와 도착지 출력
             listAdapter.addBussPass(ContextCompat.getDrawable(this,R.drawable.buss_pass_start), "명지대학교 자연캠퍼스");
             listAdapter.addBussPass(ContextCompat.getDrawable(this,R.drawable.buss_pass_line), typeAndTimer);
-            listAdapter.addBussPass(ContextCompat.getDrawable(this,R.drawable.buss_pass_line), lefttimeAndexpand);
+            listAdapter.addBussPass(ContextCompat.getDrawable(this,R.drawable.buss_pass_line), leftTimeAndExpand);
             listAdapter.addBussPass(ContextCompat.getDrawable(this,R.drawable.bus_pass_final), targetStation);
 
             //리스트에 중간 노선 추가
@@ -253,8 +260,8 @@ public class BusResultActivity extends AppCompatActivity implements OnMapReadyCa
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 // 축소 하는 경우
-                if(isexpand == true && position == 2){
-                    isexpand = false;
+                if(isExpand == true && position == 2){
+                    isExpand = false;
                     //Toast.makeText(context, "축소", Toast.LENGTH_SHORT).show();
                     // 버스 삭제
                     listAdapter.removeAllBus();
@@ -262,15 +269,15 @@ public class BusResultActivity extends AppCompatActivity implements OnMapReadyCa
                         // 출발지 와 도착지 출력
                         listAdapter.addBussPass(ContextCompat.getDrawable(context,R.drawable.buss_pass_start), targetStation);
                         listAdapter.addBussPass(ContextCompat.getDrawable(context,R.drawable.buss_pass_line), typeAndTimer);
-                        listAdapter.addBussPass(ContextCompat.getDrawable(context,R.drawable.buss_pass_line), lefttimeAndexpand);
+                        listAdapter.addBussPass(ContextCompat.getDrawable(context,R.drawable.buss_pass_line), leftTimeAndExpand);
                         listAdapter.addBussPass(ContextCompat.getDrawable(context,R.drawable.bus_pass_final),lastStations.get(lastStations.size()-1));
                         listAdapter.notifyDataSetChanged();
                     }
-                    else if(toSchool == false){
+                    else {
                         // 출발지 와 도착지 출력
                         listAdapter.addBussPass(ContextCompat.getDrawable(context,R.drawable.buss_pass_start), "명지대학교 자연캠퍼스");
                         listAdapter.addBussPass(ContextCompat.getDrawable(context,R.drawable.buss_pass_line), typeAndTimer);
-                        listAdapter.addBussPass(ContextCompat.getDrawable(context,R.drawable.buss_pass_line), lefttimeAndexpand);
+                        listAdapter.addBussPass(ContextCompat.getDrawable(context,R.drawable.buss_pass_line), leftTimeAndExpand);
                         listAdapter.addBussPass(ContextCompat.getDrawable(context,R.drawable.bus_pass_final), targetStation);
                         listAdapter.notifyDataSetChanged();
 
@@ -279,8 +286,8 @@ public class BusResultActivity extends AppCompatActivity implements OnMapReadyCa
                     listAdapter.notifyDataSetChanged();
                 }
                 // 확대하는 경우
-                else if(isexpand == false && position == 2){
-                    isexpand = true;
+                else if(isExpand == false && position == 2){
+                    isExpand = true;
                     //Toast.makeText(context, "확대", Toast.LENGTH_SHORT).show();
                     // 마지막 리스트 생략
                     listAdapter.removeBussPass(listAdapter.getCount()-1);
@@ -328,6 +335,8 @@ public class BusResultActivity extends AppCompatActivity implements OnMapReadyCa
         long start_time = System.currentTimeMillis();
         temp = currentTime + " 출발 ~ " + arrivalTime.getTime() + " 도착";
         arrival_time.setText(temp);
+
+
     }
 
     @Override
@@ -398,5 +407,24 @@ public class BusResultActivity extends AppCompatActivity implements OnMapReadyCa
     {
         super.onLowMemory();
         mapView.onLowMemory();
+    }
+
+    private Thread createThread() {
+        class NewRunnable implements Runnable {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(2000);
+                    if(arrivalData!=null){
+                        dialog.dismiss();
+                    }
+                    dialog.dismiss();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        NewRunnable nr = new NewRunnable() ;
+        return new Thread(nr);
     }
 }

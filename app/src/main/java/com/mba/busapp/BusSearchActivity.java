@@ -59,7 +59,6 @@ public class BusSearchActivity  extends AppCompatActivity implements OnMapReadyC
 
     private String[] items = {"정류장을 선택하세요", "이마트·상공회의소", "진입로", "동부경찰서", "용인시장", "중앙공영주차장", "명지대역", "진입로(명지대방향)","이마트·상공회의소(명지대방향)", "기흥역"};
     private String[] location = {"이마트·상공희의소 버스 정류장", "역북동행정복지센터 버스 정류장" ,"금호 부동산중개 앞", "행텐 주니어 용인점 앞", "안경창고 싸군 용인점 앞", "명지대사거리 버스 정류장", "역북동행정복지센터 버스 정류장", "이마트·상공희의소 버스 정류장", "기흥역 5번 출구 앞" };
-    private int[] textViewLength = {200, 80, 130, 120, 170, 110, 210, 120, 80};
     private int[] imageID;
 
     //노선별 소요 에상 시간
@@ -167,11 +166,11 @@ public class BusSearchActivity  extends AppCompatActivity implements OnMapReadyC
                 if (idx == 0) return; // 명지대 선택시
 
                 ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) selectedStation.getLayoutParams();
-                params.width = dpToPx((Context) getOuter(), textViewLength[idx-1]);
-                selectedStation.setLayoutParams(params);
+
 
                 //정류장 설명 text 세팅
                 selectedStationLocation.setText(location[idx-1]);
+
 
                 //정류장 image 세팅
                 selectedStationImg.setImageResource(imageID[idx-1]);
@@ -182,9 +181,16 @@ public class BusSearchActivity  extends AppCompatActivity implements OnMapReadyC
                 if(items[idx].equals("이마트·상공회의소(명지대방향)")){
                     //정류장 이름 text 세팅
                     selectedStation.setText("이마트·상공회의소\n(명지대방향)");
+                    params.width = dpToPx((Context) getOuter(), 90);
+                    selectedStation.setLayoutParams(params);
+
                 }
                 else{
                     selectedStation.setText(items[idx]);
+                    String text = selectedStation.getText().toString();
+                    int width = text.length();
+                    params.width = dpToPx((Context) getOuter(), width*18);
+                    selectedStation.setLayoutParams(params);
                 }
 
                 slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
@@ -271,9 +277,9 @@ public class BusSearchActivity  extends AppCompatActivity implements OnMapReadyC
         }
         else{
             //정류장 이름 text 길이 세팅
-            ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams)selectedStation.getLayoutParams();
-            params.width = dpToPx(this, textViewLength[i-1]);
-            selectedStation.setLayoutParams(params);
+//            ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams)selectedStation.getLayoutParams();
+//            params.width = dpToPx(this, textViewLength[i-1]);
+//            selectedStation.setLayoutParams(params);
 
             //정류장 설명 text 세팅
             selectedStationLocation.setText(location[i-1]);
@@ -415,7 +421,7 @@ public class BusSearchActivity  extends AppCompatActivity implements OnMapReadyC
     public void onPause()
     {
         super.onPause();
-        Log.e("[OnPause]", "called");
+        Log.d("[OnPause]", "called");
         setBackground();
         mapView.onPause();
     }
@@ -424,7 +430,7 @@ public class BusSearchActivity  extends AppCompatActivity implements OnMapReadyC
     public void onSaveInstanceState(Bundle outState)
     {
         super.onSaveInstanceState(outState);
-        Log.e("[onSaveInstanceState]", "called");
+        Log.d("[onSaveInstanceState]", "called");
         mapView.onSaveInstanceState(outState);
     }
 
@@ -432,7 +438,7 @@ public class BusSearchActivity  extends AppCompatActivity implements OnMapReadyC
     public void onStop()
     {
         super.onStop();
-        Log.e("[OnStop]", "called");
+        Log.d("[OnStop]", "called");
         setBackground();
         mapView.onStop();
     }
@@ -441,7 +447,7 @@ public class BusSearchActivity  extends AppCompatActivity implements OnMapReadyC
     public void onDestroy()
     {
         super.onDestroy();
-        Log.e("[OnDestroy]", "called");
+        Log.d("[OnDestroy]", "called");
         setBackground();
         mapView.onDestroy();
     }
@@ -450,7 +456,7 @@ public class BusSearchActivity  extends AppCompatActivity implements OnMapReadyC
     public void onLowMemory()
     {
         super.onLowMemory();
-        Log.e("[OnLowMemory]", "called");
+        Log.d("[OnLowMemory]", "called");
         setForeground();
         mapView.onLowMemory();
     }
