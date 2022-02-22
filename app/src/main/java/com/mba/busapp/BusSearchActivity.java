@@ -54,6 +54,8 @@ public class BusSearchActivity  extends AppCompatActivity implements OnMapReadyC
     private ImageView selectedStationImg;
     private ImageButton button;
 
+    private ProgressDialog dialog;
+
 
     private String[] items = {"정류장을 선택하세요", "이마트·상공회의소", "진입로", "동부경찰서", "용인시장", "중앙공영주차장", "명지대역", "진입로(명지대방향)","이마트·상공회의소(명지대방향)", "기흥역"};
     private String[] location = {"이마트·상공희의소 버스 정류장", "역북동행정복지센터 버스 정류장" ,"금호 부동산중개 앞", "행텐 주니어 용인점 앞", "안경창고 싸군 용인점 앞", "명지대사거리 버스 정류장", "역북동행정복지센터 버스 정류장", "이마트·상공희의소 버스 정류장", "기흥역 5번 출구 앞" };
@@ -73,6 +75,11 @@ public class BusSearchActivity  extends AppCompatActivity implements OnMapReadyC
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bussearch);
+
+
+        dialog = new ProgressDialog(this);
+        dialog.show();
+
 
         switch_counter = 0; //switch 카운터 0으로 초기화
 
@@ -358,7 +365,9 @@ public class BusSearchActivity  extends AppCompatActivity implements OnMapReadyC
                             MJSTATION_REQUIRED_TIME = BusManager.getBusInfo_mju_station();
                             CITY_REQUIRED_TIME = BusManager.getBusInfo_mju_downtown();
                             WEEKEND_REQUIRED_TIME = BusManager.getBusInfo_vacation_or_weekend();
-                            
+
+                            dialog.dismiss();
+
                             // 통신 도중에 인터럽트 발생하는 경우 처리
                             if (MJSTATION_REQUIRED_TIME == null || CITY_REQUIRED_TIME == null || WEEKEND_REQUIRED_TIME == null) throw new InterruptedException();
                             needCall = false;
