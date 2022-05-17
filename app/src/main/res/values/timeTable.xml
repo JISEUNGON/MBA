@@ -5,17 +5,21 @@
     -->
     <string-array name="GHSTATION_SEMESTER_WEEKDAY_TIMETABLE">
         <item>08:00</item>
+        <item>08:05</item>
+        <item>08:10</item>
         <item>09:00</item>
+        <item>09:05</item>
         <item>10:00</item>
+        <item>10:05</item>
+        <item>10:15</item>
         <item>12:00</item>
         <item>13:00</item>
         <item>14:00</item>
-        <item>15:00</item>
-        <item>16:00</item>
-        <item>17:00</item>
-        <item>18:00</item>
-        <item>19:00</item>
-        <item>20:00</item>
+        <item>15:10</item>
+        <item>16:10</item>
+        <item>17:10</item>
+        <item>18:10</item>
+        <item>19:10</item>
     </string-array>
     <!--
         명지대역 방향 시간표
@@ -111,7 +115,6 @@
     <string-array name="CITY_SEMESTER_WEEKDAY_TIMETABLE">
         <item>08:05</item>
         <item>08:55</item>
-        <item>10:10</item>
         <item>11:20</item>
         <item>13:10</item>
         <item>14:20</item>
